@@ -88,7 +88,8 @@ func _process(delta: float) -> void:
         else:
             elapsed = float(snapshot.get("animation_tick", 0)) / physics_hz
         if int(snapshot.get("move_tick", -1)) >= 0 and PHASE_FRAMES.has(active_id):
-            var move: Resource = fighter.get("move")
+            var character := fighter.get("character") as CharacterData
+            var move: MoveData = character.get_move(snapshot.get("current_move_id", &"")) if character != null else null
             if move != null:
                 sprite.frame = frame_for_move(int(snapshot.move_tick), int(move.get("startup_ticks")), int(move.get("active_ticks")), int(move.get("recovery_ticks")))
                 return

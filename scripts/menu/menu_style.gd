@@ -16,10 +16,18 @@ static func theme() -> Theme:
 		return _theme
 	_theme = Theme.new()
 	_theme.default_font_size = 22
-	var normal := _box(Color(0.12, 0.15, 0.24), Color(0.25, 0.3, 0.42), 2)
-	var focus := _box(Color(0.2, 0.22, 0.34), GOLD, 3)
-	var hover := _box(Color(0.17, 0.2, 0.31), Color(0.45, 0.5, 0.65), 2)
-	var pressed := _box(Color(0.28, 0.24, 0.16), GOLD, 3)
+	var normal := _box(Color("152334"), Color("76674e"), 1)
+	var focus := _box(Color(0, 0, 0, 0), Color("efd39b"), 2)
+	var hover := _box(Color("263b50"), Color("baa574"), 1)
+	var pressed := _box(Color("38404a"), GOLD, 2)
+	for box in [normal, hover, pressed]:
+		box.set_corner_radius_all(2)
+		box.border_width_bottom = 3
+		box.shadow_color = Color(0, 0, 0, 0.25)
+		box.shadow_size = 5
+		box.content_margin_top = 8
+		box.content_margin_bottom = 8
+	focus.set_corner_radius_all(2)
 	for state in ["normal", "disabled"]:
 		_theme.set_stylebox(state, "Button", normal)
 	_theme.set_stylebox("focus", "Button", focus)
@@ -30,7 +38,7 @@ static func theme() -> Theme:
 	_theme.set_color("font_hover_color", "Button", TEXT)
 	_theme.set_color("font_pressed_color", "Button", GOLD)
 	_theme.set_color("font_color", "Label", TEXT)
-	_theme.set_stylebox("panel", "PanelContainer", _box(PANEL, Color(0.3, 0.34, 0.48), 2))
+	_theme.set_stylebox("panel", "PanelContainer", _box(Color("111f30"), Color("95815a"), 1))
 	return _theme
 
 
