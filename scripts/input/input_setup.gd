@@ -45,6 +45,8 @@ const JOY_AXES := {
 
 const ACTION_REMATCH := &"match_rematch"
 const ACTION_DEBUG_HITBOXES := &"debug_toggle_hitboxes"
+## Pause menu (scenes/app.tscn). Start doubles as rematch only in the result state.
+const ACTION_PAUSE := &"pause_menu"
 
 
 static func ensure_actions() -> void:
@@ -77,6 +79,13 @@ static func ensure_actions() -> void:
 		start.button_index = JOY_BUTTON_START
 		start.device = -1  # Any controller may request a rematch.
 		InputMap.action_add_event(ACTION_REMATCH, start)
+	if not InputMap.has_action(ACTION_PAUSE):
+		InputMap.add_action(ACTION_PAUSE)
+		InputMap.action_add_event(ACTION_PAUSE, _key(KEY_ESCAPE))
+		var pause_start := InputEventJoypadButton.new()
+		pause_start.button_index = JOY_BUTTON_START
+		pause_start.device = -1
+		InputMap.action_add_event(ACTION_PAUSE, pause_start)
 	if not InputMap.has_action(ACTION_DEBUG_HITBOXES):
 		InputMap.add_action(ACTION_DEBUG_HITBOXES)
 		InputMap.action_add_event(ACTION_DEBUG_HITBOXES, _key(KEY_F1))
