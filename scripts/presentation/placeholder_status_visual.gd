@@ -59,6 +59,17 @@ func _draw() -> void:
 			var x := ice.position.x + 6 + i * (ice.size.x - 12) / 3.0
 			draw_colored_polygon(PackedVector2Array([Vector2(x - 3, ice.position.y), Vector2(x + 3, ice.position.y), Vector2(x, ice.position.y + 9)]), Color(0.9, 0.97, 1.0, 0.9))
 		draw_line(ice.position + Vector2(5, 8), ice.position + Vector2(14, 30), Color(1, 1, 1, 0.7), 2.0)
+	if snap.get("charging", false):
+		# Charging a heavy: a pulsing ring of light that grows with the charge.
+		var r := fighter.character.hurtbox
+		var k: float = snap.get("charge_ratio", 0.0)
+		var glow_at := Vector2(0, r.get_center().y)
+		var blink := 0.5 + 0.5 * sin(_t * (18.0 + 30.0 * k))
+		draw_arc(glow_at, 34.0 + 10.0 * k, 0.0, TAU, 32, Color(1.0, 0.85, 0.3, 0.35 + 0.5 * blink), 2.0 + 3.0 * k)
+		for i in 6:
+			var ang := _t * 6.0 + i * TAU / 6.0
+			var spark := glow_at + Vector2(cos(ang), sin(ang)) * (46.0 - 18.0 * fmod(_t * 3.0 + i * 0.3, 1.0))
+			_star(spark, 3.0 + 3.0 * k, Color(1.0, 0.95, 0.6, 0.8))
 	if snap.get("healing", false):
 		# Rising green pluses and a soft glow.
 		var r := fighter.character.hurtbox

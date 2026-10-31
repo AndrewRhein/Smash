@@ -59,3 +59,37 @@ static func portrait_path(id: StringName) -> String:
 static func portrait(id: StringName) -> Texture2D:
 	var path := portrait_path(id)
 	return load(path) as Texture2D if ResourceLoader.exists(path) else null
+
+
+static var _showcase_cache: Dictionary = {}
+
+
+## Large animated renders for menus: {"idle": [Texture2D], "victory": [Texture2D]},
+## every frame cropped to the same rect (so poses don't jump). Empty when the
+## character has no sprite art.
+static func showcase(id: StringName) -> Dictionary:
+	if _showcase_cache.has(id):
+		return _showcase_cache[id]
+	var result := {}
+	var path := "res://art/characters/%s/animations.tres" % id
+	var frames: SpriteFrames = load(path) if ResourceLoader.exists(path) else null
+	if frames != null:
+		var images := {}
+		var union := Rect2i()
+		for anim: StringName in [&"idle", &"victory"]:
+			if not frames.has_animation(anim):
+				continue
+			images[anim] = []
+			for i in frames.get_frame_count(anim):
+				var img := frames.get_frame_texture(anim, i).get_image()
+				if img == null:
+					continue
+				images[anim].append(img)
+				var used := img.get_used_rect()
+				union = used if union.size == Vector2i.ZERO else union.merge(used)
+		union = union.grow(4).intersection(Rect2i(Vector2i.ZERO, (images.values()[0][0] as Image).get_size())) if not images.is_empty() else union
+		for anim: StringName in images:
+			result[anim] = images[anim].map(func(img: Image) -> Texture2D:
+				return ImageTexture.create_from_image(img.get_region(union)))
+	_showcase_cache[id] = result
+	return result

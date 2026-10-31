@@ -187,7 +187,7 @@ func test_up_special_recovers_then_helpless_until_landing() -> void:
 	var m: MatchController = await make_match()
 	var g := m.get_fighter(1)
 	place(m.get_fighter(2), 400, 1)
-	place(g, 990, -1, 610)  # off the right ledge, below stage level
+	place(g, 1010, -1, 610)  # off the right ledge (outside ledge-grab range), below stage level
 	g.grounded = false
 	g.air_jumps_left = 0
 	step(m)

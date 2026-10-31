@@ -50,6 +50,19 @@ func _make_platform(center: Vector2, size: Vector2, one_way: bool) -> StaticBody
 	return body
 
 
+## Grabbable ledges: the top corners of every solid platform (x, y of the corner)
+## and which side of the platform they are on (-1 left edge, +1 right edge).
+static func ledges() -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	for def: Dictionary in PLATFORMS:
+		if def.one_way:
+			continue
+		var top: float = def.center.y - def.size.y / 2.0
+		result.append({"point": Vector2(def.center.x - def.size.x / 2.0, top), "side": -1})
+		result.append({"point": Vector2(def.center.x + def.size.x / 2.0, top), "side": 1})
+	return result
+
+
 func spawn_point(player_id: int) -> Vector2:
 	return spawn_points[clampi(player_id - 1, 0, spawn_points.size() - 1)]
 

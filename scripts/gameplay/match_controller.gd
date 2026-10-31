@@ -37,6 +37,8 @@ var projectiles: Array[Projectile] = []
 var state: MatchState = MatchState.NOT_STARTED
 var tick: int = 0
 var countdown_remaining: int = 0
+## Ledge index -> player id hanging there (shared with every fighter).
+var _ledge_claims: Dictionary = {}
 ## -1 while undecided, 0 draw, otherwise the winning player_id.
 var winner_player_id: int = -1
 
@@ -64,6 +66,7 @@ func setup(p_stage: Stage, p_characters: Array[CharacterData], p_inputs: Array[P
 ## Starts (or restarts) a match from scratch. Rematch = start_match().
 func start_match() -> void:
 	_clear_actors()
+	_ledge_claims.clear()
 	tick = 0
 	winner_player_id = -1
 	for i in characters.size():
@@ -71,6 +74,8 @@ func start_match() -> void:
 		var fighter := Fighter.new()
 		fighter.setup(characters[i], player_id, stage.spawn_point(player_id), stock_count, inputs[i])
 		fighter.respawn_point = stage.respawn_point(player_id)
+		fighter.ledges = Stage.ledges()
+		fighter.ledge_claims = _ledge_claims
 		fighter.projectile_requested.connect(_on_projectile_requested)
 		add_child(fighter)
 		fighters.append(fighter)

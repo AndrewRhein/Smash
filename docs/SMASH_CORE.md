@@ -74,3 +74,27 @@ Implemented in `scripts/fighter.gd`, `scripts/gameplay/match_controller.gd`, `sc
   * Up specials use `double_jump` as their start effect.
   * Dedicated IDs can be added later, together with mappings in `integrated_effects.gd`.
 * **Placeholder overlay:** `PlaceholderStatusVisual` (the Fighter's `StatusVisual` child, beside VisualRoot) draws the shield bubble (it shrinks and reddens as health drops), the respawn platform, dizzy stars and a dodge shimmer. Final art can replace it.
+
+## 7. Combat feel (turnarounds, DI, combos, ledges, charge)
+All numbers are constants at the top of `scripts/fighter.gd`.
+* **Turnarounds:** the facing used by an attack comes from the input *when the button was pressed*, even if the move comes out later from the buffer (after landing lag, shield drop or another move):
+  * Heavy (RB / right stick / R): aimed behind you turns you around. The right stick wins over the left stick.
+  * Light (forward tilt) toward the back turns around. In the air, a real `air_back` keeps your facing and hits behind; characters without one turn instead.
+  * Side special turns toward the stick (as before).
+* **Skid turns:** reversing direction on the ground brakes with accel + decel, so turning around while running is crisp instead of sliding.
+* **Input buffer:** 9 ticks for attacks (was 6), so moves pressed slightly early still come out.
+* **DI (directional influence):** when launched (knockback ≥ 250), the part of your stick perpendicular to the launch bends it by up to 15°. Hold up/in to survive longer.
+* **Hit-confirm combos:** a jab or tilt that **lands** can cancel its recovery into any heavy or special (on top of each character's own `cancel_into`).
+* **Aerial landing lag:** normal aerials end when you land, with 6 ticks of landing lag. Specials and recovery moves keep going.
+* **Ledges:** `Stage.ledges()` gives the corners of solid platforms.
+  * **Grab:** falling (or in a recovery move) near a corner grabs it. You get 40 ticks of invulnerability, your double jump and air dodge back, and helpless clears.
+  * **Options:** after 8 ticks, jump to ledge jump, press up or toward the stage to get up, shield to roll in, attack to get-up attack, or press down or away to drop.
+  * **Limits:** only one fighter per ledge. Auto-drop after 5 s, and you can't regrab for 36 ticks after letting go.
+  * **Presentation:** the state is `ledge` and the animation is `fall`. The snapshot has `on_ledge`.
+* **Charged heavies:** keep holding heavy (or the right stick) and `heavy`, `heavy_up` and `heavy_down` freeze just before their hitbox for up to 60 ticks.
+  * A full charge deals +40% damage and +20% base knockback. The move is copied, so shared data is never mutated.
+  * The snapshot has `charging` and `charge_ratio`, and the placeholder overlay draws a pulsing gold ring.
+* **Game feel (presentation only, `scripts/presentation/game_feel.gd`):**
+  * Screen shake scaled by knockback, plus a big shake and white flash on KO.
+  * Smoke trails behind launched fighters (fire-coloured for very strong launches).
+  * A KO ray burst at the blast point.

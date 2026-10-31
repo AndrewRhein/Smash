@@ -25,7 +25,7 @@ signal projectile_requested(fighter: Fighter, move: MoveData, data: ProjectileDa
 
 enum State {
 	IDLE, WALK, RUN, JUMP, FALL, ATTACK, HITSTUN, HELD, KO, ELIMINATED, VICTORY,
-	SHIELD, SHIELD_BREAK, DODGE, LAG, RESPAWN,
+	SHIELD, SHIELD_BREAK, DODGE, LAG, RESPAWN, LEDGE,
 }
 const STATE_NAMES := {
 	State.IDLE: &"idle", State.WALK: &"walk", State.RUN: &"run", State.JUMP: &"jump",
@@ -33,6 +33,7 @@ const STATE_NAMES := {
 	State.HELD: &"held", State.KO: &"ko", State.ELIMINATED: &"eliminated",
 	State.VICTORY: &"victory", State.SHIELD: &"shield", State.SHIELD_BREAK: &"shield_break",
 	State.DODGE: &"dodge", State.LAG: &"lag", State.RESPAWN: &"respawn",
+	State.LEDGE: &"ledge",
 }
 enum DodgeKind { SPOT, ROLL, AIR }
 const FREE_STATES := [State.IDLE, State.WALK, State.RUN, State.JUMP, State.FALL]
@@ -42,7 +43,38 @@ const TICK := 1.0 / 60.0
 const COYOTE_TICKS := 6
 ## A jump/attack press is remembered for this many ticks (including its own).
 const JUMP_BUFFER_TICKS := 6
-const ATTACK_BUFFER_TICKS := 6
+const ATTACK_BUFFER_TICKS := 9
+## Directional influence: holding the stick perpendicular to a launch bends it
+## by up to this many degrees (Smash DI). Applied to launches of DI_MIN_KB+.
+const DI_MAX_DEG := 15.0
+const DI_MIN_KB := 250.0
+## Landing during a normal aerial ends it with this much landing lag.
+const AERIAL_LANDING_LAG := 6
+
+# --- Ledges (Smash-style). Falling near a stage corner grabs it.
+## Grab zone relative to the ledge corner, in "outside" units: x from the wall
+## outward, y downward from the ledge top (feet position).
+const LEDGE_GRAB_X := Vector2(-6.0, 56.0)
+const LEDGE_GRAB_Y := Vector2(20.0, 120.0)
+const LEDGE_INVULNERABLE_TICKS := 40
+const LEDGE_MAX_HANG_TICKS := 300
+## Ticks after letting go before the same fighter can grab again.
+const LEDGE_REGRAB_TICKS := 36
+## Inputs are ignored for this long after grabbing (so a held direction or a
+## mashed button doesn't instantly act).
+const LEDGE_ACTION_DELAY := 8
+const LEDGE_JUMP_MULT := 1.05
+const LEDGE_GETUP_LAG := 10
+
+# --- Charged heavies: hold the heavy input to charge (up to 1 s, +40% damage).
+const CHARGEABLE := [&"heavy", &"heavy_up", &"heavy_down"]
+const CHARGE_MAX_TICKS := 60
+const CHARGE_DAMAGE_BONUS := 0.4
+## Light attacks (jab / tilts) that land can be cancelled into these in their
+## recovery when the character's data does not list its own cancels.
+const LIGHT_FAMILY := [&"light", &"light_up", &"light_down"]
+const DEFAULT_LIGHT_CANCELS := [&"heavy", &"heavy_up", &"heavy_down",
+	&"special_1", &"special_2", &"special_3", &"special_up"]
 ## One-way platforms are ignored for this many ticks after a drop-through.
 const DROP_THROUGH_TICKS := 12
 const RESPAWN_DELAY_TICKS := 60
@@ -131,6 +163,20 @@ var invulnerable_remaining: int = 0
 var grab_immunity_remaining: int = 0
 ## Presentation-only countdown after a self-heal (snapshot "healing").
 var heal_glow_remaining: int = 0
+## Last stick direction sampled (for DI when hit).
+var last_stick: Vector2 = Vector2.ZERO
+## The current move started in the air (normal aerials auto-cancel on landing).
+var move_started_airborne: bool = false
+## Ledges of the stage and the shared claims (set by the match).
+var ledges: Array[Dictionary] = []
+var ledge_claims: Dictionary = {}
+var ledge_index: int = -1
+var ledge_ticks: int = 0
+var ledge_regrab_remaining: int = 0
+## Charged heavy: ticks charged so far, and whether the charge is being held now.
+var charge_ticks: int = 0
+var charging: bool = false
+var _charge_applied: bool = false
 var respawn_remaining: int = 0
 var held_ticks: int = 0
 var shield_health: float = SHIELD_MAX
@@ -270,20 +316,24 @@ func physics_tick(frame: InputFrame) -> void:
 			_tick_dodge(frame)
 		State.LAG:
 			_tick_lag(frame)
+		State.LEDGE:
+			_tick_ledge(frame)
 		_:
 			_tick_free(frame)
-	if state != State.HELD:
+	if state != State.HELD and state != State.LEDGE:
 		_apply_vertical(frame)
 		move_and_slide()
 		_after_move()
 		if state in FREE_STATES:
 			state = _locomotion_state()
+		_try_grab_ledge()
 	_tick_timers()
 	_update_animation()
 	animation_tick += 1
 
 
 func _record_buffers(frame: InputFrame) -> void:
+	last_stick = frame.stick()
 	if frame.is_pressed(&"jump"):
 		jump_buffer = JUMP_BUFFER_TICKS
 	for button: StringName in MOVE_PRIORITY:
@@ -294,25 +344,40 @@ func _record_buffers(frame: InputFrame) -> void:
 			&"special":
 				# One Special button: the stick picks neutral / side / up / down.
 				attack_buffer_move = character.special_for_direction(frame.stick())
-				if attack_buffer_move == character.side_special and frame.move_x != 0.0:
-					attack_buffer_facing = 1 if frame.move_x > 0.0 else -1
+				if attack_buffer_move == character.side_special:
+					attack_buffer_facing = _horizontal_sign(frame.stick())
 			&"heavy":
 				# The right stick's direction wins over the left stick's.
 				var dir := Vector2(frame.smash_x, frame.smash_y)
 				if dir == Vector2.ZERO:
 					dir = frame.stick()
 				attack_buffer_move = character.resolve_attack(&"heavy", dir, grounded, facing)
-				attack_buffer_facing = frame.smash_x
+				# Smash turnaround: a heavy aimed behind you turns you around.
+				if attack_buffer_move == &"heavy":
+					attack_buffer_facing = _horizontal_sign(dir)
 			&"light":
 				attack_buffer_move = character.resolve_attack(&"light", frame.stick(), grounded, facing)
+				# Forward tilts (and aerials with no dedicated back air) turn
+				# toward the stick; a real back air keeps facing and hits behind.
+				if attack_buffer_move in [&"light", &"air_neutral", &"air_forward"]:
+					attack_buffer_facing = _horizontal_sign(frame.stick())
 			_:
 				attack_buffer_move = button
 		attack_buffer = ATTACK_BUFFER_TICKS
 		break
 
 
+## -1/+1 when `dir` is a mostly-horizontal tilt past the digital threshold,
+## otherwise 0 (keep the current facing).
+static func _horizontal_sign(dir: Vector2) -> int:
+	if absf(dir.x) < PlayerInput.DIGITAL_THRESHOLD or absf(dir.y) > absf(dir.x):
+		return 0
+	return 1 if dir.x > 0.0 else -1
+
+
 func _tick_timers() -> void:
 	heal_glow_remaining = maxi(heal_glow_remaining - 1, 0)
+	ledge_regrab_remaining = maxi(ledge_regrab_remaining - 1, 0)
 	jump_buffer = maxi(jump_buffer - 1, 0)
 	attack_buffer = maxi(attack_buffer - 1, 0)
 	if attack_buffer == 0:
@@ -356,6 +421,13 @@ func _tick_free(frame: InputFrame) -> void:
 
 
 func _tick_attack(frame: InputFrame) -> void:
+	charging = _wants_charge(frame)
+	if charging:
+		charge_ticks += 1
+		_apply_horizontal(0.0, false)
+		return
+	if charge_ticks > 0 and not _charge_applied:
+		_apply_charge()
 	move_tick += 1
 	if move_tick >= move.total_ticks():
 		_end_move()
@@ -389,9 +461,16 @@ func _tick_attack(frame: InputFrame) -> void:
 		MoveData.MovementPolicy.ROOTED:
 			_apply_horizontal(0.0, false)
 	# Recovery cancels are the only way to start a move before recovery ends.
-	if move.is_recovery_tick(move_tick) and not move.cancel_into.is_empty() \
+	var cancels: Array = move.cancel_into
+	if move_connected and LIGHT_FAMILY.has(move.id) and grounded:
+		# Hit-confirm combos: a landed jab/tilt can always cancel into heavies and specials.
+		cancels = cancels.duplicate()
+		for id: StringName in DEFAULT_LIGHT_CANCELS:
+			if not cancels.has(id):
+				cancels.append(id)
+	if move.is_recovery_tick(move_tick) and not cancels.is_empty() \
 			and (move_connected or not move.cancel_requires_hit):
-		_try_start_buffered_move(frame, move.cancel_into)
+		_try_start_buffered_move(frame, cancels)
 
 
 func _tick_hitstun() -> void:
@@ -570,6 +649,9 @@ func _apply_horizontal(target_speed: float, has_input: bool) -> void:
 	var rate: float
 	if grounded:
 		rate = character.ground_accel if has_input else character.ground_decel
+		# Skid turn: reversing direction brakes hard, so turnarounds feel crisp.
+		if has_input and velocity.x * target_speed < 0.0:
+			rate += character.ground_decel
 	else:
 		rate = character.air_accel if has_input else character.air_decel
 	velocity.x = move_toward(velocity.x, target_speed, rate * TICK)
@@ -612,6 +694,12 @@ func _after_move() -> void:
 			jump_rising = false
 			if state == State.DODGE and dodge_kind == DodgeKind.AIR:
 				_end_dodge()  # Landing cancels the air dodge.
+			elif state == State.ATTACK and move_started_airborne and move.self_impulse == Vector2.ZERO \
+					and not String(move.id).begins_with("special") and held_target == null:
+				# Normal aerials end on landing with a short landing lag.
+				_end_move()
+				state = State.LAG
+				lag_remaining = AERIAL_LANDING_LAG
 	elif state == State.SHIELD or (state == State.DODGE and dodge_kind != DodgeKind.AIR):
 		# Pushed off a ledge while shielding / dodging.
 		state = State.FALL
@@ -655,6 +743,135 @@ func _locomotion_state() -> State:
 
 
 # =============================================================================
+# Ledges
+# =============================================================================
+func _try_grab_ledge() -> void:
+	if ledges.is_empty() or grounded or ledge_regrab_remaining > 0 or velocity.y < 0.0:
+		return
+	var recovering := state == State.ATTACK and move != null and move.helpless_after
+	if not (state in [State.JUMP, State.FALL] or recovering):
+		return
+	for i in ledges.size():
+		var ledge: Dictionary = ledges[i]
+		var corner: Vector2 = ledge.point
+		var side: int = ledge.side
+		var out_x := (position.x - corner.x) * side  # distance outward from the wall
+		var below := position.y - corner.y
+		if out_x < LEDGE_GRAB_X.x or out_x > LEDGE_GRAB_X.y or below < LEDGE_GRAB_Y.x or below > LEDGE_GRAB_Y.y:
+			continue
+		if ledge_claims.get(i, player_id) != player_id:
+			continue  # someone else is hanging there
+		_grab_ledge(i)
+		return
+
+
+func _grab_ledge(i: int) -> void:
+	if state == State.ATTACK:
+		_end_move()
+	var ledge: Dictionary = ledges[i]
+	ledge_index = i
+	ledge_claims[i] = player_id
+	ledge_ticks = 0
+	state = State.LEDGE
+	velocity = Vector2.ZERO
+	set_facing(-int(ledge.side))  # face the stage
+	position = Vector2(ledge.point.x + ledge.side * (character.body_radius + 3.0),
+		ledge.point.y - character.hurtbox.position.y * 0.82)
+	invulnerable_remaining = maxi(invulnerable_remaining, LEDGE_INVULNERABLE_TICKS)
+	helpless = false
+	fast_falling = false
+	jump_rising = false
+	air_jumps_left = character.air_jumps
+	air_dodge_available = true
+	_clear_buffers()
+
+
+func _release_ledge() -> void:
+	if ledge_index >= 0:
+		if ledge_claims.get(ledge_index, -1) == player_id:
+			ledge_claims.erase(ledge_index)
+		ledge_index = -1
+		ledge_regrab_remaining = LEDGE_REGRAB_TICKS
+
+
+func _tick_ledge(frame: InputFrame) -> void:
+	ledge_ticks += 1
+	velocity = Vector2.ZERO
+	var ledge: Dictionary = ledges[ledge_index]
+	var toward := -int(ledge.side)
+	if ledge_ticks >= LEDGE_MAX_HANG_TICKS:
+		_drop_from_ledge()
+		return
+	if ledge_ticks < LEDGE_ACTION_DELAY:
+		return
+	var stick := frame.stick()
+	if jump_buffer > 0:
+		jump_buffer = 0
+		_release_ledge()
+		state = State.JUMP
+		# Pop up to the ledge top first so the stage wall can't eat the drift.
+		position.y = ledge.point.y - 2.0
+		velocity = Vector2(toward * 260.0, -character.jump_velocity * LEDGE_JUMP_MULT)
+		jump_rising = true
+		return
+	if frame.is_pressed(&"down") or (absf(stick.x) >= PlayerInput.DIGITAL_THRESHOLD and signf(stick.x) == -toward \
+			and (frame.is_pressed(&"left") or frame.is_pressed(&"right"))):
+		_drop_from_ledge()
+		return
+	var on_stage := Vector2(ledge.point.x + toward * (character.body_radius + 12.0), ledge.point.y)
+	if frame.is_pressed(&"shield"):
+		_release_ledge()
+		position = on_stage
+		grounded = true
+		_start_dodge(DodgeKind.ROLL, Vector2(toward, 0))
+		return
+	if attack_buffer > 0 and attack_buffer_move != &"":
+		_release_ledge()
+		position = on_stage
+		grounded = true
+		state = State.IDLE
+		attack_buffer_facing = 0
+		attack_buffer_move = character.resolve_attack(&"light", Vector2.ZERO, true, facing) \
+			if not String(attack_buffer_move).begins_with("special") else attack_buffer_move
+		_try_start_buffered_move(frame, [])
+		return
+	if frame.is_pressed(&"up") or ((frame.is_pressed(&"left") or frame.is_pressed(&"right")) and signf(stick.x) == toward):
+		_release_ledge()
+		position = on_stage
+		grounded = true
+		state = State.LAG
+		lag_remaining = LEDGE_GETUP_LAG
+		invulnerable_remaining = maxi(invulnerable_remaining, LEDGE_GETUP_LAG)
+
+
+func _drop_from_ledge() -> void:
+	_release_ledge()
+	state = State.FALL
+	velocity = Vector2.ZERO
+
+
+# =============================================================================
+# Charged heavies
+# =============================================================================
+func _wants_charge(frame: InputFrame) -> bool:
+	if _charge_applied or not grounded or not CHARGEABLE.has(move.id):
+		return false
+	if move_tick != maxi(move.startup_ticks - 2, 0) or charge_ticks >= CHARGE_MAX_TICKS:
+		return false
+	return frame.is_held(&"heavy") or frame.smash_x != 0 or frame.smash_y != 0
+
+
+## Replaces the current move with a stronger copy (shared data is never mutated).
+func _apply_charge() -> void:
+	_charge_applied = true
+	var bonus := CHARGE_DAMAGE_BONUS * float(charge_ticks) / CHARGE_MAX_TICKS
+	var charged := move.duplicate() as MoveData
+	charged.damage = move.damage * (1.0 + bonus)
+	charged.knockback_base = move.knockback_base * (1.0 + bonus * 0.5)
+	move = charged
+
+
+# =============================================================================
 # Moves
 # =============================================================================
 func _try_start_buffered_move(frame: InputFrame, allowed: Array) -> void:
@@ -675,6 +892,10 @@ func _start_move(next: MoveData, frame: InputFrame) -> void:
 	attack_buffer_move = &""
 	move = next
 	move_tick = 0
+	move_started_airborne = not grounded
+	charge_ticks = 0
+	charging = false
+	_charge_applied = false
 	attack_instance += 1
 	move_connected = false
 	hit_registry.clear()
@@ -809,6 +1030,7 @@ func is_guarding_against(damage_type: StringName, source_x: float) -> bool:
 ## Applies a hit. Knockback is mirrored by `direction_sign`; `extra_angle_deg`
 ## adds the attacker's aim. Hitstop takes the max with any hitstop already set.
 func receive_hit(hit_move: MoveData, direction_sign: int, extra_angle_deg: float, attacker_id: int, hitstop: int) -> void:
+	_release_ledge()
 	if held_by != null:
 		held_by.held_target = null
 		held_by = null
@@ -816,7 +1038,13 @@ func receive_hit(hit_move: MoveData, direction_sign: int, extra_angle_deg: float
 	_interrupt_move()
 	damage += hit_move.damage
 	var kb := CombatMath.knockback_magnitude(hit_move, damage, character.weight)
-	velocity = CombatMath.knockback_direction(hit_move.knockback_angle_deg + extra_angle_deg, direction_sign) * kb
+	var launch_dir := CombatMath.knockback_direction(hit_move.knockback_angle_deg + extra_angle_deg, direction_sign)
+	if kb >= DI_MIN_KB and last_stick.length() >= PlayerInput.DIGITAL_THRESHOLD:
+		# DI: the perpendicular part of the stick bends the launch angle.
+		var perpendicular := Vector2(-launch_dir.y, launch_dir.x)
+		var amount := clampf(last_stick.normalized().dot(perpendicular), -1.0, 1.0)
+		launch_dir = launch_dir.rotated(deg_to_rad(DI_MAX_DEG) * amount)
+	velocity = launch_dir * kb
 	last_knockback = kb
 	hitstun_total = CombatMath.hitstun_ticks(hit_move, kb)
 	hitstun_remaining = hitstun_total
@@ -845,6 +1073,7 @@ func add_damage(amount: float) -> void:
 
 
 func begin_held(by: Fighter) -> void:
+	_release_ledge()
 	_interrupt_move()
 	held_by = by
 	held_ticks = 0
@@ -889,6 +1118,10 @@ func break_hold_links() -> void:
 
 func _clear_combat_state() -> void:
 	break_hold_links()
+	_release_ledge()
+	ledge_regrab_remaining = 0
+	charge_ticks = 0
+	charging = false
 	move = null
 	move_tick = -1
 	aim_angle_deg = 0.0
@@ -1038,6 +1271,8 @@ func _update_animation(force: bool = false) -> void:
 			token = "dodge%d" % dodge_counter
 		State.LAG, State.RESPAWN:
 			id = GameIds.ANIM_IDLE
+		State.LEDGE:
+			id = GameIds.ANIM_FALL
 	var key := "%s|%s" % [id, token]
 	if key == _animation_key and not force:
 		return
@@ -1076,5 +1311,8 @@ func get_presentation_snapshot() -> Dictionary:
 		"on_respawn_platform": state == State.RESPAWN,
 		# Presentation hint while held by a grab, e.g. &"frozen" (Cold Hands).
 		"healing": heal_glow_remaining > 0,
+		"charging": charging,
+		"charge_ratio": float(charge_ticks) / CHARGE_MAX_TICKS,
+		"on_ledge": state == State.LEDGE,
 		"held_visual": held_by.move.hold_visual if state == State.HELD and held_by != null and held_by.move != null else &"",
 	}

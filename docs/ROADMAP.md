@@ -28,8 +28,8 @@ Smash characters have about 20 moves; ours have 7 (light, heavy, 4 specials, and
 | Specials ×4 | B + direction | ✅ |
 | **Grab, pummel, 4 throws** | LB+A or a grab button (Smash: R/ZR) | ⬜ new mechanic: grab box, held state (reuse the choke's HELD), throw directions |
 | **Dash attack** | A while running | ⬜ one slot, easy once Phase 1 art exists |
-| **Ledge grab, ledge options** (get-up, roll, jump, attack) | Automatic near a ledge | ⬜ important for recovery feel |
-| Landing lag for aerials | Automatic | ⬜ small addition to MoveData |
+| **Ledge grab, ledge options** (get-up, roll, jump, attack, drop) | Automatic near a ledge | ✅ see SMASH_CORE §7 |
+| Landing lag for aerials | Automatic | ✅ 6 ticks (normal aerials end on landing) |
 
 **Process per new move:**
 * **Gameplay:** add it to the character's `.tres` (timings, hitboxes, knockback). The validator checks it.
