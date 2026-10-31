@@ -14,6 +14,8 @@ var fullscreen: bool = false
 var show_hitboxes: bool = false
 ## Smash "tap jump": pushing the stick up also jumps.
 var tap_jump: bool = true
+## Last character picks per player (select-screen cursor start).
+var picks: Dictionary = {1: CharacterRoster.DEFAULT_PICKS[0], 2: CharacterRoster.DEFAULT_PICKS[1]}
 
 
 func _init(config_path: String = DEFAULT_PATH) -> void:
@@ -28,6 +30,10 @@ func load_from_disk() -> void:
 	fullscreen = bool(cfg.get_value("display", "fullscreen", fullscreen))
 	show_hitboxes = bool(cfg.get_value("debug", "show_hitboxes", show_hitboxes))
 	tap_jump = bool(cfg.get_value("controls", "tap_jump", tap_jump))
+	for player_id in [1, 2]:
+		var pick := StringName(str(cfg.get_value("characters", "p%d" % player_id, picks[player_id])))
+		if CharacterRoster.has(pick) or pick == &"random":
+			picks[player_id] = pick
 	apply_controls()
 
 
@@ -37,9 +43,19 @@ func save_to_disk() -> void:
 	cfg.set_value("display", "fullscreen", fullscreen)
 	cfg.set_value("debug", "show_hitboxes", show_hitboxes)
 	cfg.set_value("controls", "tap_jump", tap_jump)
+	for player_id in [1, 2]:
+		cfg.set_value("characters", "p%d" % player_id, String(picks[player_id]))
 	var err := cfg.save(path)
 	if err != OK:
 		push_warning("Could not save settings to %s (error %d)" % [path, err])
+
+
+func last_pick(player_id: int) -> StringName:
+	return picks.get(player_id, CharacterRoster.DEFAULT_PICKS[0])
+
+
+func set_last_pick(player_id: int, id: StringName) -> void:
+	picks[player_id] = id
 
 
 func apply_controls() -> void:

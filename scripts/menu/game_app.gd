@@ -48,6 +48,12 @@ func show_title() -> void:
 	_show_screen(TitleScreen.new(self), &"title")
 
 
+func show_character_select() -> void:
+	_end_match()
+	_end_gallery()
+	_show_screen(CharacterSelectScreen.new(self), &"character_select")
+
+
 func show_settings() -> void:
 	_show_screen(SettingsScreen.new(self), &"settings")
 
@@ -129,11 +135,20 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 # --- Match lifecycle ----------------------------------------------------------
-func start_match() -> void:
+## Starts a match. `picks` = one CharacterData per player (from the character
+## select); empty = the last picks saved in settings.
+func start_match(picks: Array[CharacterData] = []) -> void:
 	_clear_screen()
 	_end_match()
 	_end_gallery()
+	if picks.is_empty():
+		for player_id in [1, 2]:
+			var id := settings.last_pick(player_id)
+			if not CharacterRoster.has(id):
+				id = CharacterRoster.DEFAULT_PICKS[player_id - 1]
+			picks.append(CharacterRoster.load_character(id))
 	match_root = MATCH_SCENE.instantiate()
+	match_root.set("character_override", picks)
 	match_root.process_mode = Node.PROCESS_MODE_PAUSABLE
 	# Configure before _ready: main.gd starts the match when it enters the tree.
 	var controller := match_root.get_node("Match") as MatchController

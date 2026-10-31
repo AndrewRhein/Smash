@@ -21,6 +21,9 @@ enum MovementPolicy {
 }
 
 @export var id: StringName = &""
+## Name shown in menus (and the default voice-line text). Empty = derived
+## from animation_id.
+@export var display_name: String = ""
 @export var animation_id: StringName = &""
 @export var startup_ticks: int = 5
 @export var active_ticks: int = 3
@@ -77,6 +80,10 @@ enum MovementPolicy {
 @export_group("Guard")
 ## Damage types negated from the FRONT while the guard is active.
 @export var guard_damage_types: Array[StringName] = []
+
+
+func label() -> String:
+	return display_name if display_name != "" else String(animation_id).replace("_", " ").capitalize()
 
 
 func total_ticks() -> int:

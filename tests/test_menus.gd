@@ -50,9 +50,30 @@ func _joy(button: int, device: int = 0) -> void:
 		Input.flush_buffered_events()
 
 
-## Starts a match from the title with Enter and skips the countdown.
+## Press, keep held for a frame (per-player screens sample once per frame), release.
+func _joy_hold(button: int, device: int = 0) -> void:
+	var ev := InputEventJoypadButton.new()
+	ev.button_index = button
+	ev.device = device
+	ev.pressed = true
+	Input.parse_input_event(ev)
+	Input.flush_buffered_events()
+	await _frames(2)
+	var up := ev.duplicate()
+	up.pressed = false
+	Input.parse_input_event(up)
+	Input.flush_buffered_events()
+	await _frames(1)
+
+
+## Starts a match from the title (Enter -> character select -> Enter x3:
+## ready P1, ready P2, fight) and skips the countdown.
 func _start(app: GameApp) -> MatchController:
 	_key(KEY_ENTER)
+	await _frames(2)
+	for i in 3:
+		_key(KEY_ENTER)
+		await _frames(1)
 	await _frames(2)
 	var m := app.match_controller
 	if m != null:
@@ -152,7 +173,7 @@ func test_pause_menu_restart_and_main_menu() -> void:
 	var old_root := app.match_root
 	_key(KEY_ESCAPE)
 	await _frames(1)
-	for i in 3:
+	for i in 4:
 		_key(KEY_DOWN)  # -> Main Menu
 	_key(KEY_ENTER)
 	await _frames(2)
@@ -285,10 +306,21 @@ func test_controller_only_full_menu_flow() -> void:
 	_stick_y(-1.0)
 	_stick_y(0.0)
 	assert_eq(_focused_text(), "Start Match", "and back up")
-	# Start the match with A from a second controller (any pad drives menus).
+	# A on Start Match opens character select (any pad drives menus).
 	_joy(JOY_BUTTON_A, 3)
 	await _frames(2)
-	assert_eq(app.current_screen, &"match", "A on Start Match starts a match")
+	assert_eq(app.current_screen, &"character_select", "A on Start Match opens character select")
+	# Each player locks in with their own pad's A, then Start fights.
+	ControllerAssignment.reset(true)
+	ControllerAssignment.assign(1, 0)
+	ControllerAssignment.assign(2, 1)
+	await _frames(1)
+	await _joy_hold(JOY_BUTTON_A, 0)
+	await _joy_hold(JOY_BUTTON_A, 1)
+	_joy(JOY_BUTTON_START, 1)
+	await _frames(2)
+	ControllerAssignment.reset()
+	assert_eq(app.current_screen, &"match", "both ready + Start starts the match")
 	app.match_controller.countdown_remaining = 1
 	await _physics(3)
 	# Pause with Start, resume with B.
@@ -301,7 +333,7 @@ func test_controller_only_full_menu_flow() -> void:
 	# Pause -> Main Menu with D-pad + A.
 	_joy(JOY_BUTTON_START)
 	await _frames(1)
-	for i in 3:
+	for i in 4:
 		_joy(JOY_BUTTON_DPAD_DOWN)
 	assert_eq(_focused_text(), "Main Menu", "pause menu navigable by D-pad")
 	_joy(JOY_BUTTON_A)
@@ -369,3 +401,81 @@ func test_gallery_back_with_b() -> void:
 	_joy(JOY_BUTTON_B)
 	await _frames(2)
 	assert_eq(app.current_screen, &"title", "B leaves the gallery")
+
+
+func test_character_select_flow_and_picks() -> void:
+	ControllerAssignment.reset(true)
+	ControllerAssignment.assign(1, 0)
+	ControllerAssignment.assign(2, 1)
+	var app := await _make_app()
+	_key(KEY_ENTER)
+	await _frames(2)
+	assert_eq(app.current_screen, &"character_select", "Start Match opens character select")
+	var screen := app._screen as CharacterSelectScreen
+	assert_eq(screen.options.size(), CharacterRoster.ENTRIES.size() + 1, "every roster fighter + Random")
+	# P2 moves right twice from Elon (index 1) to Random (index 3) and back once -> Vader.
+	await _joy_hold(JOY_BUTTON_DPAD_RIGHT, 1)
+	await _joy_hold(JOY_BUTTON_DPAD_RIGHT, 1)
+	await _joy_hold(JOY_BUTTON_DPAD_LEFT, 1)
+	assert_eq(screen.options[screen.cursor[2]], &"vader", "player 2 cursor moved with their own pad")
+	assert_eq(screen.options[screen.cursor[1]], &"gandalf", "player 1 cursor untouched")
+	await _joy_hold(JOY_BUTTON_A, 0)
+	assert_true(screen.is_ready[1] and not screen.is_ready[2], "P1 locked in with their own A")
+	await _joy_hold(JOY_BUTTON_B, 0)
+	assert_true(not screen.is_ready[1], "B un-readies")
+	await _joy_hold(JOY_BUTTON_A, 0)
+	await _joy_hold(JOY_BUTTON_A, 1)
+	_joy(JOY_BUTTON_START, 0)
+	await _frames(3)
+	assert_eq(app.current_screen, &"match", "fight starts")
+	var m := app.match_controller
+	assert_eq(m.get_fighter(1).character.id, &"gandalf", "P1 plays Gandalf")
+	assert_eq(m.get_fighter(2).character.id, &"vader", "P2 plays the picked Vader")
+	m.rematch()
+	assert_eq(m.get_fighter(2).character.id, &"vader", "rematch keeps the picks")
+	var reloaded := GameSettings.new(TEST_SETTINGS)
+	reloaded.load_from_disk()
+	assert_eq(reloaded.last_pick(2), &"vader", "picks remembered")
+	ControllerAssignment.reset()
+
+
+func test_character_select_mirror_and_random() -> void:
+	var app := await _make_app()
+	app.show_character_select()
+	await _frames(2)
+	var screen := app._screen as CharacterSelectScreen
+	screen.cursor[2] = 0  # both Gandalf
+	screen.set_ready(1, true)
+	screen.set_ready(2, true)
+	screen.confirm()
+	await _frames(2)
+	var m := app.match_controller
+	assert_eq(m.get_fighter(1).character.id, m.get_fighter(2).character.id, "mirror match allowed")
+	m.countdown_remaining = 1
+	await _physics(5)
+	assert_eq(m.state, MatchController.MatchState.PLAYING, "mirror match runs")
+	app.show_character_select()
+	await _frames(2)
+	screen = app._screen as CharacterSelectScreen
+	screen.cursor[1] = screen.options.find(CharacterSelectScreen.RANDOM)
+	screen.set_ready(1, true)
+	screen.set_ready(2, true)
+	screen.confirm()
+	await _frames(2)
+	assert_true(CharacterRoster.has(app.match_controller.get_fighter(1).character.id), "Random resolves to a roster fighter")
+
+
+func test_back_from_character_select() -> void:
+	var app := await _make_app()
+	app.show_character_select()
+	await _frames(2)
+	_key(KEY_ESCAPE)
+	await _frames(2)
+	assert_eq(app.current_screen, &"title", "Esc returns to the title")
+
+
+func test_roster_data_all_valid() -> void:
+	for id: StringName in CharacterRoster.ids():
+		var data := CharacterRoster.load_character(id)
+		assert_true(data != null and data.id == id, "%s loads" % id)
+		assert_true(data.validate().is_empty(), "%s validates: %s" % [id, data.validate()])

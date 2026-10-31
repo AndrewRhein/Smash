@@ -6,7 +6,9 @@ var start_button: Button
 var stocks_button: CycleButton
 
 
-const PORTRAITS := ["res://art/characters/gandalf/portrait.png", "res://art/characters/elon/portrait.png"]
+## Portraits of every roster character that has one.
+static func portraits() -> Array:
+	return CharacterRoster.ids().map(func(id: StringName) -> String: return CharacterRoster.portrait_path(id))
 
 
 func build() -> void:
@@ -16,11 +18,11 @@ func build() -> void:
 	if portraits != null:
 		column.add_child(portraits)
 	column.add_child(MenuStyle.label("REALMS RUMBLE", 64, MenuStyle.GOLD))
-	column.add_child(MenuStyle.label("Gandalf  vs.  Elon Musk", 24, MenuStyle.MUTED))
+	column.add_child(MenuStyle.label("%d fighters · local versus" % CharacterRoster.ENTRIES.size(), 24, MenuStyle.MUTED))
 	var spacer := Control.new()
 	spacer.custom_minimum_size = Vector2(0, 12)
 	column.add_child(spacer)
-	start_button = add_button("Start Match", app.start_match)
+	start_button = add_button("Start Match", app.show_character_select)
 	var stock_options := range(GameSettings.MIN_STOCKS, GameSettings.MAX_STOCKS + 1)
 	stocks_button = CycleButton.new("Stocks", stock_options, stock_options.find(app.settings.stocks))
 	stocks_button.value_changed.connect(func(_i: int) -> void:
@@ -41,7 +43,7 @@ func _portrait_row() -> HBoxContainer:
 	var row := HBoxContainer.new()
 	row.alignment = BoxContainer.ALIGNMENT_CENTER
 	row.add_theme_constant_override("separation", 48)
-	for path: String in PORTRAITS:
+	for path: String in portraits():
 		if not ResourceLoader.exists(path):
 			continue
 		var image := TextureRect.new()

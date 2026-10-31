@@ -84,4 +84,5 @@ class _PausePanel extends MenuScreen:
 		add_button("Resume", func() -> void: menu.resume())
 		add_button("Restart Match", func() -> void: app.restart_match())
 		add_button("Controls", func() -> void: menu._show_controls())
+		add_button("Character Select", func() -> void: app.show_character_select())
 		add_button("Main Menu", func() -> void: app.show_title())
