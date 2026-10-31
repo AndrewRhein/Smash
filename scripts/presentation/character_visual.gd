@@ -19,6 +19,11 @@ const PHASE_FRAMES := {
     &"lightning": [[0, 1, 2], [3, 4], [5]],
     &"fireball": [[0, 1, 2], [3, 4], [5]],
     &"magic_push": [[0, 1, 2], [3, 4], [5]],
+    &"ion_jab": [[0], [1], [2]],
+    &"rocket_hammer": [[0], [1], [2]],
+    &"thruster_burst": [[0], [1], [2]],
+    &"orbital_tractor": [[0], [1], [2]],
+    &"energy_shield": [[0], [1], [2]],
 }
 
 func _ready() -> void:

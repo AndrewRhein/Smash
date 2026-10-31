@@ -7,13 +7,13 @@ extends RefCounted
 ##
 ## Buttons follow Smash conventions: `special` is the single Special button
 ## (direction picks neutral/side/up/down special) and `shield` is shield /
-## dodge. `special_1..3` are optional direct-slot triggers (unbound by
+## dodge. `special_1..3` / `special_up` are optional direct-slot triggers (unbound by
 ## default; used by tests and possible custom bindings).
 
 const BUTTONS := [
 	&"left", &"right", &"up", &"down", &"jump",
 	&"light", &"heavy", &"special", &"shield",
-	&"special_1", &"special_2", &"special_3",
+	&"special_1", &"special_2", &"special_3", &"special_up",
 ]
 
 ## Horizontal axis in [-1, 1] after dead zone (keyboard gives -1/0/1).

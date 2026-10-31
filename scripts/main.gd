@@ -5,7 +5,7 @@ extends Node2D
 
 const CHARACTERS: Array[CharacterData] = [
 	preload("res://data/characters/gandalf.tres"),
-	preload("res://data/characters/vader.tres"),
+	preload("res://data/characters/elon.tres"),
 ]
 const PresentationSetup = preload("res://scripts/presentation/presentation_setup.gd")
 

@@ -2,8 +2,13 @@ extends RefCounted
 ## Clone only presentation-bearing resources; never mutate shared gameplay data.
 const GandalfScene = preload("res://scenes/presentation/gandalf_visual.tscn")
 const FireballScene = preload("res://scenes/presentation/fireball_visual.tscn")
+const ElonScene = preload("res://scenes/presentation/elon_visual.tscn")
 
 static func with_art(source: CharacterData) -> CharacterData:
+    if source.id == &"elon":
+        var elon := source.duplicate() as CharacterData
+        elon.visual_scene = ElonScene
+        return elon
     if source.id != &"gandalf":
         return source
     var result := source.duplicate() as CharacterData
