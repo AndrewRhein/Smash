@@ -23,29 +23,32 @@ func test_keyboard_actions_route_to_their_player() -> void:
 
 func test_original_bindings_preserved_and_nonoverlapping() -> void:
 	var expected := {
-		&"p1_left": KEY_A, &"p1_right": KEY_D, &"p1_jump": KEY_W, &"p1_light": KEY_F, &"p1_special_1": KEY_G,
-		&"p2_left": KEY_LEFT, &"p2_right": KEY_RIGHT, &"p2_jump": KEY_UP, &"p2_light": KEY_K, &"p2_special_1": KEY_L,
+		&"p1_left": KEY_A, &"p1_right": KEY_D, &"p1_jump": KEY_W, &"p1_light": KEY_F, &"p1_special": KEY_G,
+		&"p2_left": KEY_LEFT, &"p2_right": KEY_RIGHT, &"p2_jump": KEY_UP, &"p2_light": KEY_K, &"p2_special": KEY_L,
 	}
 	for action: StringName in expected:
 		assert_true(_keys(action).has(expected[action]), "%s keeps original key" % action)
 	# No key may be shared between the two players.
 	var p1_keys := {}
-	for button: StringName in InputFrame.BUTTONS:
+	for button: StringName in InputSetup.KEYBOARD_BUTTONS:
 		for k in _keys(PlayerInput.action_name(1, button)):
 			p1_keys[k] = true
-	for button: StringName in InputFrame.BUTTONS:
+	for button: StringName in InputSetup.KEYBOARD_BUTTONS:
 		for k in _keys(PlayerInput.action_name(2, button)):
 			assert_true(not p1_keys.has(k), "key %s not shared between players" % OS.get_keycode_string(k))
 
 
 func test_joypads_are_device_assigned() -> void:
+	ControllerAssignment.reset(true)
+	ControllerAssignment.assign(1, 0)
+	ControllerAssignment.assign(2, 1)
 	var p1 := PlayerInput.new(1)
 	var p2 := PlayerInput.new(2)
 	p1.sample()
 	p2.sample()
 	var ev := InputEventJoypadButton.new()
 	ev.device = 1
-	ev.button_index = JOY_BUTTON_X
+	ev.button_index = JOY_BUTTON_A  # A = attack (Smash layout)
 	ev.pressed = true
 	Input.parse_input_event(ev)
 	Input.flush_buffered_events()
@@ -66,6 +69,7 @@ func test_joypads_are_device_assigned() -> void:
 	center.axis_value = 0.0
 	Input.parse_input_event(center)
 	Input.flush_buffered_events()
+	ControllerAssignment.reset()
 
 
 func test_stick_dead_zone() -> void:

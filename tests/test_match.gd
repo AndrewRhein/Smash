@@ -36,23 +36,64 @@ func test_one_stock_loss_per_blast_exit() -> void:
 	assert_eq(g.state, Fighter.State.KO, "waiting to respawn")
 
 
-func test_respawn_resets_and_is_invulnerable() -> void:
+func test_respawn_platform_resets_and_is_invulnerable() -> void:
 	var m: MatchController = await make_match()
 	var g := m.get_fighter(1)
 	g.damage = 77.0
+	g.shield_health = 3.0
 	p(m, 1).set_held(&"jump", true)  # held through the KO: must not jump on respawn
 	g.cooldowns[&"special_1"] = 50
 	_blast(g)
 	step(m, Fighter.RESPAWN_DELAY_TICKS + 1)
-	assert_eq(g.state, Fighter.State.FALL, "respawned falling")
+	assert_eq(g.state, Fighter.State.RESPAWN, "respawned on the platform")
+	assert_eq(g.position, m.stage.respawn_point(1), "at the respawn platform")
+	assert_eq(g.facing, 1, "player 1 faces the stage")
 	assert_eq(g.damage, 0.0, "damage reset")
-	assert_eq(g.position.x, g.spawn_point.x, "at spawn point")
-	assert_true(g.invulnerable_remaining > 0, "respawn invulnerability")
-	assert_true(g.get_presentation_snapshot().invulnerable, "invulnerability visible in snapshot")
+	assert_eq(g.shield_health, Fighter.SHIELD_MAX, "shield restored")
 	assert_true(g.cooldowns.is_empty(), "cooldowns cleared")
 	assert_eq(g.jump_buffer, 0, "no jump buffered through respawn")
-	assert_true(g.velocity.y >= 0.0, "held jump did not fire on respawn")
+	var y := g.position.y
+	step(m, 60)
+	assert_eq(g.position.y, y, "hovers while the player holds the old button")
+	assert_true(not g.is_hittable() and g.get_presentation_snapshot().on_respawn_platform, "untouchable on the platform")
+	p(m, 1).set_held(&"jump", false)
+	step(m)
+	p(m, 1).tap(&"jump")
+	step(m)
+	assert_eq(g.state, Fighter.State.JUMP, "jump leaves the platform")
+	assert_true(g.velocity.y <= -g.character.jump_velocity + 30.0, "platform jump is a full grounded jump")
+	assert_eq(g.air_jumps_left, 1, "double jump still available")
+	assert_true(g.invulnerable_remaining > 100, "invulnerable for a while after leaving")
 
+
+func test_respawn_platform_times_out() -> void:
+	var m: MatchController = await make_match()
+	var g := m.get_fighter(1)
+	_blast(g)
+	step(m, Fighter.RESPAWN_DELAY_TICKS + 1)
+	step(m, Fighter.RESPAWN_PLATFORM_MAX_TICKS + 1)
+	assert_true(g.state != Fighter.State.RESPAWN, "platform expires without input")
+	assert_true(g.position.y > m.stage.respawn_point(1).y, "falls after the platform expires")
+
+
+func test_ko_effect_is_on_screen() -> void:
+	var m: MatchController = await make_match(0, 9)
+	var g := m.get_fighter(1)
+	var seen := []
+	g.effect_requested.connect(func(id: StringName, pos: Vector2, _d: Vector2, payload: Dictionary) -> void:
+		if id == GameIds.EFFECT_BLAST_KO:
+			seen.append([pos, payload.exit_side]))
+	var b := m.stage.blast_bounds
+	for pos: Vector2 in [Vector2(b.end.x + 5, 300), Vector2(b.position.x - 5, 300), Vector2(640, b.position.y - 5), Vector2(640, b.end.y + 5)]:
+		g.position = pos
+		step(m)
+		step(m, Fighter.RESPAWN_DELAY_TICKS + 2)
+	assert_eq(seen.size(), 4, "four KOs")
+	var sides := []
+	for e in seen:
+		assert_true(m.stage.visible_rect.has_point(e[0]), "KO burst at %s is on screen" % str(e[0]))
+		sides.append(e[1])
+	assert_eq(sides, ["right", "left", "top", "bottom"], "exit side reported")
 
 func test_no_negative_stocks_and_eliminated_is_inert() -> void:
 	var m: MatchController = await make_match(0, 1)

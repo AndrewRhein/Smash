@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CharacterData" load_steps=16 format=3]
+[gd_resource type="Resource" script_class="CharacterData" load_steps=18 format=3]
 
 [ext_resource type="Script" path="res://scripts/data/move_data.gd" id="1_mfuj1"]
 [ext_resource type="Script" path="res://scripts/data/hitbox_data.gd" id="2_55pg5"]
@@ -41,6 +41,9 @@ projectiles = Array[ExtResource("3_xatp1")]([])
 start_effect_id = &"saber_swing"
 active_effect_id = &""
 special_behaviour = &""
+self_impulse = Vector2(0, 0)
+self_impulse_tick = 0
+helpless_after = false
 whiff_to_recovery = false
 hold_pulse_damage = 0.0
 hold_pulse_interval_ticks = 12
@@ -84,6 +87,9 @@ projectiles = Array[ExtResource("3_xatp1")]([])
 start_effect_id = &""
 active_effect_id = &"heavy_saber_swing"
 special_behaviour = &""
+self_impulse = Vector2(0, 0)
+self_impulse_tick = 0
+helpless_after = false
 whiff_to_recovery = false
 hold_pulse_damage = 0.0
 hold_pulse_interval_ticks = 12
@@ -149,6 +155,9 @@ projectiles = Array[ExtResource("3_xatp1")]([])
 start_effect_id = &""
 active_effect_id = &"force_push"
 special_behaviour = &""
+self_impulse = Vector2(0, 0)
+self_impulse_tick = 0
+helpless_after = false
 whiff_to_recovery = false
 hold_pulse_damage = 0.0
 hold_pulse_interval_ticks = 12
@@ -192,6 +201,9 @@ projectiles = Array[ExtResource("3_xatp1")]([])
 start_effect_id = &"force_choke"
 active_effect_id = &""
 special_behaviour = &"choke"
+self_impulse = Vector2(0, 0)
+self_impulse_tick = 0
+helpless_after = false
 whiff_to_recovery = true
 hold_pulse_damage = 2.0
 hold_pulse_interval_ticks = 12
@@ -224,12 +236,61 @@ projectiles = Array[ExtResource("3_xatp1")]([])
 start_effect_id = &"force_guard"
 active_effect_id = &""
 special_behaviour = &"guard"
+self_impulse = Vector2(0, 0)
+self_impulse_tick = 0
+helpless_after = false
 whiff_to_recovery = false
 hold_pulse_damage = 0.0
 hold_pulse_interval_ticks = 12
 hold_max_range = 240.0
 grab_immunity_ticks = 90
 guard_damage_types = Array[StringName]([&"magic", &"projectile"])
+
+[sub_resource type="Resource" id="Resource_skdum"]
+script = ExtResource("2_55pg5")
+shape = 0
+kind = 0
+offset = Vector2(24, -64)
+size = Vector2(64, 84)
+radius = 20.0
+start_tick = 0
+duration_ticks = 12
+rehit_interval_ticks = 0
+
+[sub_resource type="Resource" id="Resource_jml18"]
+script = ExtResource("1_mfuj1")
+id = &"special_up"
+animation_id = &"force_leap"
+startup_ticks = 8
+active_ticks = 16
+recovery_ticks = 16
+damage = 7.0
+damage_type = &"melee"
+knockback_angle_deg = 60.0
+knockback_base = 320.0
+knockback_growth = 4.5
+hitstun_ticks = 14
+cooldown_ticks = 0
+movement_policy = 0
+cancel_into = Array[StringName]([])
+cancel_requires_hit = true
+aimable = false
+aim_angle_deg = 0.0
+aim_pivot = Vector2(0, 0)
+hitboxes = Array[ExtResource("2_55pg5")]([SubResource("Resource_skdum")])
+projectiles = Array[ExtResource("3_xatp1")]([])
+start_effect_id = &"double_jump"
+active_effect_id = &""
+special_behaviour = &""
+self_impulse = Vector2(260, -980)
+self_impulse_tick = 0
+helpless_after = true
+whiff_to_recovery = false
+hold_pulse_damage = 0.0
+hold_pulse_interval_ticks = 12
+hold_max_range = 240.0
+grab_immunity_ticks = 90
+guard_damage_types = Array[StringName]([])
 
 [resource]
 script = ExtResource("4_c75f2")
@@ -252,4 +313,8 @@ jump_velocity = 690.0
 double_jump_velocity = 610.0
 jump_release_velocity = 260.0
 air_jumps = 1
-moves = Array[ExtResource("1_mfuj1")]([SubResource("Resource_cf67o"), SubResource("Resource_54d3e"), SubResource("Resource_df7fi"), SubResource("Resource_eaheg"), SubResource("Resource_gkasp")])
+moves = Array[ExtResource("1_mfuj1")]([SubResource("Resource_cf67o"), SubResource("Resource_54d3e"), SubResource("Resource_df7fi"), SubResource("Resource_eaheg"), SubResource("Resource_gkasp"), SubResource("Resource_jml18")])
+neutral_special = &"special_2"
+side_special = &"special_1"
+down_special = &"special_3"
+up_special = &"special_up"

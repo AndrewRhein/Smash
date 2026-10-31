@@ -222,7 +222,7 @@ func test_settings_screen_hitboxes_persist() -> void:
 func test_controls_screen_reflects_input_map() -> void:
 	var app := await _make_app()
 	assert_true(ControlsScreen.key_names(&"p1_light").has("F"), "P1 light shows F")
-	assert_true(ControlsScreen.key_names(&"p2_special_1").has("L"), "P2 special 1 shows L")
+	assert_true(ControlsScreen.key_names(&"p2_special").has("L"), "P2 special shows L")
 	assert_true(ControlsScreen.key_names(InputSetup.ACTION_PAUSE).has("Escape"), "pause shows Escape")
 	app.show_controls(app.show_title)
 	await _frames(1)

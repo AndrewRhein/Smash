@@ -37,6 +37,11 @@ extends Resource
 
 @export_group("Moves")
 @export var moves: Array[MoveData] = []
+## Smash-style special mapping: one Special button + stick direction.
+@export var neutral_special: StringName = &"special_1"
+@export var side_special: StringName = &"special_2"
+@export var down_special: StringName = &"special_3"
+@export var up_special: StringName = &"special_up"
 
 
 func get_move(move_id: StringName) -> MoveData:
@@ -73,4 +78,17 @@ func validate() -> PackedStringArray:
 	for slot: StringName in GameIds.MOVE_SLOTS:
 		if not seen.has(slot):
 			errors.append("%s: missing required move '%s'" % [id, slot])
+	for field in ["neutral_special", "side_special", "down_special", "up_special"]:
+		if get_move(get(field)) == null:
+			errors.append("%s: %s references unknown move '%s'" % [id, field, get(field)])
 	return errors
+
+
+## Move for the Special button given the stick direction (Smash rules):
+## mostly-vertical input picks up/down, otherwise a horizontal input picks side.
+func special_for_direction(stick: Vector2) -> StringName:
+	if absf(stick.y) > absf(stick.x) and absf(stick.y) >= PlayerInput.DIGITAL_THRESHOLD:
+		return up_special if stick.y < 0.0 else down_special
+	if absf(stick.x) >= PlayerInput.DIGITAL_THRESHOLD:
+		return side_special
+	return neutral_special

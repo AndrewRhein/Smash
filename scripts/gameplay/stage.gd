@@ -19,6 +19,11 @@ const PLATFORMS := [
 
 ## Feet positions. Index = player_id - 1.
 @export var spawn_points: Array[Vector2] = [Vector2(440, 380), Vector2(840, 380)]
+## Respawn platform positions (feet). Index = player_id - 1. Above the stage,
+## clear of the upper platforms, so a respawning fighter never lands in a fight.
+@export var respawn_points: Array[Vector2] = [Vector2(560, 240), Vector2(720, 240)]
+## The area the players can see; off-screen effects are clamped into it.
+@export var visible_rect: Rect2 = Rect2(0, 0, 1280, 720)
 ## A fighter whose root leaves this rectangle loses a stock. The viewport is
 ## 1280x720; bounds extend past it on all four sides.
 @export var blast_bounds: Rect2 = Rect2(-300, -440, 1880, 1340)
@@ -47,3 +52,7 @@ func _make_platform(center: Vector2, size: Vector2, one_way: bool) -> StaticBody
 
 func spawn_point(player_id: int) -> Vector2:
 	return spawn_points[clampi(player_id - 1, 0, spawn_points.size() - 1)]
+
+
+func respawn_point(player_id: int) -> Vector2:
+	return respawn_points[clampi(player_id - 1, 0, respawn_points.size() - 1)]

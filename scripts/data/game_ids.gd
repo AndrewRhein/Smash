@@ -16,7 +16,9 @@ const MOVE_HEAVY := &"heavy"
 const MOVE_SPECIAL_1 := &"special_1"
 const MOVE_SPECIAL_2 := &"special_2"
 const MOVE_SPECIAL_3 := &"special_3"
-const MOVE_SLOTS := [&"light", &"heavy", &"special_1", &"special_2", &"special_3"]
+## Recovery special (up + special). Usable once per airtime; leaves you helpless.
+const MOVE_SPECIAL_UP := &"special_up"
+const MOVE_SLOTS := [&"light", &"heavy", &"special_1", &"special_2", &"special_3", &"special_up"]
 
 # --- Shared (state-driven) animation IDs -------------------------------------
 const ANIM_IDLE := &"idle"
@@ -28,15 +30,21 @@ const ANIM_HURT := &"hurt"
 const ANIM_KNOCKBACK := &"knockback"
 const ANIM_DEFEAT := &"defeat"
 const ANIM_VICTORY := &"victory"
+const ANIM_SHIELD := &"shield"
+const ANIM_SHIELD_BREAK := &"shield_break"
+const ANIM_SPOT_DODGE := &"spot_dodge"
+const ANIM_ROLL := &"roll"
+const ANIM_AIR_DODGE := &"air_dodge"
 const SHARED_ANIMATION_IDS := [
 	&"idle", &"walk", &"run", &"jump", &"fall",
 	&"hurt", &"knockback", &"defeat", &"victory",
+	&"shield", &"shield_break", &"spot_dodge", &"roll", &"air_dodge",
 ]
 
 # --- Move-specific animation IDs ---------------------------------------------
 const MOVE_ANIMATION_IDS := {
-	&"gandalf": [&"staff_strike", &"heavy_staff", &"lightning", &"fireball", &"magic_push"],
-	&"vader": [&"saber_slash", &"heavy_saber", &"force_push", &"force_choke", &"force_guard"],
+	&"gandalf": [&"staff_strike", &"heavy_staff", &"lightning", &"fireball", &"magic_push", &"wind_rise"],
+	&"vader": [&"saber_slash", &"heavy_saber", &"force_push", &"force_choke", &"force_guard", &"force_leap"],
 }
 
 # --- Effect IDs (effect_requested) -------------------------------------------

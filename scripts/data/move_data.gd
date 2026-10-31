@@ -54,6 +54,15 @@ enum MovementPolicy {
 ## &"" (none), &"choke" or &"guard". See GameIds.SPECIAL_BEHAVIOURS.
 @export var special_behaviour: StringName = &""
 
+@export_group("Recovery")
+## Velocity SET on the fighter on active tick `self_impulse_tick` (authored
+## facing right, x mirrored by facing). Zero = none. Used by up specials.
+@export var self_impulse: Vector2 = Vector2.ZERO
+@export var self_impulse_tick: int = 0
+## If the move ends airborne, the fighter is helpless (can only drift and fast
+## fall) until it lands. Prevents infinite recovery.
+@export var helpless_after: bool = false
+
 @export_group("Choke")
 ## If the grab window ends without a grab, skip straight to recovery.
 @export var whiff_to_recovery: bool = false
@@ -125,6 +134,8 @@ func validate(character_id: StringName) -> PackedStringArray:
 		errors.append_array(projectiles[i].validate(active_ticks, "%s projectile %d" % [ctx, i]))
 	if special_behaviour != GameIds.SPECIAL_GUARD and hitboxes.is_empty() and projectiles.is_empty():
 		errors.append("%s: move has no hitboxes or projectiles" % ctx)
+	if self_impulse_tick < 0 or self_impulse_tick >= active_ticks:
+		errors.append("%s: self_impulse_tick outside active window" % ctx)
 	if special_behaviour == GameIds.SPECIAL_CHOKE:
 		var has_grab := false
 		for hb in hitboxes:
