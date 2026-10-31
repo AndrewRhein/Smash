@@ -15,17 +15,38 @@ func test_main_scene_runs() -> void:
 	for f in m.fighters:
 		assert_true(f.grounded, "%s landed on a platform" % f.character.id)
 		assert_true(f.get_node_or_null("VisualRoot") != null, "VisualRoot attached")
-	main.get_node("DebugOverlay").toggle()
+	# Real keyboard events through the InputMap: P1 holds D (right).
+	var gandalf := m.get_fighter(1)
+	var x0 := gandalf.position.x
+	_key(KEY_D, true)
+	for i in 20:
+		await tree.physics_frame
+	_key(KEY_D, false)
+	assert_true(gandalf.position.x > x0 + 40.0, "keyboard D moves player 1 right")
+	assert_true(m.get_fighter(2).velocity.x == 0.0, "player 2 unaffected")
+	_key(KEY_F1, true)
+	_key(KEY_F1, false)
 	await tree.process_frame
-	assert_true(main.get_node("DebugOverlay").visible, "debug overlay toggles on")
-	# Force a result + rematch through the real scene wiring.
+	assert_true(main.get_node("DebugOverlay").visible, "F1 toggles the hitbox overlay")
+	# Force a result, then rematch with the real Enter key via main.gd.
 	for f in m.fighters:
 		f.stocks = 1
 	m.get_fighter(2).position = Vector2(640, 3000)
 	await tree.physics_frame
 	await tree.physics_frame
 	assert_eq(m.state, MatchController.MatchState.RESULT, "result reached")
-	m.rematch()
+	assert_eq(m.winner_player_id, 1, "player 1 wins")
+	_key(KEY_ENTER, true)
+	_key(KEY_ENTER, false)
 	await tree.physics_frame
-	assert_eq(m.state, MatchController.MatchState.COUNTDOWN, "rematch restarts countdown")
+	assert_eq(m.state, MatchController.MatchState.COUNTDOWN, "Enter starts a rematch")
 	assert_eq(m.get_fighter(2).stocks, 3, "stocks restored")
+
+
+func _key(keycode: int, pressed: bool) -> void:
+	var ev := InputEventKey.new()
+	ev.physical_keycode = keycode
+	ev.keycode = keycode
+	ev.pressed = pressed
+	Input.parse_input_event(ev)
+	Input.flush_buffered_events()

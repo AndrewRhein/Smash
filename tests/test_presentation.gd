@@ -111,3 +111,16 @@ func test_effect_payloads_are_plain_values() -> void:
 			assert_true(typeof(value) in [TYPE_INT, TYPE_FLOAT, TYPE_STRING, TYPE_STRING_NAME, TYPE_VECTOR2, TYPE_BOOL],
 				"payload value %s is plain data" % str(value))
 		assert_true(e[3].has("player_id"), "payload has player_id")
+
+
+func test_placeholder_tolerates_unknown_animation_ids() -> void:
+	var m: MatchController = await make_match()
+	var g := m.get_fighter(1)
+	var visual := g.get_node("VisualRoot") as PlaceholderFighterVisual
+	assert_true(visual != null, "placeholder adapter attached when no visual_scene is set")
+	g.animation_requested.emit(&"not_a_real_animation", 10, false)
+	g.animation_requested.emit(&"not_a_real_animation", 10, false)
+	assert_eq(visual._warned.size(), 1, "unknown id warned exactly once")
+	g.animation_requested.emit(&"staff_strike", 21, false)
+	assert_eq(visual._warned.size(), 1, "known ids never warn")
+	step(m, 5)  # still draws/updates without errors

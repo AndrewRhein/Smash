@@ -66,7 +66,10 @@ func _draw() -> void:
 		_draw_vader(flash, hurt, progress)
 	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 	if _anim_id == GameIds.ANIM_VICTORY:
+		# Counter the VisualRoot flip so text never renders mirrored.
+		draw_set_transform(Vector2.ZERO, 0.0, Vector2(scale.x, 1.0))
 		draw_string(ThemeDB.fallback_font, Vector2(-30, -130), "WIN!", HORIZONTAL_ALIGNMENT_CENTER, 60, 18, Color(1, 0.9, 0.5))
+		draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
 
 ## Weapon angle (radians, 0 = pointing forward, -PI/2 = up) for the current pose.

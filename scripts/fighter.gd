@@ -51,7 +51,7 @@ const KNOCKBACK_ANIM_THRESHOLD := 700.0
 ## Fast fall is allowed once rising slower than this (px/s).
 const FAST_FALL_MAX_RISE := 120.0
 ## Horizontal decay during hitstun (px/s^2). Input never steers in hitstun.
-const HITSTUN_AIR_DRAG := 420.0
+const HITSTUN_AIR_DRAG := 1100.0
 const HITSTUN_GROUND_FRICTION := 1800.0
 const SLOWED_SPEED_FACTOR := 0.35
 ## Failsafe: nobody can be held longer than this, whatever the data says.

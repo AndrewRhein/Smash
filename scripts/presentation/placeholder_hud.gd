@@ -11,12 +11,16 @@ const CONTROLS_TEXT := "P1: A/D move  W jump  S down  F light  R heavy  G/T/V sp
 var _match: MatchController
 var _player_labels: Dictionary = {}  # player_id -> Label
 var _status: Label
+var _result: Label
 
 
 func _ready() -> void:
 	_status = _label(Vector2(340, 20), 22, Color(1, 0.88, 0.55))
 	_status.size = Vector2(600, 30)
 	_status.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_result = _label(Vector2(140, 170), 40, Color(1, 0.88, 0.55))
+	_result.size = Vector2(1000, 110)
+	_result.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	var controls := _label(Vector2(20, 690), 13, Color(0.84, 0.86, 0.92))
 	controls.text = CONTROLS_TEXT
 
@@ -31,8 +35,11 @@ func bind(match_controller: MatchController) -> void:
 func _on_fighter_spawned(fighter: Fighter) -> void:
 	var label: Label = _player_labels.get(fighter.player_id)
 	if label == null:
-		var x := 28.0 if fighter.player_id == 1 else 900.0
-		label = _label(Vector2(x, 22), 24, fighter.character.hud_color)
+		label = _label(Vector2(28, 22), 24, fighter.character.hud_color)
+		label.size = Vector2(560, 34)
+		if fighter.player_id != 1:
+			label.position.x = 1280.0 - 28.0 - label.size.x
+			label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		_player_labels[fighter.player_id] = label
 	var update := func(_v: Variant = null) -> void:
 		label.text = "%s   %d%%   STOCKS: %d" % [fighter.character.display_name.to_upper(), roundi(fighter.damage), fighter.stocks]
@@ -47,6 +54,7 @@ func _process(_delta: float) -> void:
 
 
 func _refresh_status() -> void:
+	_result.text = ""
 	match _match.state:
 		MatchController.MatchState.COUNTDOWN:
 			_status.text = "READY... %d" % ceili(_match.countdown_remaining / 30.0)
@@ -56,7 +64,8 @@ func _refresh_status() -> void:
 			var result := "DRAW!"
 			if _match.winner_player_id > 0:
 				result = "%s WINS!" % _match.get_fighter(_match.winner_player_id).character.display_name.to_upper()
-			_status.text = result + "   Enter / Start = rematch"
+			_status.text = "MATCH OVER"
+			_result.text = result + "\nPress Enter / Start for a rematch"
 		_:
 			_status.text = ""
 
