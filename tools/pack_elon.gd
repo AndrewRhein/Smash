@@ -12,7 +12,11 @@ func _initialize() -> void:
     assert(actions.size() == 15, "Expected fifteen action poses")
     var atlas := Image.create(2048, 1024, false, Image.FORMAT_RGBA8)
     var movement_scale := 112.0 / float(movement[0].rect.size.y)
-    var action_scale := 112.0 / float(actions[0].rect.size.y)
+    # The two source sheets were drawn at different sizes. Scaling the action
+    # sheet by its first (crouched) pose's height made every attack ~24% larger
+    # than idle. Match the sheets by head width instead, which is the same in
+    # every pose; the median ignores poses where an arm or weapon crosses the head.
+    var action_scale := movement_scale * median_head_width(movement) / median_head_width(actions)
     var poses: Array[Image] = []
     for i in range(27):
         var item: Dictionary = movement[i] if i < 12 else actions[i - 12]
@@ -66,6 +70,29 @@ func _initialize() -> void:
     FileAccess.open(BASE + "manifest.json", FileAccess.WRITE).store_string(JSON.stringify(manifest, "  ", false) + "\n")
     print("Packed 27 authored poses into 14 states, plus portrait")
     quit()
+
+## Median, over a sheet's poses, of the silhouette width 10-45 source pixels
+## below the top of the head (i.e. the head itself).
+func median_head_width(sheet: Array) -> float:
+    var per_pose: Array[float] = []
+    for item: Dictionary in sheet:
+        var pose: Image = item.image
+        var widths: Array[int] = []
+        for y in range(10, mini(45, pose.get_height())):
+            var first := -1
+            var last := -1
+            for x in range(pose.get_width()):
+                if pose.get_pixel(x, y).a > 0.15:
+                    if first < 0:
+                        first = x
+                    last = x
+            if first >= 0:
+                widths.append(last - first)
+        widths.sort()
+        if not widths.is_empty():
+            per_pose.append(widths[widths.size() / 2])
+    per_pose.sort()
+    return per_pose[per_pose.size() / 2]
 
 func components(path: String, columns: int, rows: int) -> Array:
     var image := Image.new()
