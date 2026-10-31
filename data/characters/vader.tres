@@ -1,0 +1,233 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/move_data.gd" id="1_mfuj1"]
+[ext_resource type="Script" path="res://scripts/data/hitbox_data.gd" id="2_55pg5"]
+[ext_resource type="Script" path="res://scripts/data/projectile_data.gd" id="3_xatp1"]
+[ext_resource type="Script" path="res://scripts/data/character_data.gd" id="4_c75f2"]
+
+[sub_resource type="Resource" id="Resource_5vtp6"]
+script = ExtResource("2_55pg5")
+shape = 0
+kind = 0
+offset = Vector2(52, -54)
+size = Vector2(72, 44)
+radius = 20.0
+start_tick = 0
+duration_ticks = 0
+rehit_interval_ticks = 0
+
+[sub_resource type="Resource" id="Resource_cf67o"]
+script = ExtResource("1_mfuj1")
+id = &"light"
+animation_id = &"saber_slash"
+startup_ticks = 6
+active_ticks = 4
+recovery_ticks = 13
+damage = 6.0
+damage_type = &"melee"
+knockback_angle_deg = 40.0
+knockback_base = 270.0
+knockback_growth = 9.0
+hitstun_ticks = 11
+cooldown_ticks = 0
+movement_policy = 1
+cancel_into = Array[StringName]([&"special_1", &"special_2"])
+cancel_requires_hit = true
+aimable = false
+aim_angle_deg = 0.0
+aim_pivot = Vector2(0, 0)
+hitboxes = Array[ExtResource("2_55pg5")]([SubResource("Resource_5vtp6")])
+projectiles = Array[ExtResource("3_xatp1")]([])
+start_effect_id = &"saber_swing"
+active_effect_id = &""
+special_behaviour = &""
+whiff_to_recovery = false
+hold_pulse_damage = 0.0
+hold_pulse_interval_ticks = 12
+hold_max_range = 240.0
+grab_immunity_ticks = 90
+guard_damage_types = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_dgu65"]
+script = ExtResource("2_55pg5")
+shape = 0
+kind = 0
+offset = Vector2(58, -56)
+size = Vector2(98, 72)
+radius = 20.0
+start_tick = 0
+duration_ticks = 0
+rehit_interval_ticks = 0
+
+[sub_resource type="Resource" id="Resource_54d3e"]
+script = ExtResource("1_mfuj1")
+id = &"heavy"
+animation_id = &"heavy_saber"
+startup_ticks = 20
+active_ticks = 6
+recovery_ticks = 30
+damage = 16.0
+damage_type = &"melee"
+knockback_angle_deg = 38.0
+knockback_base = 450.0
+knockback_growth = 18.0
+hitstun_ticks = 18
+cooldown_ticks = 0
+movement_policy = 2
+cancel_into = Array[StringName]([])
+cancel_requires_hit = true
+aimable = false
+aim_angle_deg = 0.0
+aim_pivot = Vector2(0, 0)
+hitboxes = Array[ExtResource("2_55pg5")]([SubResource("Resource_dgu65")])
+projectiles = Array[ExtResource("3_xatp1")]([])
+start_effect_id = &""
+active_effect_id = &"heavy_saber_swing"
+special_behaviour = &""
+whiff_to_recovery = false
+hold_pulse_damage = 0.0
+hold_pulse_interval_ticks = 12
+hold_max_range = 240.0
+grab_immunity_ticks = 90
+guard_damage_types = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_trkkk"]
+script = ExtResource("2_55pg5")
+shape = 0
+kind = 0
+offset = Vector2(95, -48)
+size = Vector2(150, 72)
+radius = 20.0
+start_tick = 0
+duration_ticks = 0
+rehit_interval_ticks = 0
+
+[sub_resource type="Resource" id="Resource_df7fi"]
+script = ExtResource("1_mfuj1")
+id = &"special_1"
+animation_id = &"force_push"
+startup_ticks = 12
+active_ticks = 6
+recovery_ticks = 24
+damage = 3.0
+damage_type = &"magic"
+knockback_angle_deg = 18.0
+knockback_base = 600.0
+knockback_growth = 15.0
+hitstun_ticks = 14
+cooldown_ticks = 60
+movement_policy = 2
+cancel_into = Array[StringName]([])
+cancel_requires_hit = true
+aimable = false
+aim_angle_deg = 0.0
+aim_pivot = Vector2(0, 0)
+hitboxes = Array[ExtResource("2_55pg5")]([SubResource("Resource_trkkk")])
+projectiles = Array[ExtResource("3_xatp1")]([])
+start_effect_id = &""
+active_effect_id = &"force_push"
+special_behaviour = &""
+whiff_to_recovery = false
+hold_pulse_damage = 0.0
+hold_pulse_interval_ticks = 12
+hold_max_range = 240.0
+grab_immunity_ticks = 90
+guard_damage_types = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_1x7r4"]
+script = ExtResource("2_55pg5")
+shape = 1
+kind = 1
+offset = Vector2(115, -55)
+size = Vector2(40, 30)
+radius = 50.0
+start_tick = 0
+duration_ticks = 8
+rehit_interval_ticks = 0
+
+[sub_resource type="Resource" id="Resource_eaheg"]
+script = ExtResource("1_mfuj1")
+id = &"special_2"
+animation_id = &"force_choke"
+startup_ticks = 12
+active_ticks = 54
+recovery_ticks = 20
+damage = 4.0
+damage_type = &"magic"
+knockback_angle_deg = 70.0
+knockback_base = 380.0
+knockback_growth = 10.0
+hitstun_ticks = 18
+cooldown_ticks = 150
+movement_policy = 2
+cancel_into = Array[StringName]([])
+cancel_requires_hit = true
+aimable = false
+aim_angle_deg = 0.0
+aim_pivot = Vector2(0, 0)
+hitboxes = Array[ExtResource("2_55pg5")]([SubResource("Resource_1x7r4")])
+projectiles = Array[ExtResource("3_xatp1")]([])
+start_effect_id = &"force_choke"
+active_effect_id = &""
+special_behaviour = &"choke"
+whiff_to_recovery = true
+hold_pulse_damage = 2.0
+hold_pulse_interval_ticks = 12
+hold_max_range = 240.0
+grab_immunity_ticks = 90
+guard_damage_types = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_gkasp"]
+script = ExtResource("1_mfuj1")
+id = &"special_3"
+animation_id = &"force_guard"
+startup_ticks = 3
+active_ticks = 24
+recovery_ticks = 16
+damage = 0.0
+damage_type = &"magic"
+knockback_angle_deg = 0.0
+knockback_base = 0.0
+knockback_growth = 0.0
+hitstun_ticks = 0
+cooldown_ticks = 120
+movement_policy = 2
+cancel_into = Array[StringName]([])
+cancel_requires_hit = true
+aimable = false
+aim_angle_deg = 0.0
+aim_pivot = Vector2(0, 0)
+hitboxes = Array[ExtResource("2_55pg5")]([])
+projectiles = Array[ExtResource("3_xatp1")]([])
+start_effect_id = &"force_guard"
+active_effect_id = &""
+special_behaviour = &"guard"
+whiff_to_recovery = false
+hold_pulse_damage = 0.0
+hold_pulse_interval_ticks = 12
+hold_max_range = 240.0
+grab_immunity_ticks = 90
+guard_damage_types = Array[StringName]([&"magic", &"projectile"])
+
+[resource]
+script = ExtResource("4_c75f2")
+id = &"vader"
+display_name = "Darth Vader"
+hud_color = Color(1, 0.48, 0.43, 1)
+hurtbox = Rect2(-19, -94, 38, 94)
+body_radius = 18.0
+body_height = 76.0
+weight = 1.12
+max_speed = 320.0
+ground_accel = 2600.0
+ground_decel = 3000.0
+air_accel = 1500.0
+air_decel = 500.0
+gravity = 1800.0
+max_fall_speed = 950.0
+fast_fall_speed = 1400.0
+jump_velocity = 690.0
+double_jump_velocity = 610.0
+jump_release_velocity = 260.0
+air_jumps = 1
+moves = Array[ExtResource("1_mfuj1")]([SubResource("Resource_cf67o"), SubResource("Resource_54d3e"), SubResource("Resource_df7fi"), SubResource("Resource_eaheg"), SubResource("Resource_gkasp")])
