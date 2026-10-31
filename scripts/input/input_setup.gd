@@ -71,7 +71,21 @@ static func ensure_actions() -> void:
 	if not InputMap.has_action(ACTION_DEBUG_HITBOXES):
 		InputMap.add_action(ACTION_DEBUG_HITBOXES)
 		InputMap.action_add_event(ACTION_DEBUG_HITBOXES, _key(KEY_F1))
+	# Godot's built-in menu actions have no controller confirm/back by default:
+	# A (and Start) confirm, B goes back, on any controller.
+	_add_joy_once(&"ui_accept", JOY_BUTTON_A)
+	_add_joy_once(&"ui_accept", JOY_BUTTON_START)
+	_add_joy_once(&"ui_cancel", JOY_BUTTON_B)
 	ControllerAssignment.refresh()
+
+
+static func _add_joy_once(action: StringName, button: int) -> void:
+	if not InputMap.has_action(action):
+		return
+	for ev in InputMap.action_get_events(action):
+		if ev is InputEventJoypadButton and ev.button_index == button:
+			return
+	InputMap.action_add_event(action, _joy(button))
 
 
 static func _key(keycode: int) -> InputEventKey:
