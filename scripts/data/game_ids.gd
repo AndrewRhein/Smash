@@ -21,6 +21,14 @@ const MOVE_SPECIAL_3 := &"special_3"
 ## Recovery special (up + special). Usable once per airtime; leaves you helpless.
 const MOVE_SPECIAL_UP := &"special_up"
 const MOVE_SLOTS := [&"light", &"heavy", &"special_1", &"special_2", &"special_3", &"special_up"]
+## Optional directional attacks (Smash tilts / smashes / aerials). A character
+## may define any of these; missing ones fall back (see
+## CharacterData.resolve_attack), so a character with only light/heavy works.
+const OPTIONAL_MOVE_SLOTS := [
+	&"light_up", &"light_down",                      # up / down tilt (ground)
+	&"heavy_up", &"heavy_down",                      # up / down smash
+	&"air_neutral", &"air_forward", &"air_back", &"air_up", &"air_down",  # aerials
+]
 
 # --- Shared (state-driven) animation IDs -------------------------------------
 const ANIM_IDLE := &"idle"

@@ -295,8 +295,14 @@ func _record_buffers(frame: InputFrame) -> void:
 				if attack_buffer_move == character.side_special and frame.move_x != 0.0:
 					attack_buffer_facing = 1 if frame.move_x > 0.0 else -1
 			&"heavy":
-				attack_buffer_move = &"heavy"
+				# The right stick's direction wins over the left stick's.
+				var dir := Vector2(frame.smash_x, frame.smash_y)
+				if dir == Vector2.ZERO:
+					dir = frame.stick()
+				attack_buffer_move = character.resolve_attack(&"heavy", dir, grounded, facing)
 				attack_buffer_facing = frame.smash_x
+			&"light":
+				attack_buffer_move = character.resolve_attack(&"light", frame.stick(), grounded, facing)
 			_:
 				attack_buffer_move = button
 		attack_buffer = ATTACK_BUFFER_TICKS

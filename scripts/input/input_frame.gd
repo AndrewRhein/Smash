@@ -22,6 +22,8 @@ var move_x: float = 0.0
 var move_y: float = 0.0
 ## Right-stick ("C-stick") heavy direction: -1 left, +1 right, 0 none/vertical.
 var smash_x: int = 0
+## Right-stick vertical: -1 up, +1 down (up/down smash), 0 none.
+var smash_y: int = 0
 var held_mask: int = 0
 var pressed_mask: int = 0
 

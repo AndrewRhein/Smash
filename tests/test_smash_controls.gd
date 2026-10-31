@@ -348,3 +348,54 @@ func test_keyboard_and_controller_mix_for_one_player() -> void:
 	assert_eq(p1.sample().move_x, 0.0, "stick drift inside the dead zone ignored")
 	_joy_axis(0, JOY_AXIS_LEFT_X, 0.0)
 	ControllerAssignment.reset()
+
+
+# --- Directional attacks (framework) ---------------------------------------------
+func _with_moves(base: CharacterData, extra: Dictionary) -> CharacterData:
+	var c := _clone_character(base)
+	var moves: Array[MoveData] = c.moves.duplicate()
+	for id: StringName in extra:
+		var m := _clone_move(c.get_move(extra[id]))
+		m.id = id
+		moves.append(m)
+	c.moves = moves
+	return c
+
+
+func test_directional_attacks_fall_back_without_moves() -> void:
+	var g: CharacterData = GANDALF
+	assert_eq(g.resolve_attack(&"light", Vector2(0, -1), true, 1), &"light", "no up tilt -> light")
+	assert_eq(g.resolve_attack(&"light", Vector2(-1, 0), false, 1), &"light", "no back air -> light")
+	assert_eq(g.resolve_attack(&"heavy", Vector2(0, 1), true, 1), &"heavy", "no down smash -> heavy")
+
+
+func test_directional_attacks_resolve_when_authored() -> void:
+	var c := _with_moves(GANDALF, {&"light_up": &"light", &"air_back": &"light", &"air_neutral": &"light",
+		&"heavy_down": &"heavy"})
+	assert_true(c.validate().is_empty(), "optional slots are valid data: %s" % c.validate())
+	assert_eq(c.resolve_attack(&"light", Vector2(0, -1), true, 1), &"light_up", "up + attack on the ground = up tilt")
+	assert_eq(c.resolve_attack(&"light", Vector2(0, 1), true, 1), &"light", "no down tilt authored -> light")
+	assert_eq(c.resolve_attack(&"light", Vector2(-1, 0), false, 1), &"air_back", "back air relative to facing")
+	assert_eq(c.resolve_attack(&"light", Vector2(1, 0), false, 1), &"air_neutral", "no forward air -> neutral air")
+	assert_eq(c.resolve_attack(&"light", Vector2(1, 0), false, -1), &"air_back", "mirrored facing")
+	assert_eq(c.resolve_attack(&"heavy", Vector2(0, 1), true, 1), &"heavy_down", "down + heavy = down smash")
+
+
+func test_directional_attack_from_input() -> void:
+	var m: MatchController = await make_match()
+	var c := _with_moves(GANDALF, {&"light_up": &"light", &"heavy_up": &"heavy"})
+	m.characters[0] = c
+	m.rematch()
+	await tree.physics_frame
+	face_off(m, 300)
+	var g := m.get_fighter(1)
+	p(m, 1).set_axis(Vector2(0, -1))
+	p(m, 1).tap(&"light")
+	step(m)
+	p(m, 1).clear_axis()
+	assert_eq(g.move.id, &"light_up", "up + A performs the up tilt")
+	step(m, 60)
+	p(m, 1).set_right_stick(Vector2(0, -1))
+	step(m)
+	p(m, 1).set_right_stick(Vector2.ZERO)
+	assert_eq(g.move.id, &"heavy_up", "right stick up = up smash")
