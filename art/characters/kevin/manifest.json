@@ -1,0 +1,395 @@
+{
+  "character_id": "kevin",
+  "cell_size": [
+    256,
+    256
+  ],
+  "pivot": [
+    128,
+    208
+  ],
+  "head_width": 20.0,
+  "scales": {
+    "movement": 0.37383177570093457,
+    "actions": 0.36363636363636365
+  },
+  "poses": [
+    {
+      "pose": "movement:0",
+      "source": "movement_source.webp",
+      "bounds": [
+        72,
+        11,
+        224,
+        343
+      ],
+      "scale": 0.37383
+    },
+    {
+      "pose": "movement:1",
+      "source": "movement_source.webp",
+      "bounds": [
+        451,
+        10,
+        209,
+        344
+      ],
+      "scale": 0.37383
+    },
+    {
+      "pose": "movement:2",
+      "source": "movement_source.webp",
+      "bounds": [
+        792,
+        13,
+        225,
+        338
+      ],
+      "scale": 0.37383
+    },
+    {
+      "pose": "movement:3",
+      "source": "movement_source.webp",
+      "bounds": [
+        1149,
+        6,
+        230,
+        349
+      ],
+      "scale": 0.37383
+    },
+    {
+      "pose": "movement:4",
+      "source": "movement_source.webp",
+      "bounds": [
+        31,
+        378,
+        268,
+        327
+      ],
+      "scale": 0.37383
+    },
+    {
+      "pose": "movement:5",
+      "source": "movement_source.webp",
+      "bounds": [
+        407,
+        382,
+        274,
+        322
+      ],
+      "scale": 0.37383
+    },
+    {
+      "pose": "movement:6",
+      "source": "movement_source.webp",
+      "bounds": [
+        763,
+        361,
+        267,
+        305
+      ],
+      "scale": 0.37383
+    },
+    {
+      "pose": "movement:7",
+      "source": "movement_source.webp",
+      "bounds": [
+        1118,
+        371,
+        286,
+        342
+      ],
+      "scale": 0.37383
+    },
+    {
+      "pose": "movement:8",
+      "source": "movement_source.webp",
+      "bounds": [
+        74,
+        737,
+        228,
+        340
+      ],
+      "scale": 0.37383
+    },
+    {
+      "pose": "movement:9",
+      "source": "movement_source.webp",
+      "bounds": [
+        399,
+        730,
+        309,
+        288
+      ],
+      "scale": 0.37383
+    },
+    {
+      "pose": "movement:10",
+      "source": "movement_source.webp",
+      "bounds": [
+        767,
+        835,
+        256,
+        245
+      ],
+      "scale": 0.37383
+    },
+    {
+      "pose": "movement:11",
+      "source": "movement_source.webp",
+      "bounds": [
+        1146,
+        720,
+        223,
+        358
+      ],
+      "scale": 0.37383
+    },
+    {
+      "pose": "actions:12",
+      "source": "actions_source.webp",
+      "bounds": [
+        22,
+        1418,
+        203,
+        193
+      ],
+      "scale": 0.36364
+    },
+    {
+      "pose": "actions:13",
+      "source": "actions_source.webp",
+      "bounds": [
+        304,
+        1436,
+        248,
+        177
+      ],
+      "scale": 0.36364
+    },
+    {
+      "pose": "actions:14",
+      "source": "actions_source.webp",
+      "bounds": [
+        673,
+        1393,
+        201,
+        218
+      ],
+      "scale": 0.36364
+    },
+    {
+      "pose": "actions:0",
+      "source": "actions_source.webp",
+      "bounds": [
+        27,
+        12,
+        225,
+        327
+      ],
+      "scale": 0.36364
+    },
+    {
+      "pose": "actions:1",
+      "source": "actions_source.webp",
+      "bounds": [
+        332,
+        19,
+        315,
+        317
+      ],
+      "scale": 0.36364
+    },
+    {
+      "pose": "actions:2",
+      "source": "actions_source.webp",
+      "bounds": [
+        704,
+        17,
+        165,
+        319
+      ],
+      "scale": 0.36364
+    },
+    {
+      "pose": "actions:3",
+      "source": "actions_source.webp",
+      "bounds": [
+        32,
+        355,
+        227,
+        338
+      ],
+      "scale": 0.36364
+    },
+    {
+      "pose": "actions:4",
+      "source": "actions_source.webp",
+      "bounds": [
+        333,
+        357,
+        302,
+        336
+      ],
+      "scale": 0.36364
+    },
+    {
+      "pose": "actions:5",
+      "source": "actions_source.webp",
+      "bounds": [
+        692,
+        357,
+        231,
+        337
+      ],
+      "scale": 0.36364
+    },
+    {
+      "pose": "actions:6",
+      "source": "actions_source.webp",
+      "bounds": [
+        12,
+        723,
+        254,
+        300
+      ],
+      "scale": 0.36364
+    },
+    {
+      "pose": "actions:7",
+      "source": "actions_source.webp",
+      "bounds": [
+        280,
+        719,
+        323,
+        307
+      ],
+      "scale": 0.36364
+    },
+    {
+      "pose": "actions:8",
+      "source": "actions_source.webp",
+      "bounds": [
+        679,
+        718,
+        241,
+        308
+      ],
+      "scale": 0.36364
+    },
+    {
+      "pose": "actions:9",
+      "source": "actions_source.webp",
+      "bounds": [
+        22,
+        1036,
+        237,
+        361
+      ],
+      "scale": 0.36364
+    },
+    {
+      "pose": "actions:10",
+      "source": "actions_source.webp",
+      "bounds": [
+        326,
+        1041,
+        251,
+        358
+      ],
+      "scale": 0.36364
+    },
+    {
+      "pose": "actions:11",
+      "source": "actions_source.webp",
+      "bounds": [
+        690,
+        1036,
+        236,
+        363
+      ],
+      "scale": 0.36364
+    }
+  ],
+  "animations": {
+    "idle": [
+      0,
+      1
+    ],
+    "walk": [
+      2,
+      3
+    ],
+    "run": [
+      4,
+      5
+    ],
+    "jump": [
+      6
+    ],
+    "fall": [
+      7
+    ],
+    "hurt": [
+      8
+    ],
+    "knockback": [
+      9
+    ],
+    "defeat": [
+      10
+    ],
+    "victory": [
+      11
+    ],
+    "shield": [
+      12
+    ],
+    "shield_break": [
+      8
+    ],
+    "spot_dodge": [
+      10
+    ],
+    "roll": [
+      4,
+      5,
+      4
+    ],
+    "air_dodge": [
+      6
+    ],
+    "low_lunge": [
+      12,
+      13,
+      14
+    ],
+    "big_toe_kick": [
+      15,
+      16,
+      17
+    ],
+    "airstrike": [
+      18,
+      19,
+      20
+    ],
+    "cookie_toss": [
+      21,
+      22,
+      23
+    ],
+    "shrimp_scampi": [
+      24,
+      25,
+      26
+    ],
+    "barefoot_leap": [
+      12,
+      6,
+      7
+    ]
+  },
+  "atlas_sha256": "6c50d7617ec2c0aeedfebe9427a5293295dafb5d0b92852eed33f94f8edc0fa4"
+}

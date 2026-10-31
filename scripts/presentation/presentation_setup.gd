@@ -10,6 +10,7 @@ const CHARACTER_ART := {
     &"tim": ["res://scenes/presentation/tim_visual.tscn", {&"special_2": "res://scenes/presentation/drone_visual.tscn",
         &"special_3": "res://scenes/presentation/castle_visual.tscn"}],
     &"sundar": ["res://scenes/presentation/sundar_visual.tscn", {&"special_2": "res://scenes/presentation/vial_visual.tscn"}],
+    &"kevin": ["res://scenes/presentation/kevin_visual.tscn", {&"special_1": "res://scenes/presentation/airstrike_visual.tscn", &"special_2": "res://scenes/presentation/cookie_visual.tscn"}],
 }
 
 static func with_art(source: CharacterData) -> CharacterData:

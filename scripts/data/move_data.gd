@@ -69,6 +69,10 @@ enum MovementPolicy {
 ## If the move ends airborne, the fighter is helpless (can only drift and fast
 ## fall) until it lands. Prevents infinite recovery.
 @export var helpless_after: bool = false
+## Damage percent REMOVED from the user on active tick `self_heal_tick`
+## (clamped at 0%). Zero = none. Used by healing moves.
+@export var self_heal: float = 0.0
+@export var self_heal_tick: int = 0
 
 @export_group("Choke")
 ## If the grab window ends without a grab, skip straight to recovery.
@@ -145,10 +149,14 @@ func validate(character_id: StringName) -> PackedStringArray:
 			errors.append("%s: projectile %d is null" % [ctx, i])
 			continue
 		errors.append_array(projectiles[i].validate(active_ticks, "%s projectile %d" % [ctx, i]))
-	if special_behaviour != GameIds.SPECIAL_GUARD and hitboxes.is_empty() and projectiles.is_empty():
+	if special_behaviour != GameIds.SPECIAL_GUARD and self_heal <= 0.0 and hitboxes.is_empty() and projectiles.is_empty():
 		errors.append("%s: move has no hitboxes or projectiles" % ctx)
 	if self_impulse_tick < 0 or self_impulse_tick >= active_ticks:
 		errors.append("%s: self_impulse_tick outside active window" % ctx)
+	if self_heal < 0.0:
+		errors.append("%s: self_heal must be >= 0" % ctx)
+	if self_heal_tick < 0 or self_heal_tick >= active_ticks:
+		errors.append("%s: self_heal_tick outside active window" % ctx)
 	if special_behaviour == GameIds.SPECIAL_CHOKE:
 		var has_grab := false
 		for hb in hitboxes:

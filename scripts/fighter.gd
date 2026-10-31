@@ -129,6 +129,8 @@ var hitstun_total: int = 0
 var hitstop_remaining: int = 0
 var invulnerable_remaining: int = 0
 var grab_immunity_remaining: int = 0
+## Presentation-only countdown after a self-heal (snapshot "healing").
+var heal_glow_remaining: int = 0
 var respawn_remaining: int = 0
 var held_ticks: int = 0
 var shield_health: float = SHIELD_MAX
@@ -310,6 +312,7 @@ func _record_buffers(frame: InputFrame) -> void:
 
 
 func _tick_timers() -> void:
+	heal_glow_remaining = maxi(heal_glow_remaining - 1, 0)
 	jump_buffer = maxi(jump_buffer - 1, 0)
 	attack_buffer = maxi(attack_buffer - 1, 0)
 	if attack_buffer == 0:
@@ -367,6 +370,10 @@ func _tick_attack(frame: InputFrame) -> void:
 		grounded = false
 		jump_rising = false
 		fast_falling = false
+	if move.self_heal > 0.0 and move_tick == move.startup_ticks + move.self_heal_tick:
+		damage = maxf(0.0, damage - move.self_heal)
+		heal_glow_remaining = 45
+		damage_changed.emit(damage)
 	if move_tick == move.startup_ticks and move.active_effect_id != &"":
 		request_effect(move.active_effect_id, _effect_point(), aim_direction(), {"move_id": String(move.id)})
 	if move.is_active_tick(move_tick):
@@ -888,6 +895,7 @@ func _clear_combat_state() -> void:
 	move_connected = false
 	hit_registry.clear()
 	cooldowns.clear()
+	heal_glow_remaining = 0
 	hitstun_remaining = 0
 	hitstop_remaining = 0
 	grab_immunity_remaining = 0
@@ -1067,5 +1075,6 @@ func get_presentation_snapshot() -> Dictionary:
 		"helpless": helpless,
 		"on_respawn_platform": state == State.RESPAWN,
 		# Presentation hint while held by a grab, e.g. &"frozen" (Cold Hands).
+		"healing": heal_glow_remaining > 0,
 		"held_visual": held_by.move.hold_visual if state == State.HELD and held_by != null and held_by.move != null else &"",
 	}
