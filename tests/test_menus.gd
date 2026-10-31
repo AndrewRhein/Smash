@@ -230,3 +230,23 @@ func test_controls_screen_reflects_input_map() -> void:
 	_key(KEY_ESCAPE)
 	await _frames(2)
 	assert_eq(app.current_screen, &"title", "Esc returns to the title")
+
+
+func test_art_gallery_entry_matches_available_art() -> void:
+	var app := await _make_app()
+	var title := app._screen as TitleScreen
+	var has_button := false
+	for child in title.column.get_children():
+		if child is Button and child.text == "Art Gallery":
+			has_button = true
+	assert_eq(has_button, GameApp.has_art_gallery(), "Art Gallery listed only when the scene exists")
+	if not GameApp.has_art_gallery():
+		return
+	app.show_art_gallery()
+	await _frames(2)
+	assert_eq(app.current_screen, &"gallery", "gallery open")
+	assert_true(app.gallery_root != null and app.gallery_root.is_inside_tree(), "art preview scene loaded")
+	_key(KEY_ESCAPE)
+	await _frames(2)
+	assert_eq(app.current_screen, &"title", "Esc returns to the title")
+	assert_true(app.gallery_root == null, "gallery freed")
