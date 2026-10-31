@@ -1,0 +1,285 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=19 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/move_data.gd" id="1_7sdx8"]
+[ext_resource type="Script" path="res://scripts/data/hitbox_data.gd" id="2_copt5"]
+[ext_resource type="Script" path="res://scripts/data/projectile_data.gd" id="3_dwo4f"]
+[ext_resource type="Script" path="res://scripts/data/character_data.gd" id="4_pwvvw"]
+
+[sub_resource type="Resource" id="Resource_18vb7"]
+script = ExtResource("2_copt5")
+shape = 0
+kind = 0
+offset = Vector2(46, -50)
+size = Vector2(62, 34)
+radius = 20.0
+start_tick = 0
+duration_ticks = 0
+rehit_interval_ticks = 0
+
+[sub_resource type="Resource" id="Resource_pm60x"]
+script = ExtResource("1_7sdx8")
+id = &"light"
+animation_id = &"staff_strike"
+startup_ticks = 5
+active_ticks = 4
+recovery_ticks = 12
+damage = 5.0
+damage_type = &"melee"
+knockback_angle_deg = 35.0
+knockback_base = 240.0
+knockback_growth = 3.2
+hitstun_ticks = 10
+cooldown_ticks = 0
+movement_policy = 1
+cancel_into = Array[StringName]([&"special_1", &"special_2", &"special_3"])
+cancel_requires_hit = true
+aimable = false
+aim_angle_deg = 0.0
+aim_pivot = Vector2(0, 0)
+hitboxes = Array[ExtResource("2_copt5")]([SubResource("Resource_18vb7")])
+projectiles = Array[ExtResource("3_dwo4f")]([])
+start_effect_id = &"staff_swing"
+active_effect_id = &""
+special_behaviour = &""
+whiff_to_recovery = false
+hold_pulse_damage = 0.0
+hold_pulse_interval_ticks = 12
+hold_max_range = 240.0
+grab_immunity_ticks = 90
+guard_damage_types = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_dg80d"]
+script = ExtResource("2_copt5")
+shape = 0
+kind = 0
+offset = Vector2(30, -86)
+size = Vector2(72, 42)
+radius = 20.0
+start_tick = 0
+duration_ticks = 3
+rehit_interval_ticks = 0
+
+[sub_resource type="Resource" id="Resource_l57d6"]
+script = ExtResource("2_copt5")
+shape = 0
+kind = 0
+offset = Vector2(60, -38)
+size = Vector2(86, 50)
+radius = 20.0
+start_tick = 3
+duration_ticks = 3
+rehit_interval_ticks = 0
+
+[sub_resource type="Resource" id="Resource_c81nt"]
+script = ExtResource("1_7sdx8")
+id = &"heavy"
+animation_id = &"heavy_staff"
+startup_ticks = 16
+active_ticks = 6
+recovery_ticks = 26
+damage = 13.0
+damage_type = &"melee"
+knockback_angle_deg = 40.0
+knockback_base = 420.0
+knockback_growth = 7.0
+hitstun_ticks = 16
+cooldown_ticks = 0
+movement_policy = 2
+cancel_into = Array[StringName]([])
+cancel_requires_hit = true
+aimable = false
+aim_angle_deg = 0.0
+aim_pivot = Vector2(0, 0)
+hitboxes = Array[ExtResource("2_copt5")]([SubResource("Resource_dg80d"), SubResource("Resource_l57d6")])
+projectiles = Array[ExtResource("3_dwo4f")]([])
+start_effect_id = &""
+active_effect_id = &"heavy_staff_swing"
+special_behaviour = &""
+whiff_to_recovery = false
+hold_pulse_damage = 0.0
+hold_pulse_interval_ticks = 12
+hold_max_range = 240.0
+grab_immunity_ticks = 90
+guard_damage_types = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_0cdpa"]
+script = ExtResource("2_copt5")
+shape = 1
+kind = 0
+offset = Vector2(70, -55)
+size = Vector2(40, 30)
+radius = 22.0
+start_tick = 0
+duration_ticks = 0
+rehit_interval_ticks = 0
+
+[sub_resource type="Resource" id="Resource_xndah"]
+script = ExtResource("2_copt5")
+shape = 1
+kind = 0
+offset = Vector2(115, -55)
+size = Vector2(40, 30)
+radius = 22.0
+start_tick = 0
+duration_ticks = 0
+rehit_interval_ticks = 0
+
+[sub_resource type="Resource" id="Resource_ypktj"]
+script = ExtResource("2_copt5")
+shape = 1
+kind = 0
+offset = Vector2(160, -55)
+size = Vector2(40, 30)
+radius = 22.0
+start_tick = 0
+duration_ticks = 0
+rehit_interval_ticks = 0
+
+[sub_resource type="Resource" id="Resource_i1w8j"]
+script = ExtResource("2_copt5")
+shape = 1
+kind = 0
+offset = Vector2(205, -55)
+size = Vector2(40, 30)
+radius = 22.0
+start_tick = 0
+duration_ticks = 0
+rehit_interval_ticks = 0
+
+[sub_resource type="Resource" id="Resource_djrpn"]
+script = ExtResource("1_7sdx8")
+id = &"special_1"
+animation_id = &"lightning"
+startup_ticks = 20
+active_ticks = 8
+recovery_ticks = 24
+damage = 10.0
+damage_type = &"magic"
+knockback_angle_deg = 35.0
+knockback_base = 320.0
+knockback_growth = 4.2
+hitstun_ticks = 18
+cooldown_ticks = 70
+movement_policy = 2
+cancel_into = Array[StringName]([])
+cancel_requires_hit = true
+aimable = true
+aim_angle_deg = 28.0
+aim_pivot = Vector2(0, -55)
+hitboxes = Array[ExtResource("2_copt5")]([SubResource("Resource_0cdpa"), SubResource("Resource_xndah"), SubResource("Resource_ypktj"), SubResource("Resource_i1w8j")])
+projectiles = Array[ExtResource("3_dwo4f")]([])
+start_effect_id = &"lightning_telegraph"
+active_effect_id = &"lightning_bolt"
+special_behaviour = &""
+whiff_to_recovery = false
+hold_pulse_damage = 0.0
+hold_pulse_interval_ticks = 12
+hold_max_range = 240.0
+grab_immunity_ticks = 90
+guard_damage_types = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_67utl"]
+script = ExtResource("3_dwo4f")
+spawn_tick = 0
+offset = Vector2(36, -56)
+velocity = Vector2(540, 0)
+lifetime_ticks = 75
+radius = 14.0
+
+[sub_resource type="Resource" id="Resource_0dna0"]
+script = ExtResource("1_7sdx8")
+id = &"special_2"
+animation_id = &"fireball"
+startup_ticks = 14
+active_ticks = 2
+recovery_ticks = 20
+damage = 8.0
+damage_type = &"projectile"
+knockback_angle_deg = 30.0
+knockback_base = 260.0
+knockback_growth = 3.6
+hitstun_ticks = 14
+cooldown_ticks = 80
+movement_policy = 1
+cancel_into = Array[StringName]([])
+cancel_requires_hit = true
+aimable = false
+aim_angle_deg = 0.0
+aim_pivot = Vector2(0, 0)
+hitboxes = Array[ExtResource("2_copt5")]([])
+projectiles = Array[ExtResource("3_dwo4f")]([SubResource("Resource_67utl")])
+start_effect_id = &""
+active_effect_id = &"fireball_cast"
+special_behaviour = &""
+whiff_to_recovery = false
+hold_pulse_damage = 0.0
+hold_pulse_interval_ticks = 12
+hold_max_range = 240.0
+grab_immunity_ticks = 90
+guard_damage_types = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_wldel"]
+script = ExtResource("2_copt5")
+shape = 1
+kind = 0
+offset = Vector2(40, -46)
+size = Vector2(40, 30)
+radius = 44.0
+start_tick = 0
+duration_ticks = 0
+rehit_interval_ticks = 0
+
+[sub_resource type="Resource" id="Resource_jln0h"]
+script = ExtResource("1_7sdx8")
+id = &"special_3"
+animation_id = &"magic_push"
+startup_ticks = 9
+active_ticks = 5
+recovery_ticks = 22
+damage = 4.0
+damage_type = &"magic"
+knockback_angle_deg = 32.0
+knockback_base = 480.0
+knockback_growth = 5.4
+hitstun_ticks = 14
+cooldown_ticks = 50
+movement_policy = 2
+cancel_into = Array[StringName]([])
+cancel_requires_hit = true
+aimable = false
+aim_angle_deg = 0.0
+aim_pivot = Vector2(0, 0)
+hitboxes = Array[ExtResource("2_copt5")]([SubResource("Resource_wldel")])
+projectiles = Array[ExtResource("3_dwo4f")]([])
+start_effect_id = &""
+active_effect_id = &"magic_push"
+special_behaviour = &""
+whiff_to_recovery = false
+hold_pulse_damage = 0.0
+hold_pulse_interval_ticks = 12
+hold_max_range = 240.0
+grab_immunity_ticks = 90
+guard_damage_types = Array[StringName]([])
+
+[resource]
+script = ExtResource("4_pwvvw")
+id = &"gandalf"
+display_name = "Gandalf"
+hud_color = Color(0.55, 0.8, 1, 1)
+hurtbox = Rect2(-17, -90, 34, 90)
+body_radius = 17.0
+body_height = 76.0
+weight = 0.95
+max_speed = 340.0
+ground_accel = 2600.0
+ground_decel = 3000.0
+air_accel = 1500.0
+air_decel = 500.0
+gravity = 1700.0
+max_fall_speed = 900.0
+fast_fall_speed = 1350.0
+jump_velocity = 730.0
+double_jump_velocity = 660.0
+jump_release_velocity = 260.0
+air_jumps = 1
+moves = Array[ExtResource("1_7sdx8")]([SubResource("Resource_pm60x"), SubResource("Resource_c81nt"), SubResource("Resource_djrpn"), SubResource("Resource_0dna0"), SubResource("Resource_jln0h")])
