@@ -16,9 +16,9 @@ This work is isolated on `codex/integration`. Neither working branch nor main is
 
 ## Verification
 
-Claude reports 61 original tests passing on Godot4.3 and4.5 before these changes. Those results are NOT evidence that this integration passes.
+The combined runtime at `74b041750b8b29262c5279e24b2b508a74abfc02` passes all 67 tests on Godot 4.3 and 4.5: [GitHub Actions run 41171789661](https://github.com/AndrewRhein/Smash/actions/runs/41171789661). This includes Claude's 61 original tests and six presentation integration tests.
 
-Six new tests cover resource isolation, attachment/rematch, contact-frame timing, hitstop/flashing/victory, effect-ID coverage and effect cleanup. A two-version GitHub Actions workflow imports the combined project and runs the original tests plus the new tests. Consult its actual result; no passing status is claimed before execution.
+Six new tests cover resource isolation, attachment/rematch, contact-frame timing, hitstop/flashing/victory, effect-ID coverage and effect cleanup. A two-version GitHub Actions workflow imports the combined project and runs the original tests plus the new tests. The first run exposed stale effects on zero-countdown rematches; cleanup now also runs when the first new fighter is spawned, and the regression test passes.
 
 Local Python sprite structural checks pass. No local Godot executable is available. The original human-play/controller/Windows limitations still apply.
 

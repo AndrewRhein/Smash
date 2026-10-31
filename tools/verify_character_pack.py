@@ -46,8 +46,8 @@ def verify():
     report = {'structural_pass':True,'gandalf_animations':len(EXPECTED),'playback_frames':checked,
               'unique_source_poses':sum(a.get('unique_source_poses',a['frame_count']) for a in data['animations'].values()),
               'gandalf_png_bytes':sum(p.stat().st_size for p in base.glob('*.png')),
-              'vader_art':'missing; generation blocked','engine_parse':'not run; Godot unavailable',
-              'live_playback':'not run','gameplay_integration':'pending Claude gameplay branch'}
+              'vader_art':'missing; generation blocked','engine_parse':'not checked by this structural script; see GitHub Actions',
+              'live_playback':'not checked by this structural script','gameplay_integration':'wired on codex/integration; see integration tests'}
     (ROOT/'docs/art_validation.json').write_text(json.dumps(report,indent=2)+'\n')
     print(json.dumps(report,indent=2))
 

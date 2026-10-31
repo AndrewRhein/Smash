@@ -1,6 +1,6 @@
 # Realms Rumble: Godot 4 local platform fighter
 
-A local two-player platform fighter: Gandalf vs. Darth Vader. This branch provides the gameplay foundation (movement, combat, movesets, match flow, input and tests) with **honest placeholder graphics**. Final pixel art and presentation will plug into the documented presentation contract.
+A local two-player platform fighter: Gandalf vs. Darth Vader. This integration branch combines Claude's gameplay foundation with Gandalf's 14-animation pixel-art review pack and presentation effects. Vader, the arena and HUD retain temporary graphics. The final art milestone remains incomplete.
 
 ## Install and run
 
@@ -42,7 +42,7 @@ Controllers are assigned by connection order: the first pad is Player 1 and the 
 
 ```bash
 godot --headless --path . --import                         # once, builds the class cache
-godot --headless --path . -s res://tests/run_tests.gd      # 61 behaviour + smoke tests, exit code 0 on success
+godot --headless --path . -s res://tests/run_tests.gd      # 67 gameplay, presentation + smoke tests, exit code 0 on success
 godot --headless --path . -s res://tests/ko_report.gd      # tuning table: KO % per move
 ```
 
@@ -54,7 +54,7 @@ Results, the versions tested and manual-coverage limits are in [`docs/TEST_REPOR
 * `scripts/gameplay/`: match controller, stage, projectiles, combat math, debug overlay
 * `scripts/data/`, `data/characters/*.tres`: typed movesets; `game_ids.gd` is the ID registry
 * `scripts/input/`: InputMap setup and the per-player input adapter
-* `scripts/presentation/`: **temporary placeholder** art, VFX, HUD and arena
+* `scripts/presentation/`: sprite adapters and effects, plus temporary Vader, HUD and arena renderers
 * `tests/`: headless test runner and tools
 
 Documentation:
@@ -65,4 +65,4 @@ Documentation:
 
 ## Status
 
-Playable Gandalf-vs-Vader match with placeholder vector graphics (labelled "PLACEHOLDER ART"). **The visual asset milestone is not done:** there are no finished sprite animations yet. Not yet tested by humans or on Windows or controller hardware; see the test report.
+Gandalf has 14 integrated animations (70 playback frames); Vader still uses the temporary renderer because image generation was rejected without a specific cause. **The visual asset milestone is not done.** The combined runtime passes 67 headless tests on Godot 4.3 and 4.5. Not yet tested by humans or on Windows or controller hardware. See [integration status](docs/INTEGRATION_STATUS.md) for exact validation and limitations.
