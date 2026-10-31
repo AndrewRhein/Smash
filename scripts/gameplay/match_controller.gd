@@ -144,7 +144,7 @@ func _resolve_hits() -> void:
 					continue
 				if is_grab and (victim.grab_immunity_remaining > 0 or attacker.held_target != null):
 					continue
-				if not attacker.can_hit(victim, data, tick):
+				if not attacker.can_hit(victim, data):
 					continue
 				if not CombatMath.shape_overlaps_rect(hb, victim.get_hurtbox_world()):
 					continue
@@ -180,7 +180,7 @@ func _resolve_hits() -> void:
 			if c.projectile != null:
 				_despawn_projectile(c.projectile)
 			else:
-				c.attacker.register_hit(victim, tick)
+				c.attacker.register_hit(victim)
 		chosen.append(list[0])
 	# Strikes resolve before grabs, so a grab never beats a simultaneous strike.
 	for c in chosen:

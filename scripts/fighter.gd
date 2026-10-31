@@ -76,7 +76,7 @@ var move_tick: int = -1
 var attack_instance: int = 0
 var move_connected: bool = false
 var aim_angle_deg: float = 0.0
-var hit_registry: Dictionary = {}       # victim instance id -> match tick of last hit
+var hit_registry: Dictionary = {}       # victim instance id -> move_tick of last hit
 var cooldowns: Dictionary = {}          # move id -> ticks remaining
 
 # Timers (ticks)
@@ -453,15 +453,18 @@ func get_hurtbox_world() -> Rect2:
 	return CombatMath.mirrored_rect(character.hurtbox, facing, global_position)
 
 
-func can_hit(victim: Fighter, hb: HitboxData, match_tick: int) -> bool:
+## Hit-once bookkeeping per attack instance. Multi-hit intervals are measured
+## in this fighter's move ticks, which pause during hitstop, so hitstop can
+## never produce extra hits.
+func can_hit(victim: Fighter, hb: HitboxData) -> bool:
 	var key := victim.get_instance_id()
 	if not hit_registry.has(key):
 		return true
-	return hb.rehit_interval_ticks > 0 and match_tick - int(hit_registry[key]) >= hb.rehit_interval_ticks
+	return hb.rehit_interval_ticks > 0 and move_tick - int(hit_registry[key]) >= hb.rehit_interval_ticks
 
 
-func register_hit(victim: Fighter, match_tick: int) -> void:
-	hit_registry[victim.get_instance_id()] = match_tick
+func register_hit(victim: Fighter) -> void:
+	hit_registry[victim.get_instance_id()] = move_tick
 
 
 func is_in_play() -> bool:

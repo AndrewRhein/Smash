@@ -245,3 +245,28 @@ func test_simultaneous_trade_is_symmetric() -> void:
 	assert_eq(g.state, Fighter.State.HITSTUN, "Gandalf in hitstun")
 	assert_eq(v.state, Fighter.State.HITSTUN, "Vader in hitstun")
 	assert_eq(g.hitstop_remaining, v.hitstop_remaining, "trade hitstop is symmetric")
+
+
+func test_multi_hit_hitbox_rehits_on_interval_only() -> void:
+	var m: MatchController = await make_match()
+	face_off(m)
+	var g := m.get_fighter(1)
+	var v := m.get_fighter(2)
+	# Author a multi-hit variant of the heavy: one hitbox over all 6 active
+	# ticks that may re-hit every 2 of the attacker's move ticks.
+	var data := _clone_character(g.character)
+	var heavy := data.get_move(&"heavy")
+	heavy.hitboxes = [heavy.hitboxes[1]]
+	heavy.hitboxes[0].start_tick = 0
+	heavy.hitboxes[0].duration_ticks = 0
+	heavy.hitboxes[0].rehit_interval_ticks = 2
+	assert_true(data.validate().is_empty(), "multi-hit variant is valid data")
+	g.character = data
+	p(m, 1).tap(&"heavy")
+	for i in 90:
+		v.position = Vector2(660, GROUND_Y)
+		v.velocity = Vector2.ZERO
+		step(m)
+	# Active move ticks 16..21 -> hits on 16, 18, 20 even though hitstop froze
+	# the attacker between them for many match ticks.
+	assert_eq(v.damage, heavy.damage * 3.0, "three hits at a 2-tick interval")

@@ -238,3 +238,21 @@ func test_lightning_telegraph_and_aim() -> void:
 	assert_true(boxes[-1].center.x > g.position.x, "still forward")
 	assert_eq(effects[-1][0], &"lightning_bolt", "bolt effect on the first active tick")
 	assert_true(effects[-1][1].y < 0.0, "effect direction aimed up")
+
+
+func test_force_push_is_directional() -> void:
+	var m: MatchController = await make_match()
+	var v := m.get_fighter(2)
+	place(m.get_fighter(1), 200, 1)
+	place(v, 760, -1)
+	step(m, 2)
+	var push := v.character.get_move(&"special_1")
+	p(m, 2).set_held(&"up", true)
+	p(m, 2).tap(&"special_1")
+	step(m)
+	p(m, 2).set_held(&"up", false)
+	assert_eq(v.aim_angle_deg, push.aim_angle_deg, "push aimed up")
+	step(m, push.startup_ticks)
+	var far: Dictionary = v.get_active_hitboxes()[-1]
+	assert_true(far.center.x < v.position.x, "push goes in facing direction (left)")
+	assert_true(far.center.y < v.position.y - 48.0 - 30.0, "aimed push rises")

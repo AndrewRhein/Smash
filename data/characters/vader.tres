@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CharacterData" load_steps=14 format=3]
+[gd_resource type="Resource" script_class="CharacterData" load_steps=16 format=3]
 
 [ext_resource type="Script" path="res://scripts/data/move_data.gd" id="1_mfuj1"]
 [ext_resource type="Script" path="res://scripts/data/hitbox_data.gd" id="2_55pg5"]
@@ -91,13 +91,35 @@ hold_max_range = 240.0
 grab_immunity_ticks = 90
 guard_damage_types = Array[StringName]([])
 
-[sub_resource type="Resource" id="Resource_trkkk"]
+[sub_resource type="Resource" id="Resource_pcjwg"]
 script = ExtResource("2_55pg5")
-shape = 0
+shape = 1
 kind = 0
-offset = Vector2(95, -48)
-size = Vector2(150, 72)
-radius = 20.0
+offset = Vector2(50, -48)
+size = Vector2(40, 30)
+radius = 38.0
+start_tick = 0
+duration_ticks = 0
+rehit_interval_ticks = 0
+
+[sub_resource type="Resource" id="Resource_16ukc"]
+script = ExtResource("2_55pg5")
+shape = 1
+kind = 0
+offset = Vector2(105, -48)
+size = Vector2(40, 30)
+radius = 38.0
+start_tick = 0
+duration_ticks = 0
+rehit_interval_ticks = 0
+
+[sub_resource type="Resource" id="Resource_ifkwb"]
+script = ExtResource("2_55pg5")
+shape = 1
+kind = 0
+offset = Vector2(152, -48)
+size = Vector2(40, 30)
+radius = 30.0
 start_tick = 0
 duration_ticks = 0
 rehit_interval_ticks = 0
@@ -119,10 +141,10 @@ cooldown_ticks = 60
 movement_policy = 2
 cancel_into = Array[StringName]([])
 cancel_requires_hit = true
-aimable = false
-aim_angle_deg = 0.0
-aim_pivot = Vector2(0, 0)
-hitboxes = Array[ExtResource("2_55pg5")]([SubResource("Resource_trkkk")])
+aimable = true
+aim_angle_deg = 25.0
+aim_pivot = Vector2(0, -48)
+hitboxes = Array[ExtResource("2_55pg5")]([SubResource("Resource_pcjwg"), SubResource("Resource_16ukc"), SubResource("Resource_ifkwb")])
 projectiles = Array[ExtResource("3_xatp1")]([])
 start_effect_id = &""
 active_effect_id = &"force_push"

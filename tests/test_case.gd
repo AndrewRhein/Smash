@@ -66,6 +66,31 @@ func cleanup() -> void:
 	_nodes.clear()
 
 
+## Explicit deep copy: Resource.duplicate(true) in Godot 4.3 does not copy
+## resources nested in typed arrays, which would mutate the shared .tres data.
+func _clone_move(source: MoveData) -> MoveData:
+	var copy: MoveData = source.duplicate()
+	var boxes: Array[HitboxData] = []
+	for hb in source.hitboxes:
+		boxes.append(hb.duplicate())
+	copy.hitboxes = boxes
+	var projs: Array[ProjectileData] = []
+	for pd in source.projectiles:
+		projs.append(pd.duplicate())
+	copy.projectiles = projs
+	copy.cancel_into = source.cancel_into.duplicate()
+	return copy
+
+
+func _clone_character(source: CharacterData) -> CharacterData:
+	var copy: CharacterData = source.duplicate()
+	var moves: Array[MoveData] = []
+	for mv in source.moves:
+		moves.append(_clone_move(mv))
+	copy.moves = moves
+	return copy
+
+
 # --- Assertions -----------------------------------------------------------------
 func assert_true(cond: bool, msg: String) -> void:
 	if not cond:
