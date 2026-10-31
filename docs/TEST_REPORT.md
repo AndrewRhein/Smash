@@ -1,5 +1,19 @@
 # Realms Rumble: gameplay test report
 
+## Presentation revision (2026-10-31)
+
+This revision also supplies the Twilight Citadel arena, textured platforms, HUD and VFX pass. See [CITADEL_PRESENTATION.md](CITADEL_PRESENTATION.md) for scope and rendered capture coverage. Final import was repeated with Windows file access allowed and completed without errors or warnings; a restricted repeat had also produced a safe-save error before that final run.
+
+Based on main `333204e`: the existing suite has 77 tests, not 61. The historical results below describe the original gameplay milestone and are retained as such.
+
+On Windows, Godot **4.7.2.stable.official.ed1daf0bf**: import completed cleanly with an isolated APPDATA folder; the full suite with two new presentation regressions reports **79 passed, 0 failed**, exit code 0. The expected unknown-placeholder-animation warning is intentional. An initial import could not write the normal editor profile; rerunning with the isolated profile resolved those errors.
+
+Actual OpenGL Compatibility captures were rendered at heavy ticks 16, 19 and 35, facing both directions, using `tools/capture_presentation_alignment.gd`. Inspection confirms the high-forward pose in the first hitbox window and the extended low pose in the second. This is a discrete frame review, not human playtesting. Recovery grip continuity remains a known polish issue. Godot 4.3/4.5 validation is delegated to the existing PR CI matrix; local tests used 4.7.2 only.
+
+All 15 existing PNG import sidecars were already tracked on the baseline. The new source image also has its import sidecar. Newer-engine rewrites of the existing imports are excluded from this change.
+
+## Historical gameplay milestone
+
 Branch `claude/gameplay-core`, based on `main` @ `7a42a2e`. Environment: Linux x86_64 cloud container with no GPU, no audio device and no physical controllers.
 
 ## Engine versions

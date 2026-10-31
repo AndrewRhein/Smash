@@ -1,5 +1,13 @@
 # Character art integration contract
 
+## Heavy staff revision (2026-10-31)
+
+`gandalf_heavy_v03.png` is the new immutable imagegen source. Repack with `godot --headless --path . -s res://tools/pack_heavy_revision.gd`; run this **after** `build_character_pack.py` when rebuilding all original sources, since that older builder still produces v02. The new packer updates only heavy_staff and its manifest record. The six 256x256 cells keep the (128,208) pivot, nearest filtering and binary alpha; this revision uses RGBA instead of the original indexed palette.
+
+Frame 2 now shows high-forward contact (ticks 16–18); frame 3 extends the low sweep to roughly x+103 (ticks 19–21). Timing, hitboxes and all combat data are unchanged. Recovery still changes grip between frames 4 and 5; that minor polish item remains open. The adapter now resolves move timing from snapshot `current_move_id` and `CharacterData.get_move()`.
+
+`fireball_cast` uses a five-tick radial warm flash, separate from the traveling projectile. Lightning measures 197 pixels from the hand at x+30, placing its centerline endpoint at x+227. Captures and verification details are in TEST_REPORT.md.
+
 **Combined wiring now lives on codex/integration; see INTEGRATION_STATUS.md.** The manual attachment notes below describe the standalone visual pack. The combined adapter now auto-binds, uses animation_tick, handles invulnerability and aligns contact poses with move phases. Its integrated effects layer maps Claude's full effect registry.
 
 Work lives on `codex/visuals`. No gameplay files were edited for this visual milestone.

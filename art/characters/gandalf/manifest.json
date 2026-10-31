@@ -477,92 +477,96 @@
     "heavy_staff": {
       "fps": 12,
       "loop": false,
-      "source": "gandalf_heavy_v02.png",
+      "source": "gandalf_heavy_v03.png",
       "frames": [
         {
           "source_box": [
-            43,
-            19,
-            373,
-            616
+            0,
+            210,
+            350,
+            550
           ],
           "source_pivot": [
-            240,
-            616
+            165,
+            544
           ],
-          "scale": 0.22764227642276422
+          "scale": 0.44
         },
         {
           "source_box": [
-            418,
-            45,
-            785,
-            616
+            350,
+            210,
+            710,
+            550
           ],
           "source_pivot": [
-            650,
-            616
+            536,
+            544
           ],
-          "scale": 0.22764227642276422
+          "scale": 0.44
         },
         {
           "source_box": [
-            836,
-            190,
-            1237,
-            616
+            710,
+            210,
+            1120,
+            550
           ],
           "source_pivot": [
-            1040,
-            616
+            868,
+            544
           ],
-          "scale": 0.22764227642276422
+          "scale": 0.44
         },
         {
           "source_box": [
-            43,
-            800,
-            461,
-            1182
+            1120,
+            210,
+            1560,
+            550
           ],
           "source_pivot": [
-            230,
-            1182
+            1308,
+            544
           ],
-          "scale": 0.22764227642276422
+          "scale": 0.44
         },
         {
           "source_box": [
-            477,
-            705,
-            809,
-            1182
+            1560,
+            210,
+            1850,
+            550
           ],
           "source_pivot": [
-            655,
-            1182
+            1660,
+            544
           ],
-          "scale": 0.22764227642276422
+          "scale": 0.44
         },
         {
           "source_box": [
-            909,
-            690,
-            1193,
-            1182
+            1850,
+            210,
+            2172,
+            550
           ],
           "source_pivot": [
-            1080,
-            1182
+            2010,
+            544
           ],
-          "scale": 0.22764227642276422
+          "scale": 0.44
         }
       ],
       "status": "review_candidate",
-      "known_issues": [],
+      "known_issues": [
+        "Recovery still changes grip between the last two poses; temporal polish pending."
+      ],
       "texture": "heavy_staff.png",
       "frame_count": 6,
-      "sha256": "5d2e15920fc9adf4b5909cb4e93feea7ff6c04e15ed988c8f8d21e4de46d5d31"
+      "sha256": "0bee09405fef8b143335980bf08be63a0ab164110d5ac76e006b719240322d5b",
+      "packing_tool": "tools/pack_heavy_revision.gd",
+      "palette_colors": "RGBA revision; binary alpha"
     },
     "lightning": {
       "fps": 12,

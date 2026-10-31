@@ -1,5 +1,7 @@
 # Generated source artwork
 
+2026-10-31 revision: `gandalf_heavy_v03.png` was produced with the built-in imagegen edit tool using the shipped `heavy_staff.png` as its sole reference. The generated 2172x724 image is retained unchanged. `tools/pack_heavy_revision.gd` records extraction boxes, measured feet pivots, nearest-neighbor scale and binary alpha threshold. The final prompt is recorded in `gandalf_heavy_v03_prompt.txt`. No external API was used. The generated sheet did not preserve requested cell dimensions, so packing is explicit rather than trusting its layout.
+
 All character sources were produced using the built-in image-generation tool in this conversation, with the original Gandalf idle sheet as the identity/style reference. No external API or paid service was invoked.
 
 - gandalf_idle_v01.png: eight subtle idle poses, grey hat/robe/beard, staff, right-facing, 4 columns by2 rows.

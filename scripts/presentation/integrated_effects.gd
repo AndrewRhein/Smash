@@ -5,7 +5,7 @@ const MAP := {
     &"hit_spark": &"hit", &"guard_block": &"force_guard", &"blast_ko": &"burst",
     &"respawn": &"respawn", &"double_jump": &"jump_ring", &"projectile_fizzle": &"fizzle",
     &"choke_release": &"hit", &"staff_swing": &"staff_strike", &"heavy_staff_swing": &"heavy_staff",
-    &"lightning_telegraph": &"charge", &"lightning_bolt": &"lightning", &"fireball_cast": &"fireball",
+    &"lightning_telegraph": &"charge", &"lightning_bolt": &"lightning", &"fireball_cast": &"cast_flash",
     &"magic_push": &"magic_push", &"saber_swing": &"saber_slash", &"heavy_saber_swing": &"heavy_saber",
     &"force_push": &"force_push", &"force_choke": &"force_choke", &"force_guard": &"force_guard",
 }
@@ -41,8 +41,11 @@ func _on_effect_requested(id: StringName, at: Vector2, direction: Vector2, paylo
     if payload.has("duration_ticks"):
         settings.duration = maxf(0.05, float(payload.duration_ticks) / 60.0)
     if id == &"lightning_bolt":
-        settings.length = 225.0
+        # The effect starts at hand x+30; the hitbox ends at x+227.
+        settings.length = 197.0
         settings.duration = 8.0 / 60.0
+    elif id == &"fireball_cast":
+        settings.duration = 5.0 / 60.0
     elif id == &"blast_ko":
         settings.duration = 0.7
     var owner_id := int(payload.get("player_id", 1))

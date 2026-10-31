@@ -73,6 +73,38 @@ func test_art_effect_registry_covers_every_gameplay_id() -> void:
     for id in GameIds.EFFECT_IDS:
         assert_true(Effects.MAP.has(id), "mapping exists for %s" % id)
 
+func test_heavy_contact_poses_follow_both_hitbox_windows() -> void:
+    var m: MatchController = await _art_match()
+    face_off(m, 400)
+    var g := m.get_fighter(1)
+    p(m, 1).tap(&"heavy")
+    for i in range(49):
+        step(m)
+        g.visual_root._process(0.0)
+        var snap := g.get_presentation_snapshot()
+        if snap.current_move_id != &"heavy":
+            continue
+        var tick: int = snap.move_tick
+        if tick >= 16 and tick <= 21:
+            assert_eq(g.visual_root.sprite.frame, 2 if tick < 19 else 3, "high contact precedes extended low contact")
+            assert_eq(g.get_active_hitboxes().size(), 1, "contact pose has an authoritative hitbox")
+
+func test_cast_flash_and_lightning_extent() -> void:
+    var m: MatchController = await _art_match()
+    var effects = Effects.new()
+    tree.root.add_child(effects)
+    _nodes.append(effects)
+    effects.bind(m)
+    effects._on_effect_requested(&"fireball_cast", Vector2.ZERO, Vector2.RIGHT, {"player_id": 1})
+    var flash = effects._active_visuals[-1].node
+    assert_eq(flash.effect_id, &"cast_flash", "cast is distinct from projectile art")
+    assert_near(flash.duration, 5.0 / 60.0, 0.001, "cast flash lasts five ticks")
+    for direction in [Vector2.RIGHT, Vector2.LEFT, Vector2.RIGHT.rotated(deg_to_rad(-28.0))]:
+        effects._on_effect_requested(&"lightning_bolt", Vector2(30, -55), direction, {"player_id": 1})
+        var bolt = effects._active_visuals[-1].node
+        assert_near(bolt.length, 197.0, 0.001, "bolt reach measured from hand")
+        assert_near(bolt.rotation, direction.angle(), 0.001, "bolt respects facing and aim")
+
 func test_art_effects_clear_on_rematch() -> void:
     var m: MatchController = await _art_match()
     var effects = Effects.new()
