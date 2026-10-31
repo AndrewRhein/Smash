@@ -1,0 +1,2748 @@
+{
+  "animations": {
+    "defeat": [
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44
+    ],
+    "energy_shield": [
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76
+    ],
+    "entrance": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "fall": [
+      80,
+      81,
+      82,
+      83
+    ],
+    "hurt": [
+      77,
+      78,
+      79
+    ],
+    "idle": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "ion_jab": [
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      103
+    ],
+    "jump": [
+      61,
+      62,
+      63,
+      64
+    ],
+    "knockback": [
+      65,
+      66,
+      67,
+      68
+    ],
+    "land": [
+      92,
+      93,
+      94,
+      95
+    ],
+    "orbital_tractor": [
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60
+    ],
+    "rocket_hammer": [
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91
+    ],
+    "run": [
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52
+    ],
+    "thruster_burst": [
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36
+    ],
+    "victory": [
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28
+    ],
+    "walk": [
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ]
+  },
+  "atlas_sha256": "c42a8a286d6260ee6c532909040122a22e6160fa680ef7be88b347e61822f850",
+  "frames": [
+    {
+      "animation": "idle",
+      "bounds": [
+        154,
+        34,
+        259,
+        498
+      ],
+      "offset": [
+        98,
+        96
+      ],
+      "pivot": [
+        133.0,
+        498.0
+      ],
+      "scale": 0.224,
+      "sha256": "85f81f429f1241a54dd36f9f3bfa3a0c92391e48d93da4268a09aaf8a3a34afa",
+      "size": [
+        58,
+        112
+      ],
+      "source": "sources/idle.png",
+      "source_frame": 0
+    },
+    {
+      "animation": "idle",
+      "bounds": [
+        653,
+        28,
+        257,
+        504
+      ],
+      "offset": [
+        99,
+        95
+      ],
+      "pivot": [
+        129.0,
+        504.0
+      ],
+      "scale": 0.224,
+      "sha256": "85f81f429f1241a54dd36f9f3bfa3a0c92391e48d93da4268a09aaf8a3a34afa",
+      "size": [
+        58,
+        113
+      ],
+      "source": "sources/idle.png",
+      "source_frame": 1
+    },
+    {
+      "animation": "idle",
+      "bounds": [
+        1141,
+        38,
+        295,
+        494
+      ],
+      "offset": [
+        95,
+        97
+      ],
+      "pivot": [
+        147.0,
+        494.0
+      ],
+      "scale": 0.224,
+      "sha256": "85f81f429f1241a54dd36f9f3bfa3a0c92391e48d93da4268a09aaf8a3a34afa",
+      "size": [
+        66,
+        111
+      ],
+      "source": "sources/idle.png",
+      "source_frame": 2
+    },
+    {
+      "animation": "idle",
+      "bounds": [
+        145,
+        552,
+        292,
+        457
+      ],
+      "offset": [
+        94,
+        106
+      ],
+      "pivot": [
+        150.0,
+        457.0
+      ],
+      "scale": 0.224,
+      "sha256": "85f81f429f1241a54dd36f9f3bfa3a0c92391e48d93da4268a09aaf8a3a34afa",
+      "size": [
+        65,
+        102
+      ],
+      "source": "sources/idle.png",
+      "source_frame": 3
+    },
+    {
+      "animation": "idle",
+      "bounds": [
+        655,
+        540,
+        273,
+        469
+      ],
+      "offset": [
+        97,
+        103
+      ],
+      "pivot": [
+        139.0,
+        469.0
+      ],
+      "scale": 0.224,
+      "sha256": "85f81f429f1241a54dd36f9f3bfa3a0c92391e48d93da4268a09aaf8a3a34afa",
+      "size": [
+        61,
+        105
+      ],
+      "source": "sources/idle.png",
+      "source_frame": 4
+    },
+    {
+      "animation": "idle",
+      "bounds": [
+        1162,
+        551,
+        259,
+        458
+      ],
+      "offset": [
+        98,
+        105
+      ],
+      "pivot": [
+        134.0,
+        458.0
+      ],
+      "scale": 0.224,
+      "sha256": "85f81f429f1241a54dd36f9f3bfa3a0c92391e48d93da4268a09aaf8a3a34afa",
+      "size": [
+        58,
+        103
+      ],
+      "source": "sources/idle.png",
+      "source_frame": 5
+    },
+    {
+      "animation": "entrance",
+      "bounds": [
+        112,
+        15,
+        262,
+        427
+      ],
+      "offset": [
+        96,
+        94
+      ],
+      "pivot": [
+        120.0,
+        427.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "0a8b9b97eca7f0bb45a12dcfd929b13a6b3173105134013c5c4fac41f38e931c",
+      "size": [
+        70,
+        114
+      ],
+      "source": "sources/entrance.png",
+      "source_frame": 0
+    },
+    {
+      "animation": "entrance",
+      "bounds": [
+        563,
+        28,
+        241,
+        415
+      ],
+      "offset": [
+        99,
+        97
+      ],
+      "pivot": [
+        110.0,
+        415.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "0a8b9b97eca7f0bb45a12dcfd929b13a6b3173105134013c5c4fac41f38e931c",
+      "size": [
+        64,
+        111
+      ],
+      "source": "sources/entrance.png",
+      "source_frame": 1
+    },
+    {
+      "animation": "entrance",
+      "bounds": [
+        993,
+        26,
+        241,
+        417
+      ],
+      "offset": [
+        97,
+        97
+      ],
+      "pivot": [
+        116.0,
+        417.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "0a8b9b97eca7f0bb45a12dcfd929b13a6b3173105134013c5c4fac41f38e931c",
+      "size": [
+        64,
+        111
+      ],
+      "source": "sources/entrance.png",
+      "source_frame": 2
+    },
+    {
+      "animation": "entrance",
+      "bounds": [
+        1438,
+        27,
+        238,
+        416
+      ],
+      "offset": [
+        97,
+        97
+      ],
+      "pivot": [
+        116.0,
+        416.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "0a8b9b97eca7f0bb45a12dcfd929b13a6b3173105134013c5c4fac41f38e931c",
+      "size": [
+        63,
+        111
+      ],
+      "source": "sources/entrance.png",
+      "source_frame": 3
+    },
+    {
+      "animation": "entrance",
+      "bounds": [
+        103,
+        465,
+        269,
+        408
+      ],
+      "offset": [
+        93,
+        99
+      ],
+      "pivot": [
+        133.0,
+        408.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "0a8b9b97eca7f0bb45a12dcfd929b13a6b3173105134013c5c4fac41f38e931c",
+      "size": [
+        72,
+        109
+      ],
+      "source": "sources/entrance.png",
+      "source_frame": 4
+    },
+    {
+      "animation": "entrance",
+      "bounds": [
+        522,
+        467,
+        301,
+        406
+      ],
+      "offset": [
+        88,
+        100
+      ],
+      "pivot": [
+        150.0,
+        406.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "0a8b9b97eca7f0bb45a12dcfd929b13a6b3173105134013c5c4fac41f38e931c",
+      "size": [
+        80,
+        108
+      ],
+      "source": "sources/entrance.png",
+      "source_frame": 5
+    },
+    {
+      "animation": "entrance",
+      "bounds": [
+        945,
+        467,
+        325,
+        406
+      ],
+      "offset": [
+        85,
+        100
+      ],
+      "pivot": [
+        162.0,
+        406.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "0a8b9b97eca7f0bb45a12dcfd929b13a6b3173105134013c5c4fac41f38e931c",
+      "size": [
+        87,
+        108
+      ],
+      "source": "sources/entrance.png",
+      "source_frame": 6
+    },
+    {
+      "animation": "entrance",
+      "bounds": [
+        1394,
+        467,
+        314,
+        405
+      ],
+      "offset": [
+        86,
+        100
+      ],
+      "pivot": [
+        157.0,
+        405.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "0a8b9b97eca7f0bb45a12dcfd929b13a6b3173105134013c5c4fac41f38e931c",
+      "size": [
+        84,
+        108
+      ],
+      "source": "sources/entrance.png",
+      "source_frame": 7
+    },
+    {
+      "animation": "walk",
+      "bounds": [
+        131,
+        17,
+        181,
+        420
+      ],
+      "offset": [
+        103,
+        96
+      ],
+      "pivot": [
+        93.0,
+        420.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "92c2d60e7b864a5c021186fa68b04be11b059ed2852bc96bb51dd7e96dea0d24",
+      "size": [
+        48,
+        112
+      ],
+      "source": "sources/walk.png",
+      "source_frame": 0.0
+    },
+    {
+      "animation": "walk",
+      "bounds": [
+        561,
+        16,
+        232,
+        421
+      ],
+      "offset": [
+        113,
+        96
+      ],
+      "pivot": [
+        56.0,
+        421.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "92c2d60e7b864a5c021186fa68b04be11b059ed2852bc96bb51dd7e96dea0d24",
+      "size": [
+        62,
+        112
+      ],
+      "source": "sources/walk.png",
+      "source_frame": 1.0
+    },
+    {
+      "animation": "walk",
+      "bounds": [
+        956,
+        22,
+        304,
+        416
+      ],
+      "offset": [
+        89,
+        97
+      ],
+      "pivot": [
+        147.0,
+        416.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "92c2d60e7b864a5c021186fa68b04be11b059ed2852bc96bb51dd7e96dea0d24",
+      "size": [
+        81,
+        111
+      ],
+      "source": "sources/walk.png",
+      "source_frame": 2.0
+    },
+    {
+      "animation": "walk",
+      "bounds": [
+        1454,
+        19,
+        178,
+        418
+      ],
+      "offset": [
+        97,
+        97
+      ],
+      "pivot": [
+        115.0,
+        418.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "92c2d60e7b864a5c021186fa68b04be11b059ed2852bc96bb51dd7e96dea0d24",
+      "size": [
+        47,
+        111
+      ],
+      "source": "sources/walk.png",
+      "source_frame": 3.0
+    },
+    {
+      "animation": "walk",
+      "bounds": [
+        83,
+        464,
+        262,
+        412
+      ],
+      "offset": [
+        112,
+        98
+      ],
+      "pivot": [
+        61.0,
+        412.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "92c2d60e7b864a5c021186fa68b04be11b059ed2852bc96bb51dd7e96dea0d24",
+      "size": [
+        70,
+        110
+      ],
+      "source": "sources/walk.png",
+      "source_frame": 4.0
+    },
+    {
+      "animation": "walk",
+      "bounds": [
+        518,
+        463,
+        316,
+        412
+      ],
+      "offset": [
+        92,
+        98
+      ],
+      "pivot": [
+        134.0,
+        412.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "92c2d60e7b864a5c021186fa68b04be11b059ed2852bc96bb51dd7e96dea0d24",
+      "size": [
+        84,
+        110
+      ],
+      "source": "sources/walk.png",
+      "source_frame": 5.0
+    },
+    {
+      "animation": "walk",
+      "bounds": [
+        1037,
+        460,
+        164,
+        415
+      ],
+      "offset": [
+        109,
+        97
+      ],
+      "pivot": [
+        72.0,
+        415.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "92c2d60e7b864a5c021186fa68b04be11b059ed2852bc96bb51dd7e96dea0d24",
+      "size": [
+        44,
+        111
+      ],
+      "source": "sources/walk.png",
+      "source_frame": 6.0
+    },
+    {
+      "animation": "victory",
+      "bounds": [
+        120,
+        20,
+        218,
+        411
+      ],
+      "offset": [
+        99,
+        98
+      ],
+      "pivot": [
+        109.0,
+        411.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "11c274a3f13075cf963e3b6c19d271e6941fe08aadb7d14e2361bc84df53667d",
+      "size": [
+        58,
+        110
+      ],
+      "source": "sources/victory.png",
+      "source_frame": 0
+    },
+    {
+      "animation": "victory",
+      "bounds": [
+        562,
+        29,
+        220,
+        401
+      ],
+      "offset": [
+        98,
+        101
+      ],
+      "pivot": [
+        112.0,
+        401.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "11c274a3f13075cf963e3b6c19d271e6941fe08aadb7d14e2361bc84df53667d",
+      "size": [
+        59,
+        107
+      ],
+      "source": "sources/victory.png",
+      "source_frame": 1
+    },
+    {
+      "animation": "victory",
+      "bounds": [
+        1009,
+        30,
+        217,
+        400
+      ],
+      "offset": [
+        99,
+        101
+      ],
+      "pivot": [
+        108.0,
+        400.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "11c274a3f13075cf963e3b6c19d271e6941fe08aadb7d14e2361bc84df53667d",
+      "size": [
+        58,
+        107
+      ],
+      "source": "sources/victory.png",
+      "source_frame": 2
+    },
+    {
+      "animation": "victory",
+      "bounds": [
+        1451,
+        30,
+        219,
+        400
+      ],
+      "offset": [
+        99,
+        101
+      ],
+      "pivot": [
+        110.0,
+        400.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "11c274a3f13075cf963e3b6c19d271e6941fe08aadb7d14e2361bc84df53667d",
+      "size": [
+        58,
+        107
+      ],
+      "source": "sources/victory.png",
+      "source_frame": 3
+    },
+    {
+      "animation": "victory",
+      "bounds": [
+        121,
+        457,
+        218,
+        416
+      ],
+      "offset": [
+        99,
+        97
+      ],
+      "pivot": [
+        109.0,
+        416.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "11c274a3f13075cf963e3b6c19d271e6941fe08aadb7d14e2361bc84df53667d",
+      "size": [
+        58,
+        111
+      ],
+      "source": "sources/victory.png",
+      "source_frame": 4
+    },
+    {
+      "animation": "victory",
+      "bounds": [
+        564,
+        455,
+        218,
+        418
+      ],
+      "offset": [
+        99,
+        97
+      ],
+      "pivot": [
+        109.0,
+        418.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "11c274a3f13075cf963e3b6c19d271e6941fe08aadb7d14e2361bc84df53667d",
+      "size": [
+        58,
+        111
+      ],
+      "source": "sources/victory.png",
+      "source_frame": 5
+    },
+    {
+      "animation": "victory",
+      "bounds": [
+        1005,
+        472,
+        221,
+        401
+      ],
+      "offset": [
+        98,
+        101
+      ],
+      "pivot": [
+        111.0,
+        401.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "11c274a3f13075cf963e3b6c19d271e6941fe08aadb7d14e2361bc84df53667d",
+      "size": [
+        59,
+        107
+      ],
+      "source": "sources/victory.png",
+      "source_frame": 6
+    },
+    {
+      "animation": "victory",
+      "bounds": [
+        1446,
+        474,
+        224,
+        399
+      ],
+      "offset": [
+        98,
+        102
+      ],
+      "pivot": [
+        114.0,
+        399.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "11c274a3f13075cf963e3b6c19d271e6941fe08aadb7d14e2361bc84df53667d",
+      "size": [
+        60,
+        106
+      ],
+      "source": "sources/victory.png",
+      "source_frame": 7
+    },
+    {
+      "animation": "thruster_burst",
+      "bounds": [
+        80,
+        14,
+        279,
+        423
+      ],
+      "offset": [
+        91,
+        95
+      ],
+      "pivot": [
+        139.0,
+        423.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "bfd5583dcbdc56205f397e558b13e381c42f3a693810a7792b069399a093616d",
+      "size": [
+        74,
+        113
+      ],
+      "source": "sources/thruster_burst_v2.png",
+      "source_frame": 0
+    },
+    {
+      "animation": "thruster_burst",
+      "bounds": [
+        500,
+        16,
+        304,
+        421
+      ],
+      "offset": [
+        85,
+        96
+      ],
+      "pivot": [
+        160.0,
+        421.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "bfd5583dcbdc56205f397e558b13e381c42f3a693810a7792b069399a093616d",
+      "size": [
+        81,
+        112
+      ],
+      "source": "sources/thruster_burst_v2.png",
+      "source_frame": 1
+    },
+    {
+      "animation": "thruster_burst",
+      "bounds": [
+        942,
+        25,
+        313,
+        412
+      ],
+      "offset": [
+        88,
+        98
+      ],
+      "pivot": [
+        149.0,
+        412.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "bfd5583dcbdc56205f397e558b13e381c42f3a693810a7792b069399a093616d",
+      "size": [
+        83,
+        110
+      ],
+      "source": "sources/thruster_burst_v2.png",
+      "source_frame": 2
+    },
+    {
+      "animation": "thruster_burst",
+      "bounds": [
+        1375,
+        32,
+        352,
+        405
+      ],
+      "offset": [
+        87,
+        100
+      ],
+      "pivot": [
+        153.0,
+        405.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "bfd5583dcbdc56205f397e558b13e381c42f3a693810a7792b069399a093616d",
+      "size": [
+        94,
+        108
+      ],
+      "source": "sources/thruster_burst_v2.png",
+      "source_frame": 3
+    },
+    {
+      "animation": "thruster_burst",
+      "bounds": [
+        47,
+        474,
+        355,
+        406
+      ],
+      "offset": [
+        87,
+        100
+      ],
+      "pivot": [
+        154.0,
+        406.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "bfd5583dcbdc56205f397e558b13e381c42f3a693810a7792b069399a093616d",
+      "size": [
+        95,
+        108
+      ],
+      "source": "sources/thruster_burst_v2.png",
+      "source_frame": 4
+    },
+    {
+      "animation": "thruster_burst",
+      "bounds": [
+        491,
+        474,
+        337,
+        404
+      ],
+      "offset": [
+        87,
+        100
+      ],
+      "pivot": [
+        154.0,
+        404.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "bfd5583dcbdc56205f397e558b13e381c42f3a693810a7792b069399a093616d",
+      "size": [
+        90,
+        108
+      ],
+      "source": "sources/thruster_burst_v2.png",
+      "source_frame": 5
+    },
+    {
+      "animation": "thruster_burst",
+      "bounds": [
+        942,
+        466,
+        300,
+        412
+      ],
+      "offset": [
+        88,
+        98
+      ],
+      "pivot": [
+        150.0,
+        412.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "bfd5583dcbdc56205f397e558b13e381c42f3a693810a7792b069399a093616d",
+      "size": [
+        80,
+        110
+      ],
+      "source": "sources/thruster_burst_v2.png",
+      "source_frame": 6
+    },
+    {
+      "animation": "thruster_burst",
+      "bounds": [
+        1409,
+        459,
+        286,
+        419
+      ],
+      "offset": [
+        90,
+        96
+      ],
+      "pivot": [
+        143.0,
+        419.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "bfd5583dcbdc56205f397e558b13e381c42f3a693810a7792b069399a093616d",
+      "size": [
+        76,
+        112
+      ],
+      "source": "sources/thruster_burst_v2.png",
+      "source_frame": 7
+    },
+    {
+      "animation": "defeat",
+      "bounds": [
+        61,
+        62,
+        230,
+        486
+      ],
+      "offset": [
+        100,
+        96
+      ],
+      "pivot": [
+        121.0,
+        486.0
+      ],
+      "scale": 0.230927835051546,
+      "sha256": "052221d5fbc922f21e94ceb25e42867c90e46c7b79b678f25a885724625f76f7",
+      "size": [
+        53,
+        112
+      ],
+      "source": "sources/defeat.png",
+      "source_frame": 0
+    },
+    {
+      "animation": "defeat",
+      "bounds": [
+        443,
+        79,
+        220,
+        468
+      ],
+      "offset": [
+        103,
+        100
+      ],
+      "pivot": [
+        109.0,
+        468.0
+      ],
+      "scale": 0.230927835051546,
+      "sha256": "052221d5fbc922f21e94ceb25e42867c90e46c7b79b678f25a885724625f76f7",
+      "size": [
+        51,
+        108
+      ],
+      "source": "sources/defeat.png",
+      "source_frame": 1
+    },
+    {
+      "animation": "defeat",
+      "bounds": [
+        824,
+        109,
+        244,
+        437
+      ],
+      "offset": [
+        105,
+        107
+      ],
+      "pivot": [
+        99.0,
+        437.0
+      ],
+      "scale": 0.230927835051546,
+      "sha256": "052221d5fbc922f21e94ceb25e42867c90e46c7b79b678f25a885724625f76f7",
+      "size": [
+        56,
+        101
+      ],
+      "source": "sources/defeat.png",
+      "source_frame": 2
+    },
+    {
+      "animation": "defeat",
+      "bounds": [
+        1212,
+        169,
+        277,
+        379
+      ],
+      "offset": [
+        107,
+        120
+      ],
+      "pivot": [
+        90.0,
+        379.0
+      ],
+      "scale": 0.230927835051546,
+      "sha256": "052221d5fbc922f21e94ceb25e42867c90e46c7b79b678f25a885724625f76f7",
+      "size": [
+        64,
+        88
+      ],
+      "source": "sources/defeat.png",
+      "source_frame": 3
+    },
+    {
+      "animation": "defeat",
+      "bounds": [
+        31,
+        641,
+        285,
+        349
+      ],
+      "offset": [
+        95,
+        127
+      ],
+      "pivot": [
+        143.0,
+        349.0
+      ],
+      "scale": 0.230927835051546,
+      "sha256": "052221d5fbc922f21e94ceb25e42867c90e46c7b79b678f25a885724625f76f7",
+      "size": [
+        66,
+        81
+      ],
+      "source": "sources/defeat.png",
+      "source_frame": 4
+    },
+    {
+      "animation": "defeat",
+      "bounds": [
+        420,
+        671,
+        294,
+        322
+      ],
+      "offset": [
+        94,
+        134
+      ],
+      "pivot": [
+        149.0,
+        322.0
+      ],
+      "scale": 0.230927835051546,
+      "sha256": "052221d5fbc922f21e94ceb25e42867c90e46c7b79b678f25a885724625f76f7",
+      "size": [
+        68,
+        74
+      ],
+      "source": "sources/defeat.png",
+      "source_frame": 5
+    },
+    {
+      "animation": "defeat",
+      "bounds": [
+        824,
+        654,
+        250,
+        339
+      ],
+      "offset": [
+        100,
+        130
+      ],
+      "pivot": [
+        121.0,
+        339.0
+      ],
+      "scale": 0.230927835051546,
+      "sha256": "052221d5fbc922f21e94ceb25e42867c90e46c7b79b678f25a885724625f76f7",
+      "size": [
+        58,
+        78
+      ],
+      "source": "sources/defeat.png",
+      "source_frame": 6
+    },
+    {
+      "animation": "defeat",
+      "bounds": [
+        1216,
+        674,
+        256,
+        322
+      ],
+      "offset": [
+        99,
+        134
+      ],
+      "pivot": [
+        127.0,
+        322.0
+      ],
+      "scale": 0.230927835051546,
+      "sha256": "052221d5fbc922f21e94ceb25e42867c90e46c7b79b678f25a885724625f76f7",
+      "size": [
+        59,
+        74
+      ],
+      "source": "sources/defeat.png",
+      "source_frame": 7
+    },
+    {
+      "animation": "run",
+      "bounds": [
+        44,
+        27,
+        363,
+        397
+      ],
+      "offset": [
+        83,
+        102
+      ],
+      "pivot": [
+        167.0,
+        397.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "c1e2102d6fd014ed3c05ef1445df1f355fde844ff5c7ab5595304ebc546d253a",
+      "size": [
+        97,
+        106
+      ],
+      "source": "sources/run.png",
+      "source_frame": 0
+    },
+    {
+      "animation": "run",
+      "bounds": [
+        582,
+        24,
+        254,
+        401
+      ],
+      "offset": [
+        114,
+        101
+      ],
+      "pivot": [
+        52.0,
+        401.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "c1e2102d6fd014ed3c05ef1445df1f355fde844ff5c7ab5595304ebc546d253a",
+      "size": [
+        68,
+        107
+      ],
+      "source": "sources/run.png",
+      "source_frame": 1
+    },
+    {
+      "animation": "run",
+      "bounds": [
+        995,
+        23,
+        249,
+        402
+      ],
+      "offset": [
+        115,
+        101
+      ],
+      "pivot": [
+        49.0,
+        402.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "c1e2102d6fd014ed3c05ef1445df1f355fde844ff5c7ab5595304ebc546d253a",
+      "size": [
+        66,
+        107
+      ],
+      "source": "sources/run.png",
+      "source_frame": 2
+    },
+    {
+      "animation": "run",
+      "bounds": [
+        1378,
+        14,
+        354,
+        356
+      ],
+      "offset": [
+        95,
+        113
+      ],
+      "pivot": [
+        125.0,
+        356.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "c1e2102d6fd014ed3c05ef1445df1f355fde844ff5c7ab5595304ebc546d253a",
+      "size": [
+        94,
+        95
+      ],
+      "source": "sources/run.png",
+      "source_frame": 3
+    },
+    {
+      "animation": "run",
+      "bounds": [
+        66,
+        467,
+        334,
+        393
+      ],
+      "offset": [
+        59,
+        103
+      ],
+      "pivot": [
+        260.0,
+        393.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "c1e2102d6fd014ed3c05ef1445df1f355fde844ff5c7ab5595304ebc546d253a",
+      "size": [
+        89,
+        105
+      ],
+      "source": "sources/run.png",
+      "source_frame": 4
+    },
+    {
+      "animation": "run",
+      "bounds": [
+        562,
+        473,
+        239,
+        397
+      ],
+      "offset": [
+        114,
+        102
+      ],
+      "pivot": [
+        52.0,
+        397.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "c1e2102d6fd014ed3c05ef1445df1f355fde844ff5c7ab5595304ebc546d253a",
+      "size": [
+        64,
+        106
+      ],
+      "source": "sources/run.png",
+      "source_frame": 5
+    },
+    {
+      "animation": "run",
+      "bounds": [
+        999,
+        482,
+        250,
+        388
+      ],
+      "offset": [
+        108,
+        105
+      ],
+      "pivot": [
+        74.0,
+        388.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "c1e2102d6fd014ed3c05ef1445df1f355fde844ff5c7ab5595304ebc546d253a",
+      "size": [
+        67,
+        103
+      ],
+      "source": "sources/run.png",
+      "source_frame": 6
+    },
+    {
+      "animation": "run",
+      "bounds": [
+        1376,
+        478,
+        329,
+        392
+      ],
+      "offset": [
+        114,
+        103
+      ],
+      "pivot": [
+        51.0,
+        392.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "c1e2102d6fd014ed3c05ef1445df1f355fde844ff5c7ab5595304ebc546d253a",
+      "size": [
+        88,
+        105
+      ],
+      "source": "sources/run.png",
+      "source_frame": 7
+    },
+    {
+      "animation": "orbital_tractor",
+      "bounds": [
+        75,
+        8,
+        288,
+        429
+      ],
+      "offset": [
+        90,
+        94
+      ],
+      "pivot": [
+        144.0,
+        429.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "b31ad44a2f128d0d4f7dd090f97f3ce00f74eaabd613e789ff3433f6f8b71a9f",
+      "size": [
+        77,
+        114
+      ],
+      "source": "sources/orbital_tractor_v2.png",
+      "source_frame": 0
+    },
+    {
+      "animation": "orbital_tractor",
+      "bounds": [
+        505,
+        16,
+        301,
+        421
+      ],
+      "offset": [
+        88,
+        96
+      ],
+      "pivot": [
+        150.0,
+        421.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "b31ad44a2f128d0d4f7dd090f97f3ce00f74eaabd613e789ff3433f6f8b71a9f",
+      "size": [
+        80,
+        112
+      ],
+      "source": "sources/orbital_tractor_v2.png",
+      "source_frame": 1
+    },
+    {
+      "animation": "orbital_tractor",
+      "bounds": [
+        949,
+        16,
+        299,
+        421
+      ],
+      "offset": [
+        88,
+        96
+      ],
+      "pivot": [
+        149.0,
+        421.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "b31ad44a2f128d0d4f7dd090f97f3ce00f74eaabd613e789ff3433f6f8b71a9f",
+      "size": [
+        80,
+        112
+      ],
+      "source": "sources/orbital_tractor_v2.png",
+      "source_frame": 2
+    },
+    {
+      "animation": "orbital_tractor",
+      "bounds": [
+        1394,
+        18,
+        333,
+        419
+      ],
+      "offset": [
+        88,
+        96
+      ],
+      "pivot": [
+        149.0,
+        419.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "b31ad44a2f128d0d4f7dd090f97f3ce00f74eaabd613e789ff3433f6f8b71a9f",
+      "size": [
+        89,
+        112
+      ],
+      "source": "sources/orbital_tractor_v2.png",
+      "source_frame": 3
+    },
+    {
+      "animation": "orbital_tractor",
+      "bounds": [
+        58,
+        463,
+        346,
+        415
+      ],
+      "offset": [
+        87,
+        97
+      ],
+      "pivot": [
+        155.0,
+        415.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "b31ad44a2f128d0d4f7dd090f97f3ce00f74eaabd613e789ff3433f6f8b71a9f",
+      "size": [
+        92,
+        111
+      ],
+      "source": "sources/orbital_tractor_v2.png",
+      "source_frame": 4
+    },
+    {
+      "animation": "orbital_tractor",
+      "bounds": [
+        494,
+        461,
+        352,
+        420
+      ],
+      "offset": [
+        85,
+        96
+      ],
+      "pivot": [
+        162.0,
+        420.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "b31ad44a2f128d0d4f7dd090f97f3ce00f74eaabd613e789ff3433f6f8b71a9f",
+      "size": [
+        94,
+        112
+      ],
+      "source": "sources/orbital_tractor_v2.png",
+      "source_frame": 5
+    },
+    {
+      "animation": "orbital_tractor",
+      "bounds": [
+        952,
+        458,
+        297,
+        423
+      ],
+      "offset": [
+        88,
+        95
+      ],
+      "pivot": [
+        150.0,
+        423.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "b31ad44a2f128d0d4f7dd090f97f3ce00f74eaabd613e789ff3433f6f8b71a9f",
+      "size": [
+        79,
+        113
+      ],
+      "source": "sources/orbital_tractor_v2.png",
+      "source_frame": 6
+    },
+    {
+      "animation": "orbital_tractor",
+      "bounds": [
+        1408,
+        453,
+        287,
+        428
+      ],
+      "offset": [
+        90,
+        94
+      ],
+      "pivot": [
+        143.0,
+        428.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "b31ad44a2f128d0d4f7dd090f97f3ce00f74eaabd613e789ff3433f6f8b71a9f",
+      "size": [
+        77,
+        114
+      ],
+      "source": "sources/orbital_tractor_v2.png",
+      "source_frame": 7
+    },
+    {
+      "animation": "jump",
+      "bounds": [
+        1112,
+        17,
+        298,
+        428
+      ],
+      "offset": [
+        97,
+        96
+      ],
+      "pivot": [
+        137.080001831055,
+        500.0
+      ],
+      "scale": 0.224,
+      "sha256": "1a798a32b93e1cb6908212d52eb35a32a063cc918284052bbf4422f68c614583",
+      "size": [
+        67,
+        96
+      ],
+      "source": "sources/jump.png",
+      "source_frame": 2.0
+    },
+    {
+      "animation": "jump",
+      "bounds": [
+        140,
+        530,
+        294,
+        372
+      ],
+      "offset": [
+        98,
+        96
+      ],
+      "pivot": [
+        135.240005493164,
+        500.0
+      ],
+      "scale": 0.224,
+      "sha256": "1a798a32b93e1cb6908212d52eb35a32a063cc918284052bbf4422f68c614583",
+      "size": [
+        66,
+        83
+      ],
+      "source": "sources/jump.png",
+      "source_frame": 3.0
+    },
+    {
+      "animation": "jump",
+      "bounds": [
+        610,
+        523,
+        286,
+        383
+      ],
+      "offset": [
+        99,
+        96
+      ],
+      "pivot": [
+        131.559997558594,
+        500.0
+      ],
+      "scale": 0.224,
+      "sha256": "1a798a32b93e1cb6908212d52eb35a32a063cc918284052bbf4422f68c614583",
+      "size": [
+        64,
+        86
+      ],
+      "source": "sources/jump.png",
+      "source_frame": 4.0
+    },
+    {
+      "animation": "jump",
+      "bounds": [
+        1108,
+        528,
+        274,
+        390
+      ],
+      "offset": [
+        100,
+        96
+      ],
+      "pivot": [
+        126.040000915527,
+        500.0
+      ],
+      "scale": 0.224,
+      "sha256": "1a798a32b93e1cb6908212d52eb35a32a063cc918284052bbf4422f68c614583",
+      "size": [
+        61,
+        87
+      ],
+      "source": "sources/jump.png",
+      "source_frame": 5.0
+    },
+    {
+      "animation": "knockback",
+      "bounds": [
+        47,
+        66,
+        393,
+        630
+      ],
+      "offset": [
+        97,
+        96
+      ],
+      "pivot": [
+        180.779998779297,
+        660.0
+      ],
+      "scale": 0.16969696969697,
+      "sha256": "eaa47b6fc4a19cfed06298c90f1e889594b0b770342cbc733f56d5ab5e4ad197",
+      "size": [
+        67,
+        107
+      ],
+      "source": "sources/knockback.png",
+      "source_frame": 0
+    },
+    {
+      "animation": "knockback",
+      "bounds": [
+        515,
+        52,
+        436,
+        645
+      ],
+      "offset": [
+        94,
+        96
+      ],
+      "pivot": [
+        200.559997558594,
+        660.0
+      ],
+      "scale": 0.16969696969697,
+      "sha256": "eaa47b6fc4a19cfed06298c90f1e889594b0b770342cbc733f56d5ab5e4ad197",
+      "size": [
+        74,
+        109
+      ],
+      "source": "sources/knockback.png",
+      "source_frame": 1
+    },
+    {
+      "animation": "knockback",
+      "bounds": [
+        1045,
+        46,
+        564,
+        585
+      ],
+      "offset": [
+        84,
+        96
+      ],
+      "pivot": [
+        259.440002441406,
+        660.0
+      ],
+      "scale": 0.16969696969697,
+      "sha256": "eaa47b6fc4a19cfed06298c90f1e889594b0b770342cbc733f56d5ab5e4ad197",
+      "size": [
+        96,
+        99
+      ],
+      "source": "sources/knockback.png",
+      "source_frame": 2
+    },
+    {
+      "animation": "knockback",
+      "bounds": [
+        1613,
+        87,
+        546,
+        460
+      ],
+      "offset": [
+        85,
+        96
+      ],
+      "pivot": [
+        251.160003662109,
+        660.0
+      ],
+      "scale": 0.16969696969697,
+      "sha256": "eaa47b6fc4a19cfed06298c90f1e889594b0b770342cbc733f56d5ab5e4ad197",
+      "size": [
+        93,
+        78
+      ],
+      "source": "sources/knockback.png",
+      "source_frame": 3
+    },
+    {
+      "animation": "energy_shield",
+      "bounds": [
+        77,
+        17,
+        293,
+        418
+      ],
+      "offset": [
+        89,
+        97
+      ],
+      "pivot": [
+        146.0,
+        418.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "b85a9c6847f506055aa2f31b5dbff2b0f32d14378f2999e22ef30f857b505793",
+      "size": [
+        78,
+        111
+      ],
+      "source": "sources/energy_shield.png",
+      "source_frame": 0
+    },
+    {
+      "animation": "energy_shield",
+      "bounds": [
+        514,
+        22,
+        300,
+        413
+      ],
+      "offset": [
+        88,
+        98
+      ],
+      "pivot": [
+        150.0,
+        413.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "b85a9c6847f506055aa2f31b5dbff2b0f32d14378f2999e22ef30f857b505793",
+      "size": [
+        80,
+        110
+      ],
+      "source": "sources/energy_shield.png",
+      "source_frame": 1
+    },
+    {
+      "animation": "energy_shield",
+      "bounds": [
+        957,
+        24,
+        301,
+        411
+      ],
+      "offset": [
+        88,
+        98
+      ],
+      "pivot": [
+        150.0,
+        411.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "b85a9c6847f506055aa2f31b5dbff2b0f32d14378f2999e22ef30f857b505793",
+      "size": [
+        80,
+        110
+      ],
+      "source": "sources/energy_shield.png",
+      "source_frame": 2
+    },
+    {
+      "animation": "energy_shield",
+      "bounds": [
+        1400,
+        32,
+        300,
+        403
+      ],
+      "offset": [
+        88,
+        101
+      ],
+      "pivot": [
+        150.0,
+        403.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "b85a9c6847f506055aa2f31b5dbff2b0f32d14378f2999e22ef30f857b505793",
+      "size": [
+        80,
+        107
+      ],
+      "source": "sources/energy_shield.png",
+      "source_frame": 3
+    },
+    {
+      "animation": "energy_shield",
+      "bounds": [
+        71,
+        470,
+        299,
+        408
+      ],
+      "offset": [
+        88,
+        99
+      ],
+      "pivot": [
+        149.0,
+        408.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "b85a9c6847f506055aa2f31b5dbff2b0f32d14378f2999e22ef30f857b505793",
+      "size": [
+        80,
+        109
+      ],
+      "source": "sources/energy_shield.png",
+      "source_frame": 4
+    },
+    {
+      "animation": "energy_shield",
+      "bounds": [
+        514,
+        470,
+        299,
+        408
+      ],
+      "offset": [
+        88,
+        99
+      ],
+      "pivot": [
+        149.0,
+        408.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "b85a9c6847f506055aa2f31b5dbff2b0f32d14378f2999e22ef30f857b505793",
+      "size": [
+        80,
+        109
+      ],
+      "source": "sources/energy_shield.png",
+      "source_frame": 5
+    },
+    {
+      "animation": "energy_shield",
+      "bounds": [
+        958,
+        468,
+        299,
+        410
+      ],
+      "offset": [
+        88,
+        99
+      ],
+      "pivot": [
+        149.0,
+        410.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "b85a9c6847f506055aa2f31b5dbff2b0f32d14378f2999e22ef30f857b505793",
+      "size": [
+        80,
+        109
+      ],
+      "source": "sources/energy_shield.png",
+      "source_frame": 6
+    },
+    {
+      "animation": "energy_shield",
+      "bounds": [
+        1404,
+        461,
+        296,
+        417
+      ],
+      "offset": [
+        89,
+        97
+      ],
+      "pivot": [
+        148.0,
+        417.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "b85a9c6847f506055aa2f31b5dbff2b0f32d14378f2999e22ef30f857b505793",
+      "size": [
+        79,
+        111
+      ],
+      "source": "sources/energy_shield.png",
+      "source_frame": 7
+    },
+    {
+      "animation": "hurt",
+      "bounds": [
+        625,
+        30,
+        416,
+        647
+      ],
+      "offset": [
+        97,
+        98
+      ],
+      "pivot": [
+        182.0,
+        647.0
+      ],
+      "scale": 0.16969696969697,
+      "sha256": "f15a5a875dc71c88a8c647f325025ce271796fbd3046125d81f257752276ef56",
+      "size": [
+        71,
+        110
+      ],
+      "source": "sources/hurt.png",
+      "source_frame": 1.0
+    },
+    {
+      "animation": "hurt",
+      "bounds": [
+        1176,
+        77,
+        377,
+        607
+      ],
+      "offset": [
+        117,
+        105
+      ],
+      "pivot": [
+        65.0,
+        607.0
+      ],
+      "scale": 0.16969696969697,
+      "sha256": "f15a5a875dc71c88a8c647f325025ce271796fbd3046125d81f257752276ef56",
+      "size": [
+        64,
+        103
+      ],
+      "source": "sources/hurt.png",
+      "source_frame": 2.0
+    },
+    {
+      "animation": "hurt",
+      "bounds": [
+        1699,
+        50,
+        373,
+        627
+      ],
+      "offset": [
+        98,
+        102
+      ],
+      "pivot": [
+        176.0,
+        627.0
+      ],
+      "scale": 0.16969696969697,
+      "sha256": "f15a5a875dc71c88a8c647f325025ce271796fbd3046125d81f257752276ef56",
+      "size": [
+        63,
+        106
+      ],
+      "source": "sources/hurt.png",
+      "source_frame": 3.0
+    },
+    {
+      "animation": "fall",
+      "bounds": [
+        18,
+        35,
+        491,
+        571
+      ],
+      "offset": [
+        90,
+        96
+      ],
+      "pivot": [
+        225.860000610352,
+        660.0
+      ],
+      "scale": 0.16969696969697,
+      "sha256": "c8d43fde929d8be1dd565110664b591eca8eb950ea2c910bba9df71e00a44e1b",
+      "size": [
+        83,
+        97
+      ],
+      "source": "sources/fall.png",
+      "source_frame": 0.0
+    },
+    {
+      "animation": "fall",
+      "bounds": [
+        586,
+        74,
+        459,
+        582
+      ],
+      "offset": [
+        92,
+        96
+      ],
+      "pivot": [
+        211.139999389648,
+        660.0
+      ],
+      "scale": 0.16969696969697,
+      "sha256": "c8d43fde929d8be1dd565110664b591eca8eb950ea2c910bba9df71e00a44e1b",
+      "size": [
+        78,
+        99
+      ],
+      "source": "sources/fall.png",
+      "source_frame": 1.0
+    },
+    {
+      "animation": "fall",
+      "bounds": [
+        1186,
+        134,
+        397,
+        554
+      ],
+      "offset": [
+        97,
+        96
+      ],
+      "pivot": [
+        182.619995117188,
+        660.0
+      ],
+      "scale": 0.16969696969697,
+      "sha256": "c8d43fde929d8be1dd565110664b591eca8eb950ea2c910bba9df71e00a44e1b",
+      "size": [
+        67,
+        94
+      ],
+      "source": "sources/fall.png",
+      "source_frame": 2.0
+    },
+    {
+      "animation": "fall",
+      "bounds": [
+        586,
+        74,
+        459,
+        582
+      ],
+      "offset": [
+        92,
+        96
+      ],
+      "pivot": [
+        211.139999389648,
+        660.0
+      ],
+      "scale": 0.16969696969697,
+      "sha256": "c8d43fde929d8be1dd565110664b591eca8eb950ea2c910bba9df71e00a44e1b",
+      "size": [
+        78,
+        99
+      ],
+      "source": "sources/fall.png",
+      "source_frame": 1.0
+    },
+    {
+      "animation": "rocket_hammer",
+      "bounds": [
+        97,
+        80,
+        304,
+        351
+      ],
+      "offset": [
+        87,
+        96
+      ],
+      "pivot": [
+        129.0,
+        351.0
+      ],
+      "scale": 0.32,
+      "sha256": "094d9e699eac170bd4751fd677f5850902419d77d9ce13d13be9504b75a488d0",
+      "size": [
+        97,
+        112
+      ],
+      "source": "sources/rocket_hammer_v2.png",
+      "source_frame": 0
+    },
+    {
+      "animation": "rocket_hammer",
+      "bounds": [
+        512,
+        91,
+        307,
+        339
+      ],
+      "offset": [
+        74,
+        100
+      ],
+      "pivot": [
+        168.0,
+        339.0
+      ],
+      "scale": 0.32,
+      "sha256": "094d9e699eac170bd4751fd677f5850902419d77d9ce13d13be9504b75a488d0",
+      "size": [
+        98,
+        108
+      ],
+      "source": "sources/rocket_hammer_v2.png",
+      "source_frame": 1
+    },
+    {
+      "animation": "rocket_hammer",
+      "bounds": [
+        985,
+        45,
+        289,
+        386
+      ],
+      "offset": [
+        81,
+        84
+      ],
+      "pivot": [
+        146.0,
+        386.0
+      ],
+      "scale": 0.32,
+      "sha256": "094d9e699eac170bd4751fd677f5850902419d77d9ce13d13be9504b75a488d0",
+      "size": [
+        92,
+        124
+      ],
+      "source": "sources/rocket_hammer_v2.png",
+      "source_frame": 2
+    },
+    {
+      "animation": "rocket_hammer",
+      "bounds": [
+        1434,
+        62,
+        281,
+        369
+      ],
+      "offset": [
+        83,
+        90
+      ],
+      "pivot": [
+        141.0,
+        369.0
+      ],
+      "scale": 0.32,
+      "sha256": "094d9e699eac170bd4751fd677f5850902419d77d9ce13d13be9504b75a488d0",
+      "size": [
+        90,
+        118
+      ],
+      "source": "sources/rocket_hammer_v2.png",
+      "source_frame": 3
+    },
+    {
+      "animation": "rocket_hammer",
+      "bounds": [
+        56,
+        495,
+        396,
+        346
+      ],
+      "offset": [
+        82,
+        97
+      ],
+      "pivot": [
+        145.0,
+        346.0
+      ],
+      "scale": 0.32,
+      "sha256": "094d9e699eac170bd4751fd677f5850902419d77d9ce13d13be9504b75a488d0",
+      "size": [
+        127,
+        111
+      ],
+      "source": "sources/rocket_hammer_v2.png",
+      "source_frame": 4
+    },
+    {
+      "animation": "rocket_hammer",
+      "bounds": [
+        507,
+        500,
+        363,
+        341
+      ],
+      "offset": [
+        81,
+        99
+      ],
+      "pivot": [
+        146.0,
+        341.0
+      ],
+      "scale": 0.32,
+      "sha256": "094d9e699eac170bd4751fd677f5850902419d77d9ce13d13be9504b75a488d0",
+      "size": [
+        116,
+        109
+      ],
+      "source": "sources/rocket_hammer_v2.png",
+      "source_frame": 5
+    },
+    {
+      "animation": "rocket_hammer",
+      "bounds": [
+        951,
+        496,
+        330,
+        345
+      ],
+      "offset": [
+        82,
+        98
+      ],
+      "pivot": [
+        145.0,
+        345.0
+      ],
+      "scale": 0.32,
+      "sha256": "094d9e699eac170bd4751fd677f5850902419d77d9ce13d13be9504b75a488d0",
+      "size": [
+        106,
+        110
+      ],
+      "source": "sources/rocket_hammer_v2.png",
+      "source_frame": 6
+    },
+    {
+      "animation": "rocket_hammer",
+      "bounds": [
+        1404,
+        490,
+        303,
+        351
+      ],
+      "offset": [
+        84,
+        96
+      ],
+      "pivot": [
+        136.0,
+        351.0
+      ],
+      "scale": 0.32,
+      "sha256": "094d9e699eac170bd4751fd677f5850902419d77d9ce13d13be9504b75a488d0",
+      "size": [
+        97,
+        112
+      ],
+      "source": "sources/rocket_hammer_v2.png",
+      "source_frame": 7
+    },
+    {
+      "animation": "land",
+      "bounds": [
+        47,
+        144,
+        465,
+        551
+      ],
+      "offset": [
+        96,
+        114
+      ],
+      "pivot": [
+        191.0,
+        551.0
+      ],
+      "scale": 0.16969696969697,
+      "sha256": "34a752347979df4d502ea7b3d2c98b5d7371e1df419e8a6b912cbed255fd04ff",
+      "size": [
+        79,
+        94
+      ],
+      "source": "sources/land.png",
+      "source_frame": 0
+    },
+    {
+      "animation": "land",
+      "bounds": [
+        646,
+        249,
+        368,
+        446
+      ],
+      "offset": [
+        108,
+        132
+      ],
+      "pivot": [
+        118.0,
+        446.0
+      ],
+      "scale": 0.16969696969697,
+      "sha256": "34a752347979df4d502ea7b3d2c98b5d7371e1df419e8a6b912cbed255fd04ff",
+      "size": [
+        62,
+        76
+      ],
+      "source": "sources/land.png",
+      "source_frame": 1
+    },
+    {
+      "animation": "land",
+      "bounds": [
+        1190,
+        148,
+        336,
+        547
+      ],
+      "offset": [
+        108,
+        115
+      ],
+      "pivot": [
+        116.0,
+        547.0
+      ],
+      "scale": 0.16969696969697,
+      "sha256": "34a752347979df4d502ea7b3d2c98b5d7371e1df419e8a6b912cbed255fd04ff",
+      "size": [
+        57,
+        93
+      ],
+      "source": "sources/land.png",
+      "source_frame": 2
+    },
+    {
+      "animation": "land",
+      "bounds": [
+        1759,
+        43,
+        338,
+        652
+      ],
+      "offset": [
+        99,
+        97
+      ],
+      "pivot": [
+        168.0,
+        652.0
+      ],
+      "scale": 0.16969696969697,
+      "sha256": "34a752347979df4d502ea7b3d2c98b5d7371e1df419e8a6b912cbed255fd04ff",
+      "size": [
+        57,
+        111
+      ],
+      "source": "sources/land.png",
+      "source_frame": 3
+    },
+    {
+      "animation": "ion_jab",
+      "bounds": [
+        92,
+        17,
+        255,
+        412
+      ],
+      "offset": [
+        94,
+        98
+      ],
+      "pivot": [
+        127.0,
+        412.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "b521b4f7c01414b6caa4aa72c49626014d64c37016e9c78ebea549eeed011b08",
+      "size": [
+        68,
+        110
+      ],
+      "source": "sources/ion_jab_v2.png",
+      "source_frame": 0
+    },
+    {
+      "animation": "ion_jab",
+      "bounds": [
+        516,
+        20,
+        274,
+        409
+      ],
+      "offset": [
+        91,
+        99
+      ],
+      "pivot": [
+        137.0,
+        409.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "b521b4f7c01414b6caa4aa72c49626014d64c37016e9c78ebea549eeed011b08",
+      "size": [
+        73,
+        109
+      ],
+      "source": "sources/ion_jab_v2.png",
+      "source_frame": 1
+    },
+    {
+      "animation": "ion_jab",
+      "bounds": [
+        944,
+        22,
+        315,
+        407
+      ],
+      "offset": [
+        90,
+        99
+      ],
+      "pivot": [
+        144.0,
+        407.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "b521b4f7c01414b6caa4aa72c49626014d64c37016e9c78ebea549eeed011b08",
+      "size": [
+        84,
+        109
+      ],
+      "source": "sources/ion_jab_v2.png",
+      "source_frame": 2
+    },
+    {
+      "animation": "ion_jab",
+      "bounds": [
+        1380,
+        43,
+        334,
+        386
+      ],
+      "offset": [
+        89,
+        105
+      ],
+      "pivot": [
+        148.0,
+        386.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "b521b4f7c01414b6caa4aa72c49626014d64c37016e9c78ebea549eeed011b08",
+      "size": [
+        89,
+        103
+      ],
+      "source": "sources/ion_jab_v2.png",
+      "source_frame": 3
+    },
+    {
+      "animation": "ion_jab",
+      "bounds": [
+        57,
+        466,
+        319,
+        405
+      ],
+      "offset": [
+        89,
+        100
+      ],
+      "pivot": [
+        148.0,
+        405.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "b521b4f7c01414b6caa4aa72c49626014d64c37016e9c78ebea549eeed011b08",
+      "size": [
+        85,
+        108
+      ],
+      "source": "sources/ion_jab_v2.png",
+      "source_frame": 4
+    },
+    {
+      "animation": "ion_jab",
+      "bounds": [
+        505,
+        464,
+        291,
+        407
+      ],
+      "offset": [
+        89,
+        99
+      ],
+      "pivot": [
+        145.0,
+        407.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "b521b4f7c01414b6caa4aa72c49626014d64c37016e9c78ebea549eeed011b08",
+      "size": [
+        78,
+        109
+      ],
+      "source": "sources/ion_jab_v2.png",
+      "source_frame": 5
+    },
+    {
+      "animation": "ion_jab",
+      "bounds": [
+        965,
+        459,
+        273,
+        412
+      ],
+      "offset": [
+        92,
+        98
+      ],
+      "pivot": [
+        136.0,
+        412.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "b521b4f7c01414b6caa4aa72c49626014d64c37016e9c78ebea549eeed011b08",
+      "size": [
+        73,
+        110
+      ],
+      "source": "sources/ion_jab_v2.png",
+      "source_frame": 6
+    },
+    {
+      "animation": "ion_jab",
+      "bounds": [
+        1426,
+        459,
+        251,
+        413
+      ],
+      "offset": [
+        95,
+        98
+      ],
+      "pivot": [
+        125.0,
+        413.0
+      ],
+      "scale": 0.266666666666667,
+      "sha256": "b521b4f7c01414b6caa4aa72c49626014d64c37016e9c78ebea549eeed011b08",
+      "size": [
+        67,
+        110
+      ],
+      "source": "sources/ion_jab_v2.png",
+      "source_frame": 7
+    }
+  ],
+  "pivot": [
+    128,
+    208
+  ],
+  "playback_frames": 104
+}

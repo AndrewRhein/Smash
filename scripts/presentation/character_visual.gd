@@ -4,6 +4,10 @@ extends Node2D
 @export var frames: SpriteFrames
 @export var pivot := Vector2(128, 208)
 @export var physics_hz := 60.0
+@export var phase_frames: Dictionary = {}
+@export var expanded_transitions := false
+var _was_grounded := true
+var _landing_elapsed := -1.0
 var sprite: AnimatedSprite2D
 var fighter: Node
 var warned: Dictionary = {}
@@ -85,6 +89,9 @@ func _process(delta: float) -> void:
         facing_changed(int(snapshot.get("facing", 1)))
         var flashing: bool = bool(snapshot.get("invulnerable", false)) and int(snapshot.get("invulnerable_remaining_ticks", 0)) / 5 % 2 == 0
         modulate.a = 0.45 if flashing else 1.0
+        if expanded_transitions and _show_transition(snapshot, delta):
+            return
+        sprite.animation = active_id
         # Gameplay freezes its animation_tick during hitstop. Terminal victory
         # needs a local clock because MatchController stops stepping at RESULT.
         if snapshot.get("state") == &"victory":
@@ -92,7 +99,7 @@ func _process(delta: float) -> void:
                 elapsed += delta * playback_speed
         else:
             elapsed = float(snapshot.get("animation_tick", 0)) / physics_hz
-        if int(snapshot.get("move_tick", -1)) >= 0 and (PHASE_FRAMES.has(active_id) or frames.get_frame_count(active_id) == 3):
+        if int(snapshot.get("move_tick", -1)) >= 0 and (phase_frames.has(active_id) or PHASE_FRAMES.has(active_id) or frames.get_frame_count(active_id) == 3):
             var character := fighter.get("character") as CharacterData
             var move: MoveData = character.get_move(snapshot.get("current_move_id", &"")) if character != null else null
             if move != null:
@@ -125,6 +132,34 @@ func frame_for_move(tick: int, startup: int, active: int, recovery: int) -> int:
         local_tick = tick - startup
         length = active
     # Any 3-pose attack without an entry maps to startup / contact / recovery.
-    var sequence: Array = PHASE_FRAMES.get(active_id, [[0], [1], [2]])[phase]
+    var sequence: Array = phase_frames.get(active_id, PHASE_FRAMES.get(active_id, [[0], [1], [2]]))[phase]
     var slot := clampi(int(float(local_tick) / maxi(1, length) * sequence.size()), 0, sequence.size() - 1)
     return int(sequence[slot])
+
+func _show_transition(snapshot: Dictionary, delta: float) -> bool:
+    var grounded: bool = snapshot.get("grounded", false)
+    var can_land: bool = active_id in [&"idle", &"walk", &"run"] and snapshot.get("state") in [&"idle", &"walk", &"run"]
+    if grounded and not _was_grounded and can_land:
+        _landing_elapsed = 0.0
+    _was_grounded = grounded
+    var match_node := fighter.get_parent() as MatchController
+    if match_node != null and match_node.state == MatchController.MatchState.COUNTDOWN and frames.has_animation(&"entrance"):
+        _landing_elapsed = -1.0
+        sprite.animation = &"entrance"
+        var seconds := float(match_node.countdown_ticks - match_node.countdown_remaining) / physics_hz
+        sprite.frame = mini(frames.get_frame_count(&"entrance") - 1, int(seconds * frames.get_animation_speed(&"entrance")))
+        return true
+    if not grounded or not can_land:
+        _landing_elapsed = -1.0
+    if _landing_elapsed >= 0.0 and frames.has_animation(&"land"):
+        if int(snapshot.get("hitstop_remaining_ticks", 0)) > 0 and sprite.animation == &"land":
+            return true
+        var index := int(_landing_elapsed * frames.get_animation_speed(&"land"))
+        if index < frames.get_frame_count(&"land"):
+            sprite.animation = &"land"
+            sprite.frame = index
+            if int(snapshot.get("hitstop_remaining_ticks", 0)) == 0:
+                _landing_elapsed += delta * playback_speed
+            return true
+        _landing_elapsed = -1.0
+    return false
