@@ -92,3 +92,15 @@ Create `audio/voice/<new id>/` with the line files above. Their move effect IDs 
 | `hurt` / `ko` / `dizzy` / `victory` | "Oof!" / (fading cry) / "Mamma mia…" / "Pax vobiscum." |
 
 Directional attacks (`light_up`, `light_down`, `heavy_up`, `air_*`) use their move id as the line name, like specials.
+
+### Josh Groban (`audio/voice/groban/`)
+| Line | Suggested call-out |
+|---|---|
+| `light` / `heavy` | "Hah!" / "Feel the scarf!" |
+| `special_2` (neutral B, High Note) | (sung high note) "Laaa!" |
+| `special_1` (side B, Power Ballad) | (belted) "You raise me up!"-style power note |
+| `special_3` (down B, Crescendo) | (rising sustained note) |
+| `special_up` (Soaring Note) | (ascending arpeggio) |
+| `light_up` / `light_down` / `heavy_up` / `air_forward` | (high C) / "Low note!" / "Bravo!" / "Hup!" |
+| `hurt` / `ko` / `dizzy` / `victory` | "Ugh!" / (fading vibrato) / "Off-key…" / "Thank you, goodnight!" |
+Short sung phrases work best. Use an original singer or a generic voice; do not imitate any real person's voice.

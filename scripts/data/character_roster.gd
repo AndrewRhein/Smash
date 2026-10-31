@@ -17,6 +17,8 @@ const ENTRIES := [
 		"tagline": "Tech brawler · grappler", "art": "sprites"},
 	{"id": &"leo", "data": "res://data/characters/leo.tres",
 		"tagline": "Holy bruiser · all-rounder", "art": "sprites"},
+	{"id": &"groban", "data": "res://data/characters/groban.tres",
+		"tagline": "Baritone · zoner", "art": "sprites"},
 	{"id": &"vader", "data": "res://data/characters/vader.tres",
 		"tagline": "Dark knight · grappler", "art": "placeholder"},
 ]

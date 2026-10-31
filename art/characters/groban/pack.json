@@ -1,0 +1,36 @@
+{
+  "id": "groban",
+  "head_width": 20.0,
+  "reference": "movement:0",
+  "sheets": {
+    "movement": {"file": "movement_source.webp", "cols": 4, "rows": 3},
+    "actions": {"file": "actions_source.webp", "cols": 3, "rows": 5},
+    "extras": {"file": "extras_source.webp", "cols": 3, "rows": 5}
+  },
+  "animations": {
+    "idle": ["movement:0", "movement:1"],
+    "walk": ["movement:2", "movement:3"],
+    "run": ["movement:4", "movement:5"],
+    "jump": ["movement:6"],
+    "fall": ["movement:7"],
+    "hurt": ["movement:8"],
+    "knockback": ["movement:9"],
+    "defeat": ["movement:10"],
+    "victory": ["movement:11"],
+    "shield": ["extras:3"],
+    "shield_break": ["extras:6"],
+    "spot_dodge": ["actions:13"],
+    "roll": ["extras:9", "actions:10", "extras:9"],
+    "air_dodge": ["movement:6"],
+    "baton_jab": ["actions:6", "actions:7", "actions:8"],
+    "scarf_lash": ["actions:11", "actions:9", "actions:10"],
+    "power_ballad": ["actions:0", "actions:1", "actions:2"],
+    "high_note": ["actions:3", "actions:4", "actions:5"],
+    "crescendo": ["extras:6", "extras:0", "extras:7"],
+    "soaring_note": ["extras:12", "movement:6", "movement:7"],
+    "high_c": ["extras:5", "actions:5", "extras:5"],
+    "low_sweep": ["extras:9", "actions:11", "extras:9"],
+    "standing_ovation": ["extras:2", "extras:13", "extras:2"],
+    "lunge_reach": ["movement:6", "extras:10", "movement:7"]
+  }
+}
