@@ -23,7 +23,8 @@ Implemented in `scripts/fighter.gd`, `scripts/gameplay/match_controller.gd`, `sc
 | | Neutral (B) | Side | Down | Up (recovery) |
 |---|---|---|---|---|
 | Gandalf | fireball (`special_2`) | lightning (`special_1`) | magic push (`special_3`) | wind rise (`special_up`) |
-| Vader | Force choke (`special_2`) | Force push (`special_1`) | Force guard (`special_3`) | Force leap (`special_up`) |
+| Elon (playable) | orbital tractor (`special_2`) | thruster burst (`special_1`) | energy shield (`special_3`) | rocket boost (`special_up`, reuses the thruster poses) |
+| Vader (test fixture only) | Force choke (`special_2`) | Force push (`special_1`) | Force guard (`special_3`) | Force leap (`special_up`) |
 
 * **Direction rules:** a mostly-vertical stick picks up or down; otherwise a horizontal stick picks side and turns the fighter toward it. Lightning and Force push still aim with the vertical part of the stick, e.g. up-forward + B.
 * **Tap jump:** on by default; switch it off in Settings. When it's off, the stick no longer jumps; the keyboard jump keys always do.
@@ -61,7 +62,7 @@ Implemented in `scripts/fighter.gd`, `scripts/gameplay/match_controller.gd`, `sc
 * **New states and snapshot names:**
   * `shield`, `shield_break`, `dodge`, `lag` (shield drop), `respawn`
   * The snapshot also gains `shielding`, `shield_health`, `shield_max`, `intangible`, `helpless` and `on_respawn_platform`.
-* **New animation IDs:**
+* **New animation IDs** (`GameIds.MECHANIC_ANIMATION_IDS`, kept apart from the fully authored `SHARED_ANIMATION_IDS`):
   * Shared: `shield` (loop), `shield_break` (loop while dizzy), `spot_dodge` (26), `roll` (32), `air_dodge` (34).
   * Moves: `wind_rise` and `force_leap`.
   * Existing art adapters fall back to idle for missing IDs.

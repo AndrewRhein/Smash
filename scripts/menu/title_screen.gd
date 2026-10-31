@@ -6,17 +6,19 @@ var start_button: Button
 var stocks_button: CycleButton
 
 
-const PORTRAITS := ["res://art/characters/gandalf/portrait.png", "res://art/characters/vader/portrait.png"]
+const PORTRAITS := ["res://art/characters/gandalf/portrait.png", "res://art/characters/elon/portrait.png"]
 
 
 func build() -> void:
+	# Keep both portraits and the navigation hint within the 720px viewport.
+	column.add_theme_constant_override("separation", 10)
 	var portraits := _portrait_row()
 	if portraits != null:
 		column.add_child(portraits)
 	column.add_child(MenuStyle.label("REALMS RUMBLE", 64, MenuStyle.GOLD))
-	column.add_child(MenuStyle.label("Gandalf  vs.  Darth Vader", 24, MenuStyle.MUTED))
+	column.add_child(MenuStyle.label("Gandalf  vs.  Elon Musk", 24, MenuStyle.MUTED))
 	var spacer := Control.new()
-	spacer.custom_minimum_size = Vector2(0, 24)
+	spacer.custom_minimum_size = Vector2(0, 12)
 	column.add_child(spacer)
 	start_button = add_button("Start Match", app.start_match)
 	var stock_options := range(GameSettings.MIN_STOCKS, GameSettings.MAX_STOCKS + 1)
@@ -45,7 +47,7 @@ func _portrait_row() -> HBoxContainer:
 		var image := TextureRect.new()
 		image.texture = load(path)
 		image.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-		image.custom_minimum_size = Vector2(128, 128)
+		image.custom_minimum_size = Vector2(64, 64)
 		image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		row.add_child(image)

@@ -1,6 +1,6 @@
 # Realms Rumble: Godot 4 local platform fighter
 
-A local two-player platform fighter: Gandalf vs. Darth Vader. This integration branch combines Claude's gameplay foundation with Gandalf's 14-animation pixel-art review pack and presentation effects. Vader, the arena and HUD retain temporary graphics. The final art milestone remains incomplete.
+A local two-player platform fighter: Gandalf vs. a fictional tech-brawler Elon Musk. Both fighters have sprite art; the Twilight Citadel provides a painted arena, stone platforms, HUD and combat effects. Elon's compact first-pass kit replaces Vader in the playable lineup. See [his abilities and art notes](docs/ELON_CHARACTER.md).
 
 ## Install and run
 
@@ -38,14 +38,14 @@ Controllers: the first two connected are Players 1 and 2. Change, swap or check 
 * The last fighter with stocks wins. If both final stocks are lost on the same tick, the match is a **draw**.
 * After the result, press **Enter** or **Start** to rematch with everything reset.
 * Light attacks that connect can be cancelled into specials. The specials:
-  * **Force choke** holds briefly and can be broken by hitting Vader.
-  * **Force guard** blocks magic and projectiles from the front only.
+  * **Orbital Tractor** holds briefly and can be broken by hitting Elon.
+  * **Energy Shield** blocks magic and projectiles from the front only.
 
 ## Tests
 
 ```bash
 godot --headless --path . --import                         # once, builds the class cache
-godot --headless --path . -s res://tests/run_tests.gd      # 99 gameplay, controls, menu, presentation + smoke tests, exit code 0 on success
+godot --headless --path . -s res://tests/run_tests.gd      # 108 gameplay, controls, menu, character, presentation + smoke tests, exit code 0 on success
 godot --headless --path . -s res://tests/ko_report.gd      # tuning table: KO % per move
 ```
 
@@ -57,7 +57,7 @@ Results, the versions tested and manual-coverage limits are in [`docs/TEST_REPOR
 * `scripts/gameplay/`: match controller, stage, projectiles, combat math, debug overlay
 * `scripts/data/`, `data/characters/*.tres`: typed movesets; `game_ids.gd` is the ID registry
 * `scripts/input/`: InputMap setup and the per-player input adapter
-* `scripts/presentation/`: sprite adapters and effects, plus temporary Vader, HUD and arena renderers
+* `scripts/presentation/`: sprite adapters, Citadel arena/HUD, combat and tech effects; old placeholder renderers remain for regression fixtures
 * `tests/`: headless test runner and tools
 
 Documentation:
@@ -68,4 +68,4 @@ Documentation:
 
 ## Status
 
-Gandalf has 14 integrated animations (70 playback frames); Vader still uses the temporary renderer because image generation was rejected without a specific cause. **The visual asset milestone is not done.** The combined runtime passes 67 headless tests on Godot 4.3 and 4.5. Not yet tested by humans or on Windows or controller hardware. See [integration status](docs/INTEGRATION_STATUS.md) for exact validation and limitations.
+Gandalf and Elon have sprite art; the Twilight Citadel provides the arena, HUD and effects. Shield, dodge and up-special animations still use idle poses with the shared status overlay (shield bubble, dizzy stars) until art exists. The combined game passes 108 headless tests on Godot 4.3 and 4.5. Not yet tested by humans, on Windows, or with controller hardware. See [integration status](docs/INTEGRATION_STATUS.md) and [`docs/SMASH_CORE.md`](docs/SMASH_CORE.md).

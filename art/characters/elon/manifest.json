@@ -1,0 +1,456 @@
+{
+  "character_id": "elon",
+  "status": "first_pass_playable",
+  "cell_size": [
+    256,
+    256
+  ],
+  "pivot": [
+    128,
+    208
+  ],
+  "unique_poses": 27,
+  "animations": {
+    "idle": [
+      0,
+      1
+    ],
+    "walk": [
+      2,
+      3
+    ],
+    "run": [
+      4,
+      5
+    ],
+    "jump": [
+      6
+    ],
+    "fall": [
+      7
+    ],
+    "hurt": [
+      8
+    ],
+    "knockback": [
+      9
+    ],
+    "defeat": [
+      10
+    ],
+    "victory": [
+      11
+    ],
+    "ion_jab": [
+      12,
+      13,
+      14
+    ],
+    "rocket_hammer": [
+      15,
+      16,
+      17
+    ],
+    "thruster_burst": [
+      18,
+      19,
+      20
+    ],
+    "orbital_tractor": [
+      21,
+      22,
+      23
+    ],
+    "energy_shield": [
+      24,
+      25,
+      26
+    ]
+  },
+  "frames": [
+    {
+      "source": "movement_source.png",
+      "bounds": [
+        95,
+        16,
+        174,
+        370
+      ],
+      "scale": 0.302702702702703,
+      "source_pivot": [
+        185,
+        386
+      ]
+    },
+    {
+      "source": "movement_source.png",
+      "bounds": [
+        456,
+        16,
+        170,
+        370
+      ],
+      "scale": 0.302702702702703,
+      "source_pivot": [
+        544,
+        386
+      ]
+    },
+    {
+      "source": "movement_source.png",
+      "bounds": [
+        802,
+        20,
+        221,
+        366
+      ],
+      "scale": 0.302702702702703,
+      "source_pivot": [
+        905,
+        386
+      ]
+    },
+    {
+      "source": "movement_source.png",
+      "bounds": [
+        1156,
+        18,
+        242,
+        368
+      ],
+      "scale": 0.302702702702703,
+      "source_pivot": [
+        1267,
+        386
+      ]
+    },
+    {
+      "source": "movement_source.png",
+      "bounds": [
+        44,
+        417,
+        270,
+        309
+      ],
+      "scale": 0.302702702702703,
+      "source_pivot": [
+        160,
+        726
+      ]
+    },
+    {
+      "source": "movement_source.png",
+      "bounds": [
+        403,
+        417,
+        267,
+        309
+      ],
+      "scale": 0.302702702702703,
+      "source_pivot": [
+        631,
+        726
+      ]
+    },
+    {
+      "source": "movement_source.png",
+      "bounds": [
+        788,
+        394,
+        198,
+        315
+      ],
+      "scale": 0.302702702702703,
+      "source_pivot": [
+        869,
+        709
+      ]
+    },
+    {
+      "source": "movement_source.png",
+      "bounds": [
+        1133,
+        405,
+        275,
+        312
+      ],
+      "scale": 0.302702702702703,
+      "source_pivot": [
+        1349,
+        717
+      ]
+    },
+    {
+      "source": "movement_source.png",
+      "bounds": [
+        78,
+        741,
+        209,
+        328
+      ],
+      "scale": 0.302702702702703,
+      "source_pivot": [
+        157,
+        1069
+      ]
+    },
+    {
+      "source": "movement_source.png",
+      "bounds": [
+        407,
+        749,
+        307,
+        270
+      ],
+      "scale": 0.302702702702703,
+      "source_pivot": [
+        628,
+        1019
+      ]
+    },
+    {
+      "source": "movement_source.png",
+      "bounds": [
+        790,
+        837,
+        239,
+        226
+      ],
+      "scale": 0.302702702702703,
+      "source_pivot": [
+        910,
+        1063
+      ]
+    },
+    {
+      "source": "movement_source.png",
+      "bounds": [
+        1197,
+        726,
+        193,
+        343
+      ],
+      "scale": 0.302702702702703,
+      "source_pivot": [
+        1293,
+        1069
+      ]
+    },
+    {
+      "source": "actions_v02.png",
+      "bounds": [
+        42,
+        36,
+        241,
+        271
+      ],
+      "scale": 0.413284132841328,
+      "source_pivot": [
+        162,
+        307
+      ]
+    },
+    {
+      "source": "actions_v02.png",
+      "bounds": [
+        379,
+        48,
+        282,
+        260
+      ],
+      "scale": 0.413284132841328,
+      "source_pivot": [
+        505,
+        308
+      ]
+    },
+    {
+      "source": "actions_v02.png",
+      "bounds": [
+        738,
+        29,
+        235,
+        279
+      ],
+      "scale": 0.413284132841328,
+      "source_pivot": [
+        855,
+        308
+      ]
+    },
+    {
+      "source": "actions_v02.png",
+      "bounds": [
+        36,
+        320,
+        265,
+        294
+      ],
+      "scale": 0.413284132841328,
+      "source_pivot": [
+        173,
+        614
+      ]
+    },
+    {
+      "source": "actions_v02.png",
+      "bounds": [
+        350,
+        345,
+        420,
+        269
+      ],
+      "scale": 0.413284132841328,
+      "source_pivot": [
+        478,
+        614
+      ]
+    },
+    {
+      "source": "actions_v02.png",
+      "bounds": [
+        737,
+        341,
+        269,
+        273
+      ],
+      "scale": 0.413284132841328,
+      "source_pivot": [
+        862,
+        614
+      ]
+    },
+    {
+      "source": "actions_v02.png",
+      "bounds": [
+        44,
+        622,
+        242,
+        286
+      ],
+      "scale": 0.413284132841328,
+      "source_pivot": [
+        165,
+        908
+      ]
+    },
+    {
+      "source": "actions_v02.png",
+      "bounds": [
+        379,
+        625,
+        292,
+        283
+      ],
+      "scale": 0.413284132841328,
+      "source_pivot": [
+        508,
+        908
+      ]
+    },
+    {
+      "source": "actions_v02.png",
+      "bounds": [
+        735,
+        624,
+        241,
+        284
+      ],
+      "scale": 0.413284132841328,
+      "source_pivot": [
+        855,
+        908
+      ]
+    },
+    {
+      "source": "actions_v02.png",
+      "bounds": [
+        47,
+        917,
+        239,
+        293
+      ],
+      "scale": 0.413284132841328,
+      "source_pivot": [
+        166,
+        1210
+      ]
+    },
+    {
+      "source": "actions_v02.png",
+      "bounds": [
+        379,
+        916,
+        307,
+        294
+      ],
+      "scale": 0.413284132841328,
+      "source_pivot": [
+        507,
+        1210
+      ]
+    },
+    {
+      "source": "actions_v02.png",
+      "bounds": [
+        761,
+        916,
+        223,
+        294
+      ],
+      "scale": 0.413284132841328,
+      "source_pivot": [
+        872,
+        1210
+      ]
+    },
+    {
+      "source": "actions_v02.png",
+      "bounds": [
+        41,
+        1221,
+        244,
+        285
+      ],
+      "scale": 0.413284132841328,
+      "source_pivot": [
+        163,
+        1506
+      ]
+    },
+    {
+      "source": "actions_v02.png",
+      "bounds": [
+        370,
+        1226,
+        258,
+        280
+      ],
+      "scale": 0.413284132841328,
+      "source_pivot": [
+        499,
+        1506
+      ]
+    },
+    {
+      "source": "actions_v02.png",
+      "bounds": [
+        734,
+        1215,
+        247,
+        291
+      ],
+      "scale": 0.413284132841328,
+      "source_pivot": [
+        857,
+        1506
+      ]
+    }
+  ],
+  "atlas_sha256": "e7c554b296294996d166f20be8ef032aefe34d5a57ab2a7cbb88d8072e1c26ef",
+  "known_limits": [
+    "Two-pose locomotion loops",
+    "Single held poses for airborne and reaction states",
+    "Three-pose attacks; further temporal polish possible"
+  ]
+}

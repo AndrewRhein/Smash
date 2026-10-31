@@ -8,7 +8,9 @@ extends RefCounted
 # --- Characters --------------------------------------------------------------
 const CHARACTER_GANDALF := &"gandalf"
 const CHARACTER_VADER := &"vader"
-const CHARACTER_IDS := [&"gandalf", &"vader"]
+const CHARACTER_ELON := &"elon"
+# Vader is retained as a legacy regression fixture, not in the playable roster.
+const CHARACTER_IDS := [&"gandalf", &"vader", &"elon"]
 
 # --- Move slots (also the stable move IDs) -----------------------------------
 const MOVE_LIGHT := &"light"
@@ -35,16 +37,20 @@ const ANIM_SHIELD_BREAK := &"shield_break"
 const ANIM_SPOT_DODGE := &"spot_dodge"
 const ANIM_ROLL := &"roll"
 const ANIM_AIR_DODGE := &"air_dodge"
+## Core states every character's art must cover.
 const SHARED_ANIMATION_IDS := [
 	&"idle", &"walk", &"run", &"jump", &"fall",
 	&"hurt", &"knockback", &"defeat", &"victory",
-	&"shield", &"shield_break", &"spot_dodge", &"roll", &"air_dodge",
 ]
+## Shield / dodge states (docs/SMASH_CORE.md). Art is still pending for every
+## character; adapters fall back to idle and the StatusVisual overlay shows them.
+const MECHANIC_ANIMATION_IDS := [&"shield", &"shield_break", &"spot_dodge", &"roll", &"air_dodge"]
 
 # --- Move-specific animation IDs ---------------------------------------------
 const MOVE_ANIMATION_IDS := {
 	&"gandalf": [&"staff_strike", &"heavy_staff", &"lightning", &"fireball", &"magic_push", &"wind_rise"],
 	&"vader": [&"saber_slash", &"heavy_saber", &"force_push", &"force_choke", &"force_guard", &"force_leap"],
+	&"elon": [&"ion_jab", &"rocket_hammer", &"thruster_burst", &"orbital_tractor", &"energy_shield"],
 }
 
 # --- Effect IDs (effect_requested) -------------------------------------------
@@ -61,6 +67,7 @@ const EFFECT_IDS := [
 	&"staff_swing", &"heavy_staff_swing", &"lightning_telegraph", &"lightning_bolt",
 	&"fireball_cast", &"magic_push",
 	&"saber_swing", &"heavy_saber_swing", &"force_push", &"force_choke", &"force_guard",
+	&"ion_jab", &"rocket_hammer", &"thruster_burst", &"orbital_tractor", &"energy_shield",
 ]
 
 # --- Damage types (used by Force guard) --------------------------------------
@@ -77,7 +84,7 @@ const SPECIAL_BEHAVIOURS := [&"", &"choke", &"guard"]
 
 
 static func all_animation_ids() -> Array:
-	var ids: Array = SHARED_ANIMATION_IDS.duplicate()
+	var ids: Array = SHARED_ANIMATION_IDS + MECHANIC_ANIMATION_IDS
 	for character_id: StringName in MOVE_ANIMATION_IDS:
 		ids.append_array(MOVE_ANIMATION_IDS[character_id])
 	return ids

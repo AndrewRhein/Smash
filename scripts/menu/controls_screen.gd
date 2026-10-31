@@ -58,7 +58,7 @@ func build() -> void:
 		grid.add_child(_cell(row[0], MenuStyle.TEXT, true))
 		for i in range(1, 4):
 			grid.add_child(_cell(row[i]))
-	column.add_child(MenuStyle.label("Gandalf — B: fireball · side: lightning · down: magic push · up: wind rise.   Vader — B: Force choke · side: Force push · down: Force guard · up: Force leap.", 15, MenuStyle.MUTED))
+	column.add_child(MenuStyle.label("Gandalf — B: fireball · side: lightning · down: magic push · up: wind rise.   Elon — B: orbital tractor · side: thruster burst · down: energy shield · up: rocket boost.", 15, MenuStyle.MUTED))
 	column.add_child(MenuStyle.label("Controllers: first two connected pads are Players 1 and 2 (change in Settings → Controllers).", 15, MenuStyle.MUTED))
 	back_button = add_button("Back", back_action)
 
