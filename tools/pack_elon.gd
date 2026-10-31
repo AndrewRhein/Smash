@@ -115,4 +115,3 @@ func components(path: String, columns: int, rows: int) -> Array:
     print(path, ": ", found.size(), " components")
     assert(found.size() == columns * rows, "Unexpected connected pose count")
     return found
-
