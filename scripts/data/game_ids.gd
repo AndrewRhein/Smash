@@ -12,7 +12,8 @@ const CHARACTER_ELON := &"elon"
 # Vader is retained as a legacy regression fixture, not in the playable roster.
 const CHARACTER_LEO := &"leo"
 const CHARACTER_GROBAN := &"groban"
-const CHARACTER_IDS := [&"gandalf", &"vader", &"elon", &"leo", &"groban"]
+const CHARACTER_TIM := &"tim"
+const CHARACTER_IDS := [&"gandalf", &"vader", &"elon", &"leo", &"groban", &"tim"]
 
 # --- Move slots (also the stable move IDs) -----------------------------------
 const MOVE_LIGHT := &"light"
@@ -65,6 +66,7 @@ const MOVE_ANIMATION_IDS := {
 		&"tome_lift", &"key_sweep", &"monstrance", &"flying_kick", &"heavenward_fist"],
 	&"groban": [&"baton_jab", &"scarf_lash", &"power_ballad", &"high_note", &"crescendo", &"soaring_note",
 		&"high_c", &"low_sweep", &"standing_ovation", &"lunge_reach"],
+	&"tim": [&"right_hook", &"haymaker", &"nypd_takedown", &"drone_strike", &"lego_castle", &"empire_rally"],
 }
 
 # --- Effect IDs (effect_requested) -------------------------------------------

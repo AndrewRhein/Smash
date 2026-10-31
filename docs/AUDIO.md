@@ -104,3 +104,13 @@ Directional attacks (`light_up`, `light_down`, `heavy_up`, `air_*`) use their mo
 | `light_up` / `light_down` / `heavy_up` / `air_forward` | (high C) / "Low note!" / "Bravo!" / "Hup!" |
 | `hurt` / `ko` / `dizzy` / `victory` | "Ugh!" / (fading vibrato) / "Off-key…" / "Thank you, goodnight!" |
 Short sung phrases work best. Use an original singer or a generic voice; do not imitate any real person's voice.
+
+### Tim (`audio/voice/tim/`)
+| Line | Suggested call-out |
+|---|---|
+| `light` / `heavy` | "Right hook!" / "Haymaker!" |
+| `special_1` (side B, NYPD Takedown) | "NYPD! You're under arrest!" |
+| `special_2` (neutral B, Counterterrorism Drone) | "Drone's up!" |
+| `special_3` (down B, LEGO Castle Deployment) | "Castle deployed!" |
+| `special_up` (Age of Empires Rally) | "Wololo!"-style rally cry / "Rally!" |
+| `hurt` / `ko` / `dizzy` / `victory` | "Oof!" / "Officer down!" / "Seeing stars…" / "Case closed." |

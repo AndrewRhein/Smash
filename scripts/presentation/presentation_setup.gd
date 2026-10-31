@@ -7,6 +7,8 @@ const ElonScene = preload("res://scenes/presentation/elon_visual.tscn")
 const CHARACTER_ART := {
     &"leo": ["res://scenes/presentation/leo_visual.tscn", {&"special_2": "res://scenes/presentation/holy_light_visual.tscn"}],
     &"groban": ["res://scenes/presentation/groban_visual.tscn", {&"special_2": "res://scenes/presentation/sound_wave_visual.tscn"}],
+    &"tim": ["res://scenes/presentation/tim_visual.tscn", {&"special_2": "res://scenes/presentation/drone_visual.tscn",
+        &"special_3": "res://scenes/presentation/castle_visual.tscn"}],
 }
 
 static func with_art(source: CharacterData) -> CharacterData:

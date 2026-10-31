@@ -1,0 +1,395 @@
+{
+  "character_id": "tim",
+  "cell_size": [
+    256,
+    256
+  ],
+  "pivot": [
+    128,
+    208
+  ],
+  "head_width": 20.0,
+  "scales": {
+    "movement": 0.3669724770642202,
+    "actions": 0.35714285714285715
+  },
+  "poses": [
+    {
+      "pose": "movement:0",
+      "source": "movement_source.webp",
+      "bounds": [
+        78,
+        20,
+        215,
+        338
+      ],
+      "scale": 0.36697
+    },
+    {
+      "pose": "movement:1",
+      "source": "movement_source.webp",
+      "bounds": [
+        441,
+        17,
+        215,
+        341
+      ],
+      "scale": 0.36697
+    },
+    {
+      "pose": "movement:2",
+      "source": "movement_source.webp",
+      "bounds": [
+        795,
+        17,
+        216,
+        342
+      ],
+      "scale": 0.36697
+    },
+    {
+      "pose": "movement:3",
+      "source": "movement_source.webp",
+      "bounds": [
+        1157,
+        17,
+        237,
+        342
+      ],
+      "scale": 0.36697
+    },
+    {
+      "pose": "movement:4",
+      "source": "movement_source.webp",
+      "bounds": [
+        49,
+        392,
+        263,
+        314
+      ],
+      "scale": 0.36697
+    },
+    {
+      "pose": "movement:5",
+      "source": "movement_source.webp",
+      "bounds": [
+        398,
+        392,
+        288,
+        316
+      ],
+      "scale": 0.36697
+    },
+    {
+      "pose": "movement:6",
+      "source": "movement_source.webp",
+      "bounds": [
+        774,
+        370,
+        243,
+        332
+      ],
+      "scale": 0.36697
+    },
+    {
+      "pose": "movement:7",
+      "source": "movement_source.webp",
+      "bounds": [
+        1124,
+        379,
+        285,
+        330
+      ],
+      "scale": 0.36697
+    },
+    {
+      "pose": "movement:8",
+      "source": "movement_source.webp",
+      "bounds": [
+        92,
+        734,
+        203,
+        336
+      ],
+      "scale": 0.36697
+    },
+    {
+      "pose": "movement:9",
+      "source": "movement_source.webp",
+      "bounds": [
+        396,
+        737,
+        323,
+        280
+      ],
+      "scale": 0.36697
+    },
+    {
+      "pose": "movement:10",
+      "source": "movement_source.webp",
+      "bounds": [
+        781,
+        822,
+        236,
+        252
+      ],
+      "scale": 0.36697
+    },
+    {
+      "pose": "movement:11",
+      "source": "movement_source.webp",
+      "bounds": [
+        1166,
+        726,
+        215,
+        347
+      ],
+      "scale": 0.36697
+    },
+    {
+      "pose": "actions:5",
+      "source": "actions_source.webp",
+      "bounds": [
+        723,
+        342,
+        238,
+        268
+      ],
+      "scale": 0.35714
+    },
+    {
+      "pose": "actions:0",
+      "source": "actions_source.webp",
+      "bounds": [
+        42,
+        16,
+        241,
+        304
+      ],
+      "scale": 0.35714
+    },
+    {
+      "pose": "actions:1",
+      "source": "actions_source.webp",
+      "bounds": [
+        364,
+        24,
+        320,
+        296
+      ],
+      "scale": 0.35714
+    },
+    {
+      "pose": "actions:2",
+      "source": "actions_source.webp",
+      "bounds": [
+        723,
+        18,
+        239,
+        302
+      ],
+      "scale": 0.35714
+    },
+    {
+      "pose": "actions:3",
+      "source": "actions_source.webp",
+      "bounds": [
+        21,
+        350,
+        286,
+        260
+      ],
+      "scale": 0.35714
+    },
+    {
+      "pose": "actions:4",
+      "source": "actions_source.webp",
+      "bounds": [
+        373,
+        342,
+        279,
+        268
+      ],
+      "scale": 0.35714
+    },
+    {
+      "pose": "actions:6",
+      "source": "actions_source.webp",
+      "bounds": [
+        40,
+        632,
+        238,
+        289
+      ],
+      "scale": 0.35714
+    },
+    {
+      "pose": "actions:7",
+      "source": "actions_source.webp",
+      "bounds": [
+        356,
+        632,
+        305,
+        289
+      ],
+      "scale": 0.35714
+    },
+    {
+      "pose": "actions:8",
+      "source": "actions_source.webp",
+      "bounds": [
+        721,
+        632,
+        241,
+        289
+      ],
+      "scale": 0.35714
+    },
+    {
+      "pose": "actions:9",
+      "source": "actions_source.webp",
+      "bounds": [
+        28,
+        954,
+        231,
+        260
+      ],
+      "scale": 0.35714
+    },
+    {
+      "pose": "actions:10",
+      "source": "actions_source.webp",
+      "bounds": [
+        354,
+        944,
+        331,
+        271
+      ],
+      "scale": 0.35714
+    },
+    {
+      "pose": "actions:11",
+      "source": "actions_source.webp",
+      "bounds": [
+        737,
+        943,
+        230,
+        272
+      ],
+      "scale": 0.35714
+    },
+    {
+      "pose": "actions:12",
+      "source": "actions_source.webp",
+      "bounds": [
+        29,
+        1249,
+        240,
+        274
+      ],
+      "scale": 0.35714
+    },
+    {
+      "pose": "actions:13",
+      "source": "actions_source.webp",
+      "bounds": [
+        356,
+        1225,
+        286,
+        298
+      ],
+      "scale": 0.35714
+    },
+    {
+      "pose": "actions:14",
+      "source": "actions_source.webp",
+      "bounds": [
+        722,
+        1252,
+        225,
+        271
+      ],
+      "scale": 0.35714
+    }
+  ],
+  "animations": {
+    "idle": [
+      0,
+      1
+    ],
+    "walk": [
+      2,
+      3
+    ],
+    "run": [
+      4,
+      5
+    ],
+    "jump": [
+      6
+    ],
+    "fall": [
+      7
+    ],
+    "hurt": [
+      8
+    ],
+    "knockback": [
+      9
+    ],
+    "defeat": [
+      10
+    ],
+    "victory": [
+      11
+    ],
+    "shield": [
+      12
+    ],
+    "shield_break": [
+      8
+    ],
+    "spot_dodge": [
+      10
+    ],
+    "roll": [
+      4,
+      5,
+      4
+    ],
+    "air_dodge": [
+      6
+    ],
+    "right_hook": [
+      13,
+      14,
+      15
+    ],
+    "haymaker": [
+      13,
+      14,
+      15
+    ],
+    "nypd_takedown": [
+      16,
+      17,
+      12
+    ],
+    "lego_castle": [
+      18,
+      19,
+      20
+    ],
+    "drone_strike": [
+      21,
+      22,
+      23
+    ],
+    "empire_rally": [
+      24,
+      25,
+      26
+    ]
+  },
+  "atlas_sha256": "a6e43e7b82031e9c1b6cc9664e276680e472ebfc0e6270eaa64653ca116192fd"
+}
