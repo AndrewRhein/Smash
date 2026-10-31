@@ -1,0 +1,37 @@
+{
+  "id": "leo",
+  "head_width": 20.0,
+  "reference": "movement:0",
+  "sheets": {
+    "movement": {"file": "movement_source.webp", "cols": 4, "rows": 3},
+    "actions": {"file": "actions_source.webp", "cols": 3, "rows": 5},
+    "extras": {"file": "extras_source.webp", "cols": 4, "rows": 5}
+  },
+  "animations": {
+    "idle": ["movement:0", "movement:1"],
+    "walk": ["movement:2", "movement:3"],
+    "run": ["movement:4", "movement:5"],
+    "jump": ["movement:6"],
+    "fall": ["movement:7"],
+    "hurt": ["movement:8"],
+    "knockback": ["movement:9"],
+    "defeat": ["movement:10"],
+    "victory": ["movement:11"],
+    "shield": ["extras:5"],
+    "shield_break": ["extras:6"],
+    "spot_dodge": ["extras:18"],
+    "roll": ["extras:11", "extras:14", "extras:11"],
+    "air_dodge": ["movement:6"],
+    "palm_strike": ["actions:0", "actions:1", "actions:2"],
+    "crosier_smash": ["actions:3", "actions:4", "actions:5"],
+    "censer_swing": ["actions:9", "actions:10", "actions:11"],
+    "holy_tome": ["actions:6", "actions:7", "actions:8"],
+    "benediction": ["actions:12", "actions:13", "actions:14"],
+    "ascension": ["extras:0", "extras:12", "movement:7"],
+    "tome_lift": ["actions:6", "extras:17", "actions:8"],
+    "key_sweep": ["extras:0", "extras:16", "extras:0"],
+    "monstrance": ["extras:0", "extras:15", "extras:0"],
+    "flying_kick": ["movement:6", "extras:13", "movement:7"],
+    "heavenward_fist": ["movement:6", "extras:12", "movement:7"]
+  }
+}

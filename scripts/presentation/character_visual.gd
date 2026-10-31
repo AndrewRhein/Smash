@@ -92,7 +92,7 @@ func _process(delta: float) -> void:
                 elapsed += delta * playback_speed
         else:
             elapsed = float(snapshot.get("animation_tick", 0)) / physics_hz
-        if int(snapshot.get("move_tick", -1)) >= 0 and PHASE_FRAMES.has(active_id):
+        if int(snapshot.get("move_tick", -1)) >= 0 and (PHASE_FRAMES.has(active_id) or frames.get_frame_count(active_id) == 3):
             var character := fighter.get("character") as CharacterData
             var move: MoveData = character.get_move(snapshot.get("current_move_id", &"")) if character != null else null
             if move != null:
@@ -124,6 +124,7 @@ func frame_for_move(tick: int, startup: int, active: int, recovery: int) -> int:
         phase = 1
         local_tick = tick - startup
         length = active
-    var sequence: Array = PHASE_FRAMES[active_id][phase]
+    # Any 3-pose attack without an entry maps to startup / contact / recovery.
+    var sequence: Array = PHASE_FRAMES.get(active_id, [[0], [1], [2]])[phase]
     var slot := clampi(int(float(local_tick) / maxi(1, length) * sequence.size()), 0, sequence.size() - 1)
     return int(sequence[slot])

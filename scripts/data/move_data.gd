@@ -57,6 +57,10 @@ enum MovementPolicy {
 ## &"" (none), &"choke" or &"guard". See GameIds.SPECIAL_BEHAVIOURS.
 @export var special_behaviour: StringName = &""
 
+## Push victims AWAY from the attacker on either side (burst moves) instead of
+## in the attacker's facing direction.
+@export var radial_knockback: bool = false
+
 @export_group("Recovery")
 ## Velocity SET on the fighter on active tick `self_impulse_tick` (authored
 ## facing right, x mirrored by facing). Zero = none. Used by up specials.

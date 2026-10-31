@@ -1,0 +1,542 @@
+{
+  "character_id": "leo",
+  "cell_size": [
+    256,
+    256
+  ],
+  "pivot": [
+    128,
+    208
+  ],
+  "head_width": 20.0,
+  "scales": {
+    "movement": 0.3007518796992481,
+    "actions": 0.3389830508474576,
+    "extras": 0.37735849056603776
+  },
+  "poses": [
+    {
+      "pose": "movement:0",
+      "source": "movement_source.webp",
+      "bounds": [
+        60,
+        20,
+        255,
+        322
+      ],
+      "scale": 0.30075
+    },
+    {
+      "pose": "movement:1",
+      "source": "movement_source.webp",
+      "bounds": [
+        423,
+        17,
+        251,
+        325
+      ],
+      "scale": 0.30075
+    },
+    {
+      "pose": "movement:2",
+      "source": "movement_source.webp",
+      "bounds": [
+        798,
+        24,
+        235,
+        318
+      ],
+      "scale": 0.30075
+    },
+    {
+      "pose": "movement:3",
+      "source": "movement_source.webp",
+      "bounds": [
+        1158,
+        21,
+        243,
+        319
+      ],
+      "scale": 0.30075
+    },
+    {
+      "pose": "movement:4",
+      "source": "movement_source.webp",
+      "bounds": [
+        50,
+        401,
+        270,
+        284
+      ],
+      "scale": 0.30075
+    },
+    {
+      "pose": "movement:5",
+      "source": "movement_source.webp",
+      "bounds": [
+        414,
+        391,
+        275,
+        294
+      ],
+      "scale": 0.30075
+    },
+    {
+      "pose": "movement:6",
+      "source": "movement_source.webp",
+      "bounds": [
+        771,
+        369,
+        264,
+        282
+      ],
+      "scale": 0.30075
+    },
+    {
+      "pose": "movement:7",
+      "source": "movement_source.webp",
+      "bounds": [
+        1132,
+        374,
+        266,
+        324
+      ],
+      "scale": 0.30075
+    },
+    {
+      "pose": "movement:8",
+      "source": "movement_source.webp",
+      "bounds": [
+        63,
+        739,
+        234,
+        323
+      ],
+      "scale": 0.30075
+    },
+    {
+      "pose": "movement:9",
+      "source": "movement_source.webp",
+      "bounds": [
+        405,
+        751,
+        293,
+        246
+      ],
+      "scale": 0.30075
+    },
+    {
+      "pose": "movement:10",
+      "source": "movement_source.webp",
+      "bounds": [
+        759,
+        806,
+        276,
+        256
+      ],
+      "scale": 0.30075
+    },
+    {
+      "pose": "movement:11",
+      "source": "movement_source.webp",
+      "bounds": [
+        1127,
+        723,
+        268,
+        339
+      ],
+      "scale": 0.30075
+    },
+    {
+      "pose": "extras:5",
+      "source": "extras_source.webp",
+      "bounds": [
+        271,
+        336,
+        209,
+        255
+      ],
+      "scale": 0.37736
+    },
+    {
+      "pose": "extras:6",
+      "source": "extras_source.webp",
+      "bounds": [
+        524,
+        337,
+        195,
+        254
+      ],
+      "scale": 0.37736
+    },
+    {
+      "pose": "extras:18",
+      "source": "extras_source.webp",
+      "bounds": [
+        499,
+        1311,
+        215,
+        200
+      ],
+      "scale": 0.37736
+    },
+    {
+      "pose": "extras:11",
+      "source": "extras_source.webp",
+      "bounds": [
+        759,
+        644,
+        241,
+        218
+      ],
+      "scale": 0.37736
+    },
+    {
+      "pose": "extras:14",
+      "source": "extras_source.webp",
+      "bounds": [
+        471,
+        1021,
+        247,
+        179
+      ],
+      "scale": 0.37736
+    },
+    {
+      "pose": "actions:0",
+      "source": "actions_source.webp",
+      "bounds": [
+        36,
+        23,
+        248,
+        278
+      ],
+      "scale": 0.33898
+    },
+    {
+      "pose": "actions:1",
+      "source": "actions_source.webp",
+      "bounds": [
+        366,
+        37,
+        302,
+        263
+      ],
+      "scale": 0.33898
+    },
+    {
+      "pose": "actions:2",
+      "source": "actions_source.webp",
+      "bounds": [
+        726,
+        28,
+        239,
+        273
+      ],
+      "scale": 0.33898
+    },
+    {
+      "pose": "actions:3",
+      "source": "actions_source.webp",
+      "bounds": [
+        37,
+        323,
+        223,
+        282
+      ],
+      "scale": 0.33898
+    },
+    {
+      "pose": "actions:4",
+      "source": "actions_source.webp",
+      "bounds": [
+        329,
+        347,
+        375,
+        257
+      ],
+      "scale": 0.33898
+    },
+    {
+      "pose": "actions:5",
+      "source": "actions_source.webp",
+      "bounds": [
+        726,
+        339,
+        245,
+        268
+      ],
+      "scale": 0.33898
+    },
+    {
+      "pose": "actions:9",
+      "source": "actions_source.webp",
+      "bounds": [
+        30,
+        925,
+        244,
+        265
+      ],
+      "scale": 0.33898
+    },
+    {
+      "pose": "actions:10",
+      "source": "actions_source.webp",
+      "bounds": [
+        345,
+        924,
+        348,
+        260
+      ],
+      "scale": 0.33898
+    },
+    {
+      "pose": "actions:11",
+      "source": "actions_source.webp",
+      "bounds": [
+        739,
+        922,
+        219,
+        268
+      ],
+      "scale": 0.33898
+    },
+    {
+      "pose": "actions:6",
+      "source": "actions_source.webp",
+      "bounds": [
+        26,
+        630,
+        234,
+        268
+      ],
+      "scale": 0.33898
+    },
+    {
+      "pose": "actions:7",
+      "source": "actions_source.webp",
+      "bounds": [
+        362,
+        628,
+        282,
+        267
+      ],
+      "scale": 0.33898
+    },
+    {
+      "pose": "actions:8",
+      "source": "actions_source.webp",
+      "bounds": [
+        725,
+        633,
+        231,
+        265
+      ],
+      "scale": 0.33898
+    },
+    {
+      "pose": "actions:12",
+      "source": "actions_source.webp",
+      "bounds": [
+        38,
+        1242,
+        216,
+        261
+      ],
+      "scale": 0.33898
+    },
+    {
+      "pose": "actions:13",
+      "source": "actions_source.webp",
+      "bounds": [
+        362,
+        1222,
+        269,
+        281
+      ],
+      "scale": 0.33898
+    },
+    {
+      "pose": "actions:14",
+      "source": "actions_source.webp",
+      "bounds": [
+        705,
+        1221,
+        269,
+        282
+      ],
+      "scale": 0.33898
+    },
+    {
+      "pose": "extras:0",
+      "source": "extras_source.webp",
+      "bounds": [
+        15,
+        46,
+        212,
+        246
+      ],
+      "scale": 0.37736
+    },
+    {
+      "pose": "extras:12",
+      "source": "extras_source.webp",
+      "bounds": [
+        10,
+        902,
+        180,
+        298
+      ],
+      "scale": 0.37736
+    },
+    {
+      "pose": "extras:17",
+      "source": "extras_source.webp",
+      "bounds": [
+        249,
+        1215,
+        220,
+        295
+      ],
+      "scale": 0.37736
+    },
+    {
+      "pose": "extras:16",
+      "source": "extras_source.webp",
+      "bounds": [
+        3,
+        1257,
+        242,
+        253
+      ],
+      "scale": 0.37736
+    },
+    {
+      "pose": "extras:15",
+      "source": "extras_source.webp",
+      "bounds": [
+        754,
+        876,
+        222,
+        335
+      ],
+      "scale": 0.37736
+    },
+    {
+      "pose": "extras:13",
+      "source": "extras_source.webp",
+      "bounds": [
+        230,
+        932,
+        227,
+        237
+      ],
+      "scale": 0.37736
+    }
+  ],
+  "animations": {
+    "idle": [
+      0,
+      1
+    ],
+    "walk": [
+      2,
+      3
+    ],
+    "run": [
+      4,
+      5
+    ],
+    "jump": [
+      6
+    ],
+    "fall": [
+      7
+    ],
+    "hurt": [
+      8
+    ],
+    "knockback": [
+      9
+    ],
+    "defeat": [
+      10
+    ],
+    "victory": [
+      11
+    ],
+    "shield": [
+      12
+    ],
+    "shield_break": [
+      13
+    ],
+    "spot_dodge": [
+      14
+    ],
+    "roll": [
+      15,
+      16,
+      15
+    ],
+    "air_dodge": [
+      6
+    ],
+    "palm_strike": [
+      17,
+      18,
+      19
+    ],
+    "crosier_smash": [
+      20,
+      21,
+      22
+    ],
+    "censer_swing": [
+      23,
+      24,
+      25
+    ],
+    "holy_tome": [
+      26,
+      27,
+      28
+    ],
+    "benediction": [
+      29,
+      30,
+      31
+    ],
+    "ascension": [
+      32,
+      33,
+      7
+    ],
+    "tome_lift": [
+      26,
+      34,
+      28
+    ],
+    "key_sweep": [
+      32,
+      35,
+      32
+    ],
+    "monstrance": [
+      32,
+      36,
+      32
+    ],
+    "flying_kick": [
+      6,
+      37,
+      7
+    ],
+    "heavenward_fist": [
+      6,
+      33,
+      7
+    ]
+  },
+  "atlas_sha256": "444dc390f199d9e41ec344d9cc9173503c2d393dc60ea8e34e8afa5d7c0155d7"
+}

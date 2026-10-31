@@ -413,9 +413,11 @@ func test_character_select_flow_and_picks() -> void:
 	assert_eq(app.current_screen, &"character_select", "Start Match opens character select")
 	var screen := app._screen as CharacterSelectScreen
 	assert_eq(screen.options.size(), CharacterRoster.ENTRIES.size() + 1, "every roster fighter + Random")
-	# P2 moves right twice from Elon (index 1) to Random (index 3) and back once -> Vader.
-	await _joy_hold(JOY_BUTTON_DPAD_RIGHT, 1)
-	await _joy_hold(JOY_BUTTON_DPAD_RIGHT, 1)
+	# P2 walks right from Elon to Random, then back one card -> the fighter before Random.
+	var start: int = screen.cursor[2]
+	for i in screen.options.size() - 1 - start:
+		await _joy_hold(JOY_BUTTON_DPAD_RIGHT, 1)
+	assert_eq(screen.options[screen.cursor[2]], CharacterSelectScreen.RANDOM, "reached Random")
 	await _joy_hold(JOY_BUTTON_DPAD_LEFT, 1)
 	assert_eq(screen.options[screen.cursor[2]], &"vader", "player 2 cursor moved with their own pad")
 	assert_eq(screen.options[screen.cursor[1]], &"gandalf", "player 1 cursor untouched")
@@ -479,3 +481,11 @@ func test_roster_data_all_valid() -> void:
 		var data := CharacterRoster.load_character(id)
 		assert_true(data != null and data.id == id, "%s loads" % id)
 		assert_true(data.validate().is_empty(), "%s validates: %s" % [id, data.validate()])
+
+
+func test_fresh_process_boot_with_every_character() -> void:
+	for script in ["res://tests/boot_check.gd", "res://tests/boot_check_typed.gd"]:
+		var output := []
+		var code := OS.execute(OS.get_executable_path(),
+			["--headless", "--path", ProjectSettings.globalize_path("res://"), "-s", script], output, true)
+		assert_eq(code, 0, "%s passes in a fresh process:\n%s" % [script, "\n".join(output).right(600)])

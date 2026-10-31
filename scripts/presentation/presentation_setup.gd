@@ -3,8 +3,14 @@ extends RefCounted
 const GandalfScene = preload("res://scenes/presentation/gandalf_visual.tscn")
 const FireballScene = preload("res://scenes/presentation/fireball_visual.tscn")
 const ElonScene = preload("res://scenes/presentation/elon_visual.tscn")
+## Additional characters: id -> [fighter visual scene path, {move id: projectile visual scene path}].
+const CHARACTER_ART := {
+    &"leo": ["res://scenes/presentation/leo_visual.tscn", {&"special_2": "res://scenes/presentation/holy_light_visual.tscn"}],
+}
 
 static func with_art(source: CharacterData) -> CharacterData:
+    if CHARACTER_ART.has(source.id):
+        return _with_registered_art(source, CHARACTER_ART[source.id])
     if source.id == &"elon":
         var elon := source.duplicate() as CharacterData
         elon.visual_scene = ElonScene
@@ -23,6 +29,26 @@ static func with_art(source: CharacterData) -> CharacterData:
                 projectile.visual_scene = FireballScene
             projectiles.append(projectile)
         move.projectiles = projectiles
+        moves.append(move)
+    result.moves = moves
+    return result
+
+
+## Clone `source`, attach its fighter visual and any projectile visuals.
+static func _with_registered_art(source: CharacterData, art: Array) -> CharacterData:
+    var result := source.duplicate() as CharacterData
+    result.visual_scene = load(art[0])
+    var projectile_art: Dictionary = art[1]
+    var moves: Array[MoveData] = []
+    for original in source.moves:
+        var move := original.duplicate() as MoveData
+        if projectile_art.has(original.id):
+            var projectiles: Array[ProjectileData] = []
+            for original_projectile in original.projectiles:
+                var projectile := original_projectile.duplicate() as ProjectileData
+                projectile.visual_scene = load(projectile_art[original.id])
+                projectiles.append(projectile)
+            move.projectiles = projectiles
         moves.append(move)
     result.moves = moves
     return result

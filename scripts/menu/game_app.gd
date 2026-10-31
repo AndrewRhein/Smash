@@ -8,7 +8,10 @@ extends Node
 
 signal screen_changed(screen: StringName)
 
-const MATCH_SCENE := preload("res://scenes/main.tscn")
+## Loaded on first use, NOT preloaded: preloading at parse time pulled the
+## character .tres files in while CharacterData was still compiling, which left
+## Gandalf/Elon attached to a half-loaded script (`is CharacterData` false).
+const MATCH_SCENE_PATH := "res://scenes/main.tscn"
 ## Optional art-review scene from the art pipeline; the menu entry is hidden
 ## when it does not exist on this branch.
 const ART_GALLERY_SCENE := "res://scenes/art_preview.tscn"
@@ -167,7 +170,7 @@ func start_match(picks: Array[CharacterData] = []) -> void:
 			if not CharacterRoster.has(id):
 				id = CharacterRoster.DEFAULT_PICKS[player_id - 1]
 			picks.append(CharacterRoster.load_character(id))
-	match_root = MATCH_SCENE.instantiate()
+	match_root = (load(MATCH_SCENE_PATH) as PackedScene).instantiate()
 	match_root.set("character_override", picks)
 	match_root.process_mode = Node.PROCESS_MODE_PAUSABLE
 	# Configure before _ready: main.gd starts the match when it enters the tree.

@@ -44,7 +44,7 @@ Pausing ducks the music by 10 dB.
 | `announcer/ready`, `announcer/go`, `announcer/game`, `announcer/draw` | Countdown start, fight start, match end, draw |
 
 ## Voice lines (per character)
-Path: `audio/voice/<character id>/<line>.ogg`. Character ids: `gandalf`, `elon`, `vader`.
+Path: `audio/voice/<character id>/<line>.ogg`. Character ids: `gandalf`, `elon`, `leo`, `vader`.
 
 | Line file | When it plays | How often |
 |---|---|---|
@@ -78,3 +78,17 @@ Elon is a playful fictional parody. Use an original voice actor or a generic syn
 
 ## Adding audio for a new character
 Create `audio/voice/<new id>/` with the line files above. Their move effect IDs (from `scripts/data/game_ids.gd`) can get `sfx/<effect id>.ogg` files. Nothing else is needed.
+
+### Pope Leo (`audio/voice/leo/`)
+| Line | Suggested call-out |
+|---|---|
+| `light` | "Hah!" / "Peace!" |
+| `heavy` | "By the crosier!" |
+| `special_2` (neutral B, Holy Tome) | "Read this!" |
+| `special_1` (side B, Censer Swing) | "Incense!" |
+| `special_3` (down B, Benediction) | "Bless you!" |
+| `special_up` (Ascension) | "Rise!" |
+| `light_up` / `light_down` / `heavy_up` / `air_forward` / `air_up` | "Hup!" / "Key of Peter!" / "Behold!" / "Ha!" / "Heaven!" |
+| `hurt` / `ko` / `dizzy` / `victory` | "Oof!" / (fading cry) / "Mamma mia…" / "Pax vobiscum." |
+
+Directional attacks (`light_up`, `light_down`, `heavy_up`, `air_*`) use their move id as the line name, like specials.

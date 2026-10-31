@@ -10,7 +10,8 @@ const CHARACTER_GANDALF := &"gandalf"
 const CHARACTER_VADER := &"vader"
 const CHARACTER_ELON := &"elon"
 # Vader is retained as a legacy regression fixture, not in the playable roster.
-const CHARACTER_IDS := [&"gandalf", &"vader", &"elon"]
+const CHARACTER_LEO := &"leo"
+const CHARACTER_IDS := [&"gandalf", &"vader", &"elon", &"leo"]
 
 # --- Move slots (also the stable move IDs) -----------------------------------
 const MOVE_LIGHT := &"light"
@@ -59,6 +60,8 @@ const MOVE_ANIMATION_IDS := {
 	&"gandalf": [&"staff_strike", &"heavy_staff", &"lightning", &"fireball", &"magic_push", &"wind_rise"],
 	&"vader": [&"saber_slash", &"heavy_saber", &"force_push", &"force_choke", &"force_guard", &"force_leap"],
 	&"elon": [&"ion_jab", &"rocket_hammer", &"thruster_burst", &"orbital_tractor", &"energy_shield"],
+	&"leo": [&"palm_strike", &"crosier_smash", &"censer_swing", &"holy_tome", &"benediction", &"ascension",
+		&"tome_lift", &"key_sweep", &"monstrance", &"flying_kick", &"heavenward_fist"],
 }
 
 # --- Effect IDs (effect_requested) -------------------------------------------
