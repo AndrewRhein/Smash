@@ -1,25 +1,27 @@
 class_name ControlsScreen
 extends MenuScreen
-## Read-only controls reference generated from the live InputMap, so it always
-## matches the actual bindings (including any later overrides).
+## Controls reference. Keyboard keys come from the live InputMap; controller
+## buttons from InputSetup.JOY_BUTTONS, so the table always matches the game.
 
 const JOY_NAMES := {
 	JOY_BUTTON_A: "A", JOY_BUTTON_B: "B", JOY_BUTTON_X: "X", JOY_BUTTON_Y: "Y",
 	JOY_BUTTON_LEFT_SHOULDER: "LB", JOY_BUTTON_RIGHT_SHOULDER: "RB",
-	JOY_BUTTON_START: "Start", JOY_BUTTON_BACK: "Back",
-	JOY_BUTTON_DPAD_UP: "D-pad ↑", JOY_BUTTON_DPAD_DOWN: "D-pad ↓",
-	JOY_BUTTON_DPAD_LEFT: "D-pad ←", JOY_BUTTON_DPAD_RIGHT: "D-pad →",
+	JOY_BUTTON_START: "Start", JOY_BUTTON_BACK: "View",
 }
+## [action label, keyboard buttons (or "" for a combo text), controller text]
 const ROWS := [
-	["Move left / right", [&"left", &"right"]],
-	["Jump (hold = higher)", [&"jump"]],
-	["Down: fast fall / drop through", [&"down"]],
-	["Aim up (lightning, Force push)", [&"up"]],
-	["Light attack", [&"light"]],
-	["Heavy attack", [&"heavy"]],
-	["Special 1  (Lightning / Force push)", [&"special_1"]],
-	["Special 2  (Fireball / Force choke)", [&"special_2"]],
-	["Special 3  (Magic push / Force guard)", [&"special_3"]],
+	["Move / walk (tilt) / run", [&"left", &"right"], "Left stick / D-pad"],
+	["Jump  (again in the air = double jump)", [&"jump"], "X / Y  (or stick up: tap jump)"],
+	["Attack", [&"light"], "A"],
+	["Heavy (smash) attack", [&"heavy"], "RB  or  right stick (any direction)"],
+	["Special  — neutral / side / up / down", [&"special"], "B + stick direction"],
+	["Up special = recovery (then helpless)", ["up", "special"], "Up + B"],
+	["Shield (hold)", [&"shield"], "LB / LT / RT"],
+	["Spot dodge", ["shield", "down"], "Shield + down"],
+	["Roll", ["shield", "left/right"], "Shield + left/right"],
+	["Air dodge", ["shield (in air)"], "Shield in the air (+ direction)"],
+	["Fast fall / drop through platform", [&"down"], "Stick down"],
+	["Jump out of shield", ["shield", "jump"], "Shield, then X / Y"],
 ]
 
 var back_action: Callable
@@ -32,34 +34,32 @@ func _init(p_app: GameApp, p_back: Callable, p_overlay: bool = false) -> void:
 
 
 func build() -> void:
-	column.add_child(MenuStyle.label("CONTROLS", 44, MenuStyle.GOLD))
+	column.add_theme_constant_override("separation", 8)
+	column.add_child(MenuStyle.label("CONTROLS", 40, MenuStyle.GOLD))
 	var panel := PanelContainer.new()
 	column.add_child(panel)
 	var grid := GridContainer.new()
 	grid.columns = 4
-	grid.add_theme_constant_override("h_separation", 28)
-	grid.add_theme_constant_override("v_separation", 6)
+	grid.add_theme_constant_override("h_separation", 26)
+	grid.add_theme_constant_override("v_separation", 3)
 	panel.add_child(grid)
-	for header in ["Action", "Player 1 (Gandalf)", "Player 2 (Vader)", "Controller"]:
+	for header in ["Action", "Player 1", "Player 2", "Xbox controller"]:
 		grid.add_child(_cell(header, MenuStyle.GOLD))
 	for row: Array in ROWS:
 		grid.add_child(_cell(row[0], MenuStyle.TEXT, true))
 		grid.add_child(_cell(_keys_for(1, row[1])))
 		grid.add_child(_cell(_keys_for(2, row[1])))
-		grid.add_child(_cell(_joy_for(row[1])))
-	grid.add_child(_cell("Pause", MenuStyle.TEXT, true))
-	grid.add_child(_cell(_action_keys(InputSetup.ACTION_PAUSE)))
-	grid.add_child(_cell(_action_keys(InputSetup.ACTION_PAUSE)))
-	grid.add_child(_cell("Start"))
-	grid.add_child(_cell("Rematch (after a match)", MenuStyle.TEXT, true))
-	grid.add_child(_cell(_action_keys(InputSetup.ACTION_REMATCH)))
-	grid.add_child(_cell(""))
-	grid.add_child(_cell("Start"))
-	grid.add_child(_cell("Hitbox debug view", MenuStyle.TEXT, true))
-	grid.add_child(_cell(_action_keys(InputSetup.ACTION_DEBUG_HITBOXES)))
-	grid.add_child(_cell(""))
-	grid.add_child(_cell(""))
-	column.add_child(MenuStyle.label("Controllers: first connected = Player 1, second = Player 2.", 16, MenuStyle.MUTED))
+		grid.add_child(_cell(row[2]))
+	for row in [
+			["Pause", _action_keys(InputSetup.ACTION_PAUSE), _action_keys(InputSetup.ACTION_PAUSE), "Start"],
+			["Rematch (after a match)", _action_keys(InputSetup.ACTION_REMATCH), "", "Start / A"],
+			["Menus: select / back", "Enter / Esc", "", "A / B"],
+			["Hitbox debug view", _action_keys(InputSetup.ACTION_DEBUG_HITBOXES), "", ""]]:
+		grid.add_child(_cell(row[0], MenuStyle.TEXT, true))
+		for i in range(1, 4):
+			grid.add_child(_cell(row[i]))
+	column.add_child(MenuStyle.label("Gandalf — B: fireball · side: lightning · down: magic push · up: wind rise.   Vader — B: Force choke · side: Force push · down: Force guard · up: Force leap.", 15, MenuStyle.MUTED))
+	column.add_child(MenuStyle.label("Controllers: first two connected pads are Players 1 and 2 (change in Settings → Controllers).", 15, MenuStyle.MUTED))
 	back_button = add_button("Back", back_action)
 
 
@@ -70,7 +70,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _cell(text: String, color: Color = MenuStyle.MUTED, left: bool = false) -> Label:
-	var l := MenuStyle.label(text, 18, color)
+	var l := MenuStyle.label(text, 16, color)
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT if left else HORIZONTAL_ALIGNMENT_CENTER
 	return l
 
@@ -88,31 +88,40 @@ static func key_names(action: StringName) -> PackedStringArray:
 	return names
 
 
+## Keys for real buttons are looked up; plain strings describe combos
+## ("shield" + "down" -> "T + S").
 func _keys_for(player_id: int, buttons: Array) -> String:
 	var parts := PackedStringArray()
-	for b: StringName in buttons:
-		parts.append_array(key_names(PlayerInput.action_name(player_id, b)))
-	return " / ".join(parts)
+	for b in buttons:
+		if b is StringName:
+			parts.append(" / ".join(key_names(PlayerInput.action_name(player_id, b))))
+		else:
+			var text: String = b
+			var words := PackedStringArray()
+			for word in text.split(" ", false):
+				var w := word.trim_prefix("(").trim_suffix(")")
+				if w == "left/right":
+					words.append("%s/%s" % [_first(player_id, &"left"), _first(player_id, &"right")])
+				elif InputSetup.KEYBOARD_BUTTONS.has(StringName(w)):
+					words.append(_first(player_id, StringName(w)))
+				else:
+					words.append(word)
+			parts.append(" ".join(words))
+	return " + ".join(parts)
+
+
+func _first(player_id: int, button: StringName) -> String:
+	var names := key_names(PlayerInput.action_name(player_id, button))
+	return names[0] if not names.is_empty() else "?"
 
 
 func _action_keys(action: StringName) -> String:
 	return " / ".join(key_names(action))
 
 
-func _joy_for(buttons: Array) -> String:
-	var parts := PackedStringArray()
-	var stick := false
-	for b: StringName in buttons:
-		var action := PlayerInput.action_name(1, b)
-		if not InputMap.has_action(action):
-			continue
-		for ev in InputMap.action_get_events(action):
-			if ev is InputEventJoypadButton and JOY_NAMES.has(ev.button_index):
-				var n: String = JOY_NAMES[ev.button_index]
-				if not n.begins_with("D-pad") and not parts.has(n):
-					parts.append(n)
-			elif ev is InputEventJoypadMotion:
-				stick = true
-	if stick:
-		parts.insert(0, "Left stick / D-pad")
-	return " / ".join(parts)
+static func joy_names(button: StringName) -> PackedStringArray:
+	var names := PackedStringArray()
+	for joy_button: int in InputSetup.JOY_BUTTONS.get(button, []):
+		if JOY_NAMES.has(joy_button):
+			names.append(JOY_NAMES[joy_button])
+	return names

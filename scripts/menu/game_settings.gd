@@ -12,6 +12,8 @@ var stocks: int = 3
 var fullscreen: bool = false
 ## Start every match with the F1 hitbox overlay visible (handy for playtests).
 var show_hitboxes: bool = false
+## Smash "tap jump": pushing the stick up also jumps.
+var tap_jump: bool = true
 
 
 func _init(config_path: String = DEFAULT_PATH) -> void:
@@ -25,6 +27,8 @@ func load_from_disk() -> void:
 	stocks = clampi(int(cfg.get_value("match", "stocks", stocks)), MIN_STOCKS, MAX_STOCKS)
 	fullscreen = bool(cfg.get_value("display", "fullscreen", fullscreen))
 	show_hitboxes = bool(cfg.get_value("debug", "show_hitboxes", show_hitboxes))
+	tap_jump = bool(cfg.get_value("controls", "tap_jump", tap_jump))
+	apply_controls()
 
 
 func save_to_disk() -> void:
@@ -32,9 +36,14 @@ func save_to_disk() -> void:
 	cfg.set_value("match", "stocks", stocks)
 	cfg.set_value("display", "fullscreen", fullscreen)
 	cfg.set_value("debug", "show_hitboxes", show_hitboxes)
+	cfg.set_value("controls", "tap_jump", tap_jump)
 	var err := cfg.save(path)
 	if err != OK:
 		push_warning("Could not save settings to %s (error %d)" % [path, err])
+
+
+func apply_controls() -> void:
+	PlayerInput.tap_jump = tap_jump
 
 
 func apply_window() -> void:

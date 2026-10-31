@@ -23,13 +23,18 @@ signal eliminated(player_id: int)
 ## Asks the match to spawn a projectile. The match owns projectile lifetime.
 signal projectile_requested(fighter: Fighter, move: MoveData, data: ProjectileData)
 
-enum State { IDLE, WALK, RUN, JUMP, FALL, ATTACK, HITSTUN, HELD, KO, ELIMINATED, VICTORY }
+enum State {
+	IDLE, WALK, RUN, JUMP, FALL, ATTACK, HITSTUN, HELD, KO, ELIMINATED, VICTORY,
+	SHIELD, SHIELD_BREAK, DODGE, LAG, RESPAWN,
+}
 const STATE_NAMES := {
 	State.IDLE: &"idle", State.WALK: &"walk", State.RUN: &"run", State.JUMP: &"jump",
 	State.FALL: &"fall", State.ATTACK: &"attack", State.HITSTUN: &"hitstun",
 	State.HELD: &"held", State.KO: &"ko", State.ELIMINATED: &"eliminated",
-	State.VICTORY: &"victory",
+	State.VICTORY: &"victory", State.SHIELD: &"shield", State.SHIELD_BREAK: &"shield_break",
+	State.DODGE: &"dodge", State.LAG: &"lag", State.RESPAWN: &"respawn",
 }
+enum DodgeKind { SPOT, ROLL, AIR }
 const FREE_STATES := [State.IDLE, State.WALK, State.RUN, State.JUMP, State.FALL]
 
 const TICK := 1.0 / 60.0
@@ -57,12 +62,51 @@ const SLOWED_SPEED_FACTOR := 0.35
 ## Failsafe: nobody can be held longer than this, whatever the data says.
 const MAX_HELD_TICKS := 120
 ## When several attack buttons are pressed on the same tick.
-const MOVE_PRIORITY := [&"special_1", &"special_2", &"special_3", &"heavy", &"light"]
+const MOVE_PRIORITY := [&"special", &"special_1", &"special_2", &"special_3", &"heavy", &"light"]
+
+# --- Shield (Smash-style). Health is in "shield points"; hits subtract damage.
+const SHIELD_MAX := 50.0
+## Drain per tick while held (a full shield lasts ~7 s if never hit).
+const SHIELD_DECAY_PER_TICK := 0.12
+## Regeneration per tick while not shielding (~10 s from empty to full).
+const SHIELD_REGEN_PER_TICK := 0.08
+## Shield damage taken per point of move damage.
+const SHIELD_DAMAGE_MULTIPLIER := 1.2
+## Shieldstun = damage * this + 2 ticks (can't drop shield or act).
+const SHIELD_STUN_PER_DAMAGE := 0.8
+## Ticks of vulnerable lag after releasing shield.
+const SHIELD_DROP_TICKS := 7
+## Pushback on the shielder (px/s) = base + damage * per_damage.
+const SHIELD_PUSHBACK_BASE := 160.0
+const SHIELD_PUSHBACK_PER_DAMAGE := 22.0
+## Shield break: popped upward, then dizzy (fully vulnerable) for this long.
+const SHIELD_BREAK_TICKS := 180
+const SHIELD_BREAK_POP := 760.0
+const SHIELD_AFTER_BREAK := SHIELD_MAX * 0.375
+
+# --- Dodges. Intangible = hits pass through (incl. projectiles and grabs).
+const SPOT_DODGE_TICKS := 26
+const SPOT_DODGE_INTANGIBLE := Vector2i(3, 18)   # [start, end) dodge ticks
+const ROLL_TICKS := 32
+const ROLL_INTANGIBLE := Vector2i(4, 20)
+const ROLL_MOVE := Vector2i(2, 22)               # ticks during which the roll travels
+const ROLL_SPEED := 440.0
+const AIR_DODGE_TICKS := 34
+const AIR_DODGE_INTANGIBLE := Vector2i(3, 25)
+const AIR_DODGE_SPEED := 620.0
+## Directional air dodges ignore gravity for this many ticks and decay speed.
+const AIR_DODGE_FLOAT_TICKS := 18
+const AIR_DODGE_DECAY := 0.88
+
+# --- Respawn platform: hover, invulnerable, until any input or timeout.
+const RESPAWN_PLATFORM_MAX_TICKS := 180
 
 var character: CharacterData
 var player_id: int = 1
 var input: PlayerInput
 var spawn_point: Vector2 = Vector2.ZERO
+## Where the respawn platform appears (set by the match from the stage).
+var respawn_point: Vector2 = Vector2.ZERO
 
 var state: State = State.FALL
 var facing: int = 1
@@ -87,11 +131,29 @@ var invulnerable_remaining: int = 0
 var grab_immunity_remaining: int = 0
 var respawn_remaining: int = 0
 var held_ticks: int = 0
+var shield_health: float = SHIELD_MAX
+var shield_stun_remaining: int = 0
+var shield_break_remaining: int = 0
+var lag_remaining: int = 0
+var respawn_platform_remaining: int = 0
+
+# Dodges / recovery
+var dodge_kind: DodgeKind = DodgeKind.SPOT
+var dodge_tick: int = 0
+var dodge_dir: Vector2 = Vector2.ZERO
+var dodge_counter: int = 0
+## One air dodge per airtime (restored on landing, on being hit, on respawn).
+var air_dodge_available: bool = true
+## After an up special ends airborne: may only drift and fast fall until landing.
+var helpless: bool = false
 
 # Movement helpers
 var jump_buffer: int = 0
 var attack_buffer: int = 0
 var attack_buffer_move: StringName = &""
+## Facing to apply when the buffered move starts (side special / right-stick
+## heavy); 0 = keep current facing.
+var attack_buffer_facing: int = 0
 var coyote_remaining: int = 0
 var air_jumps_left: int = 0
 var jump_rising: bool = false
@@ -111,6 +173,7 @@ var animation_duration: int = 0
 var animation_tick: int = 0
 var _animation_key: String = ""
 var visual_root: Node2D
+var status_visual: Node2D
 
 
 func setup(data: CharacterData, id: int, spawn: Vector2, stock_count: int, player_input: PlayerInput) -> void:
@@ -119,6 +182,7 @@ func setup(data: CharacterData, id: int, spawn: Vector2, stock_count: int, playe
 	spawn_point = spawn
 	stocks = stock_count
 	input = player_input
+	respawn_point = spawn
 	name = "Fighter%d_%s" % [id, data.id]
 	position = spawn
 	facing = 1 if spawn.x < 640.0 else -1
@@ -150,6 +214,10 @@ func _attach_visual() -> void:
 		visual_root = PlaceholderFighterVisual.new()
 	visual_root.name = "VisualRoot"
 	add_child(visual_root)
+	# Shield bubble / respawn platform / dizzy overlay (placeholder, presentation only).
+	status_visual = PlaceholderStatusVisual.new()
+	status_visual.name = "StatusVisual"
+	add_child(status_visual)
 
 
 func _ready() -> void:
@@ -171,6 +239,13 @@ func physics_tick(frame: InputFrame) -> void:
 		State.ELIMINATED, State.VICTORY:
 			return
 	_record_buffers(frame)
+	if state == State.RESPAWN:
+		_tick_respawn(frame)
+		if state == State.RESPAWN:
+			_tick_timers()
+			_update_animation()
+			animation_tick += 1
+			return
 	if hitstop_remaining > 0:
 		# Hitstop freezes this fighter completely: position, velocity, move
 		# timeline, hitstun, invulnerability, cooldowns and buffer expiry.
@@ -185,6 +260,14 @@ func physics_tick(frame: InputFrame) -> void:
 			_tick_hitstun()
 		State.ATTACK:
 			_tick_attack(frame)
+		State.SHIELD:
+			_tick_shield(frame)
+		State.SHIELD_BREAK:
+			_tick_shield_break()
+		State.DODGE:
+			_tick_dodge(frame)
+		State.LAG:
+			_tick_lag(frame)
 		_:
 			_tick_free(frame)
 	if state != State.HELD:
@@ -201,11 +284,23 @@ func physics_tick(frame: InputFrame) -> void:
 func _record_buffers(frame: InputFrame) -> void:
 	if frame.is_pressed(&"jump"):
 		jump_buffer = JUMP_BUFFER_TICKS
-	for move_id: StringName in MOVE_PRIORITY:
-		if frame.is_pressed(move_id):
-			attack_buffer_move = move_id
-			attack_buffer = ATTACK_BUFFER_TICKS
-			break
+	for button: StringName in MOVE_PRIORITY:
+		if not frame.is_pressed(button):
+			continue
+		attack_buffer_facing = 0
+		match button:
+			&"special":
+				# One Special button: the stick picks neutral / side / up / down.
+				attack_buffer_move = character.special_for_direction(frame.stick())
+				if attack_buffer_move == character.side_special and frame.move_x != 0.0:
+					attack_buffer_facing = 1 if frame.move_x > 0.0 else -1
+			&"heavy":
+				attack_buffer_move = &"heavy"
+				attack_buffer_facing = frame.smash_x
+			_:
+				attack_buffer_move = button
+		attack_buffer = ATTACK_BUFFER_TICKS
+		break
 
 
 func _tick_timers() -> void:
@@ -214,6 +309,8 @@ func _tick_timers() -> void:
 	if attack_buffer == 0:
 		attack_buffer_move = &""
 	invulnerable_remaining = maxi(invulnerable_remaining - 1, 0)
+	if state != State.SHIELD and state != State.SHIELD_BREAK:
+		shield_health = minf(shield_health + SHIELD_REGEN_PER_TICK, SHIELD_MAX)
 	grab_immunity_remaining = maxi(grab_immunity_remaining - 1, 0)
 	if not grounded:
 		coyote_remaining = maxi(coyote_remaining - 1, 0)
@@ -228,15 +325,23 @@ func _tick_timers() -> void:
 
 
 func _tick_free(frame: InputFrame) -> void:
-	if frame.move_x != 0.0:
+	if frame.move_x != 0.0 and (grounded or not helpless):
 		set_facing(1 if frame.move_x > 0.0 else -1)
 	_apply_horizontal(frame.move_x * character.max_speed, frame.move_x != 0.0)
+	if grounded and frame.is_held(&"shield") and not frame.is_pressed(&"jump"):
+		_enter_shield()
+		return
+	if not grounded and frame.is_pressed(&"shield") and air_dodge_available and not helpless:
+		_start_dodge(DodgeKind.AIR, frame.stick())
+		return
 	if grounded and on_one_way and frame.is_pressed(&"down"):
 		_start_drop_through()
 	elif not grounded and frame.is_pressed(&"down") and velocity.y > -FAST_FALL_MAX_RISE:
 		fast_falling = true
 		jump_rising = false
 		velocity.y = maxf(velocity.y, character.fast_fall_speed)
+	if helpless:
+		return  # Special fall: drift and fast fall only.
 	_try_jump()
 	_try_start_buffered_move(frame, [])
 
@@ -251,6 +356,11 @@ func _tick_attack(frame: InputFrame) -> void:
 	if move.whiff_to_recovery and held_target == null and move.is_active_tick(move_tick) \
 			and move_tick - move.startup_ticks >= _grab_window_end():
 		move_tick = move.startup_ticks + move.active_ticks
+	if move.self_impulse != Vector2.ZERO and move_tick == move.startup_ticks + move.self_impulse_tick:
+		velocity = Vector2(move.self_impulse.x * facing, move.self_impulse.y)
+		grounded = false
+		jump_rising = false
+		fast_falling = false
 	if move_tick == move.startup_ticks and move.active_effect_id != &"":
 		request_effect(move.active_effect_id, _effect_point(), aim_direction(), {"move_id": String(move.id)})
 	if move.is_active_tick(move_tick):
@@ -281,6 +391,168 @@ func _tick_hitstun() -> void:
 		state = _locomotion_state()
 
 
+# =============================================================================
+# Shield, dodges, lag, respawn platform
+# =============================================================================
+func _enter_shield() -> void:
+	state = State.SHIELD
+	shield_stun_remaining = 0
+	fast_falling = false
+
+
+func _tick_shield(frame: InputFrame) -> void:
+	# Pushback slides out with ground friction; no walking while shielding.
+	velocity.x = move_toward(velocity.x, 0.0, character.ground_decel * TICK)
+	shield_health -= SHIELD_DECAY_PER_TICK
+	if shield_health <= 0.0:
+		_shield_break()
+		return
+	if shield_stun_remaining > 0:
+		shield_stun_remaining -= 1
+		return
+	# Out-of-shield options (Smash): jump, spot dodge, roll, up special.
+	if jump_buffer > 0:
+		state = State.IDLE
+		_try_jump()
+		return
+	if frame.is_pressed(&"down"):
+		_start_dodge(DodgeKind.SPOT, Vector2.ZERO)
+		return
+	if frame.is_pressed(&"left") or frame.is_pressed(&"right"):
+		_start_dodge(DodgeKind.ROLL, Vector2(-1 if frame.is_pressed(&"left") else 1, 0))
+		return
+	if attack_buffer > 0 and attack_buffer_move == character.up_special:
+		state = State.IDLE
+		_try_start_buffered_move(frame, [])
+		return
+	if not frame.is_held(&"shield"):
+		state = State.LAG
+		lag_remaining = SHIELD_DROP_TICKS
+
+
+func _start_dodge(kind: DodgeKind, direction: Vector2) -> void:
+	state = State.DODGE
+	dodge_kind = kind
+	dodge_tick = 0
+	dodge_counter += 1
+	dodge_dir = Vector2.ZERO
+	fast_falling = false
+	jump_rising = false
+	match kind:
+		DodgeKind.SPOT:
+			velocity.x = 0.0
+		DodgeKind.ROLL:
+			dodge_dir = Vector2(signf(direction.x), 0)
+		DodgeKind.AIR:
+			air_dodge_available = false
+			if direction.length() >= 0.35:
+				dodge_dir = direction.normalized()
+				velocity = dodge_dir * AIR_DODGE_SPEED
+			else:
+				velocity *= 0.25  # Neutral air dodge: brief stall in place.
+
+
+func _tick_dodge(frame: InputFrame) -> void:
+	dodge_tick += 1
+	match dodge_kind:
+		DodgeKind.SPOT:
+			velocity.x = 0.0
+			if dodge_tick >= SPOT_DODGE_TICKS:
+				_end_dodge(frame)
+		DodgeKind.ROLL:
+			if not _ground_ahead(int(dodge_dir.x)):
+				velocity.x = 0.0  # Stop at the ledge (no rolling off the stage).
+			elif dodge_tick >= ROLL_MOVE.x and dodge_tick < ROLL_MOVE.y:
+				velocity.x = dodge_dir.x * ROLL_SPEED
+			else:
+				velocity.x = move_toward(velocity.x, 0.0, character.ground_decel * TICK)
+			if dodge_tick >= ROLL_TICKS:
+				set_facing(-int(dodge_dir.x))  # Rolls end facing back where you came from.
+				_end_dodge(frame)
+		DodgeKind.AIR:
+			if dodge_dir != Vector2.ZERO and dodge_tick < AIR_DODGE_FLOAT_TICKS:
+				velocity *= AIR_DODGE_DECAY
+			else:
+				_apply_horizontal(frame.move_x * character.max_speed, frame.move_x != 0.0)
+			if dodge_tick >= AIR_DODGE_TICKS:
+				_end_dodge(frame)
+
+
+func _end_dodge(frame: InputFrame = null) -> void:
+	state = _locomotion_state()
+	if frame != null and grounded and frame.is_held(&"shield"):
+		_enter_shield()
+
+
+## True if there is floor directly below a point a short step ahead (rolls stop
+## at ledges). A thin ray, not the capsule, so rounded body edges don't count.
+func _ground_ahead(direction: int) -> bool:
+	var from := global_position + Vector2(direction * 20.0, -6.0)
+	var query := PhysicsRayQueryParameters2D.create(from, from + Vector2(0, 24), collision_mask, [get_rid()])
+	query.hit_from_inside = true
+	return not get_world_2d().direct_space_state.intersect_ray(query).is_empty()
+
+
+func _tick_lag(frame: InputFrame) -> void:
+	velocity.x = move_toward(velocity.x, 0.0, character.ground_decel * TICK)
+	lag_remaining -= 1
+	if lag_remaining <= 0:
+		state = _locomotion_state()
+		if grounded and frame.is_held(&"shield"):
+			_enter_shield()
+
+
+func _tick_shield_break() -> void:
+	# Dizzy: no control at all; fully vulnerable to attacks.
+	var decel := HITSTUN_GROUND_FRICTION if grounded else HITSTUN_AIR_DRAG
+	velocity.x = move_toward(velocity.x, 0.0, decel * TICK)
+	shield_break_remaining -= 1
+	if shield_break_remaining <= 0:
+		shield_health = SHIELD_AFTER_BREAK
+		state = _locomotion_state()
+
+
+func _shield_break() -> void:
+	shield_health = 0.0
+	shield_stun_remaining = 0
+	state = State.SHIELD_BREAK
+	shield_break_remaining = SHIELD_BREAK_TICKS
+	velocity = Vector2(0, -SHIELD_BREAK_POP)
+	grounded = false
+	_clear_buffers()
+	request_effect(GameIds.EFFECT_HIT_SPARK, global_position + Vector2(0, -60), Vector2.UP,
+		{"shield_break": true, "victim_id": player_id, "duration_ticks": SHIELD_BREAK_TICKS})
+	_update_animation()
+
+
+## A strike or projectile landed on the shield. Called by the match.
+func receive_shield_hit(hit_move: MoveData, direction_sign: int, attacker_id: int, hitstop: int) -> void:
+	shield_health -= hit_move.damage * SHIELD_DAMAGE_MULTIPLIER
+	hitstop_remaining = maxi(hitstop_remaining, hitstop)
+	if shield_health <= 0.0:
+		_shield_break()
+		return
+	shield_stun_remaining = int(hit_move.damage * SHIELD_STUN_PER_DAMAGE) + 2
+	velocity.x = direction_sign * (SHIELD_PUSHBACK_BASE + hit_move.damage * SHIELD_PUSHBACK_PER_DAMAGE)
+	# guard_block doubles as the shield-hit effect (payload "shield": true).
+	request_effect(GameIds.EFFECT_GUARD_BLOCK, global_position + Vector2(0, character.hurtbox.get_center().y),
+		Vector2(-direction_sign, 0), {"shield": true, "attacker_id": attacker_id,
+		"move_id": String(hit_move.id), "shield_ratio": shield_health / SHIELD_MAX})
+
+
+func _tick_respawn(frame: InputFrame) -> void:
+	velocity = Vector2.ZERO
+	invulnerable_remaining = RESPAWN_INVULNERABLE_TICKS  # Held while on the platform.
+	respawn_platform_remaining -= 1
+	var acted := frame.pressed_mask != 0 or frame.move_x != 0.0 or frame.move_y != 0.0
+	if not acted and respawn_platform_remaining > 0:
+		return
+	# Leave the platform: a jump from it counts as a grounded jump.
+	state = State.FALL
+	coyote_remaining = COYOTE_TICKS
+	request_effect(GameIds.EFFECT_RESPAWN, global_position, Vector2.DOWN, {"left_platform": true})
+
+
 func _apply_horizontal(target_speed: float, has_input: bool) -> void:
 	var rate: float
 	if grounded:
@@ -298,6 +570,9 @@ func _apply_vertical(frame: InputFrame) -> void:
 		elif not frame.is_held(&"jump") and velocity.y < -character.jump_release_velocity:
 			velocity.y = -character.jump_release_velocity
 			jump_rising = false
+	if state == State.DODGE and dodge_kind == DodgeKind.AIR and dodge_tick < AIR_DODGE_FLOAT_TICKS \
+			and dodge_dir != Vector2.ZERO:
+		return  # Directional air dodge travels in a straight line, no gravity.
 	if not grounded or velocity.y < 0.0:
 		velocity.y += character.gravity * TICK
 	var max_fall := character.fast_fall_speed if fast_falling else character.max_fall_speed
@@ -318,8 +593,15 @@ func _after_move() -> void:
 		air_jumps_left = character.air_jumps
 		coyote_remaining = COYOTE_TICKS
 		fast_falling = false
+		helpless = false
+		air_dodge_available = true
 		if not was_grounded:
 			jump_rising = false
+			if state == State.DODGE and dodge_kind == DodgeKind.AIR:
+				_end_dodge()  # Landing cancels the air dodge.
+	elif state == State.SHIELD or (state == State.DODGE and dodge_kind != DodgeKind.AIR):
+		# Pushed off a ledge while shielding / dodging.
+		state = State.FALL
 
 
 func _try_jump() -> void:
@@ -368,8 +650,10 @@ func _try_start_buffered_move(frame: InputFrame, allowed: Array) -> void:
 	if not allowed.is_empty() and not allowed.has(attack_buffer_move):
 		return
 	var next := character.get_move(attack_buffer_move)
-	if next == null or cooldowns.has(next.id):
+	if next == null or cooldowns.has(next.id) or helpless:
 		return
+	if attack_buffer_facing != 0:
+		set_facing(attack_buffer_facing)
 	_start_move(next, frame)
 
 
@@ -396,6 +680,8 @@ func _start_move(next: MoveData, frame: InputFrame) -> void:
 
 
 func _end_move() -> void:
+	if move != null and move.helpless_after and not grounded:
+		helpless = true
 	move = null
 	move_tick = -1
 	aim_angle_deg = 0.0
@@ -475,7 +761,24 @@ func is_in_play() -> bool:
 
 
 func is_hittable() -> bool:
-	return is_in_play() and invulnerable_remaining <= 0
+	return is_in_play() and invulnerable_remaining <= 0 and not is_intangible() and state != State.RESPAWN
+
+
+## Dodge intangibility window (hits, projectiles and grabs pass through).
+func is_intangible() -> bool:
+	if state != State.DODGE:
+		return false
+	var window: Vector2i
+	match dodge_kind:
+		DodgeKind.SPOT: window = SPOT_DODGE_INTANGIBLE
+		DodgeKind.ROLL: window = ROLL_INTANGIBLE
+		_: window = AIR_DODGE_INTANGIBLE
+	return dodge_tick >= window.x and dodge_tick < window.y
+
+
+## Shield is up (blocks every strike and projectile from any side; grabs beat it).
+func is_shielding() -> bool:
+	return state == State.SHIELD
 
 
 func is_guarding_against(damage_type: StringName, source_x: float) -> bool:
@@ -507,6 +810,9 @@ func receive_hit(hit_move: MoveData, direction_sign: int, extra_angle_deg: float
 	hitstop_remaining = maxi(hitstop_remaining, hitstop)
 	state = State.HITSTUN
 	hit_counter += 1
+	helpless = false
+	air_dodge_available = true
+	shield_stun_remaining = 0
 	if velocity.y < 0.0:
 		grounded = false
 	_clear_buffers()
@@ -579,6 +885,11 @@ func _clear_combat_state() -> void:
 	hitstun_remaining = 0
 	hitstop_remaining = 0
 	grab_immunity_remaining = 0
+	shield_stun_remaining = 0
+	shield_break_remaining = 0
+	lag_remaining = 0
+	helpless = false
+	air_dodge_available = true
 	_clear_buffers()
 	fast_falling = false
 	jump_rising = false
@@ -611,13 +922,17 @@ func blast_ko() -> void:
 
 func _respawn() -> void:
 	_clear_combat_state()
-	position = spawn_point
+	position = respawn_point
 	velocity = Vector2.ZERO
 	grounded = false
 	damage = 0.0
+	shield_health = SHIELD_MAX
 	air_jumps_left = character.air_jumps
+	# Hover on the respawn platform facing the stage until the player acts.
+	set_facing(1 if respawn_point.x < 640.0 else -1)
+	state = State.RESPAWN
+	respawn_platform_remaining = RESPAWN_PLATFORM_MAX_TICKS
 	invulnerable_remaining = RESPAWN_INVULNERABLE_TICKS
-	state = State.FALL
 	visible = true
 	if input != null:
 		input.reset_edges()
@@ -690,6 +1005,25 @@ func _update_animation(force: bool = false) -> void:
 		State.VICTORY:
 			id = GameIds.ANIM_VICTORY
 			loop = false
+		State.SHIELD:
+			id = GameIds.ANIM_SHIELD
+		State.SHIELD_BREAK:
+			id = GameIds.ANIM_SHIELD_BREAK
+		State.DODGE:
+			match dodge_kind:
+				DodgeKind.SPOT:
+					id = GameIds.ANIM_SPOT_DODGE
+					duration = SPOT_DODGE_TICKS
+				DodgeKind.ROLL:
+					id = GameIds.ANIM_ROLL
+					duration = ROLL_TICKS
+				_:
+					id = GameIds.ANIM_AIR_DODGE
+					duration = AIR_DODGE_TICKS
+			loop = false
+			token = "dodge%d" % dodge_counter
+		State.LAG, State.RESPAWN:
+			id = GameIds.ANIM_IDLE
 	var key := "%s|%s" % [id, token]
 	if key == _animation_key and not force:
 		return
@@ -720,4 +1054,10 @@ func get_presentation_snapshot() -> Dictionary:
 		"animation_duration_ticks": animation_duration,
 		"invulnerable_remaining_ticks": invulnerable_remaining,
 		"aim_angle_deg": aim_angle_deg,
+		"shielding": is_shielding(),
+		"shield_health": shield_health,
+		"shield_max": SHIELD_MAX,
+		"intangible": is_intangible(),
+		"helpless": helpless,
+		"on_respawn_platform": state == State.RESPAWN,
 	}

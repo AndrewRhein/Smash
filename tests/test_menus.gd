@@ -222,7 +222,7 @@ func test_settings_screen_hitboxes_persist() -> void:
 func test_controls_screen_reflects_input_map() -> void:
 	var app := await _make_app()
 	assert_true(ControlsScreen.key_names(&"p1_light").has("F"), "P1 light shows F")
-	assert_true(ControlsScreen.key_names(&"p2_special_1").has("L"), "P2 special 1 shows L")
+	assert_true(ControlsScreen.key_names(&"p2_special").has("L"), "P2 special shows L")
 	assert_true(ControlsScreen.key_names(InputSetup.ACTION_PAUSE).has("Escape"), "pause shows Escape")
 	app.show_controls(app.show_title)
 	await _frames(1)
@@ -250,3 +250,122 @@ func test_art_gallery_entry_matches_available_art() -> void:
 	await _frames(2)
 	assert_eq(app.current_screen, &"title", "Esc returns to the title")
 	assert_true(app.gallery_root == null, "gallery freed")
+
+
+func _stick_y(value: float, device: int = 0) -> void:
+	var ev := InputEventJoypadMotion.new()
+	ev.device = device
+	ev.axis = JOY_AXIS_LEFT_Y
+	ev.axis_value = value
+	Input.parse_input_event(ev)
+	Input.flush_buffered_events()
+
+
+func _focused_text() -> String:
+	var f := tree.root.gui_get_focus_owner()
+	return (f as Button).text if f is Button else ""
+
+
+func test_controller_only_full_menu_flow() -> void:
+	var app := await _make_app()
+	# Title -> Settings with D-pad, A to enter, B to leave.
+	for i in 3:
+		_joy(JOY_BUTTON_DPAD_DOWN)  # Start Match -> Stocks -> Controls -> Settings
+	assert_eq(_focused_text(), "Settings", "D-pad moves focus")
+	_joy(JOY_BUTTON_A)
+	await _frames(2)
+	assert_eq(app.current_screen, &"settings", "A selects")
+	_joy(JOY_BUTTON_B)
+	await _frames(2)
+	assert_eq(app.current_screen, &"title", "B goes back")
+	# Left stick navigates too.
+	_stick_y(1.0)
+	_stick_y(0.0)
+	assert_true(_focused_text().begins_with("Stocks"), "left stick moves focus")
+	_stick_y(-1.0)
+	_stick_y(0.0)
+	assert_eq(_focused_text(), "Start Match", "and back up")
+	# Start the match with A from a second controller (any pad drives menus).
+	_joy(JOY_BUTTON_A, 3)
+	await _frames(2)
+	assert_eq(app.current_screen, &"match", "A on Start Match starts a match")
+	app.match_controller.countdown_remaining = 1
+	await _physics(3)
+	# Pause with Start, resume with B.
+	_joy(JOY_BUTTON_START)
+	await _frames(1)
+	assert_true(app.is_paused(), "Start pauses")
+	_joy(JOY_BUTTON_B)
+	await _frames(1)
+	assert_true(not app.is_paused(), "B resumes")
+	# Pause -> Main Menu with D-pad + A.
+	_joy(JOY_BUTTON_START)
+	await _frames(1)
+	for i in 3:
+		_joy(JOY_BUTTON_DPAD_DOWN)
+	assert_eq(_focused_text(), "Main Menu", "pause menu navigable by D-pad")
+	_joy(JOY_BUTTON_A)
+	await _frames(2)
+	assert_eq(app.current_screen, &"title", "A on Main Menu returns to the title")
+	assert_true(not app.is_paused(), "unpaused")
+
+
+func test_controller_result_screen_and_settings_toggles() -> void:
+	var app := await _make_app()
+	var m := await _start(app)
+	await _force_result(m)
+	await _frames(1)
+	_joy(JOY_BUTTON_A)
+	await _frames(2)
+	assert_eq(m.state, MatchController.MatchState.COUNTDOWN, "A on Rematch rematches")
+	m.countdown_remaining = 1
+	await _physics(3)
+	await _force_result(m)
+	await _frames(1)
+	_joy(JOY_BUTTON_B)
+	await _frames(2)
+	assert_eq(app.current_screen, &"title", "B on the result screen returns to the title")
+	app.show_settings()
+	await _frames(1)
+	var screen := app._screen as SettingsScreen
+	screen.tap_jump_button.grab_focus()
+	_joy(JOY_BUTTON_DPAD_RIGHT)
+	await _frames(1)
+	assert_true(not app.settings.tap_jump and not PlayerInput.tap_jump, "D-pad right toggles tap jump off (applied live)")
+	_joy(JOY_BUTTON_DPAD_RIGHT)
+	assert_true(PlayerInput.tap_jump, "and back on")
+
+
+func test_controllers_screen_assigns_and_swaps() -> void:
+	ControllerAssignment.reset(true)
+	var app := await _make_app()
+	app.show_controllers()
+	await _frames(2)
+	assert_eq(app.current_screen, &"controllers", "controllers screen opens")
+	var screen := app._screen as ControllersScreen
+	assert_true(screen.player_buttons.has(1) and screen.player_buttons.has(2), "a selector per player")
+	_joy(JOY_BUTTON_B)
+	await _frames(2)
+	assert_eq(app.current_screen, &"settings", "B returns to Settings")
+	ControllerAssignment.reset()
+
+
+func test_focus_recovers_for_controller_users() -> void:
+	var app := await _make_app()
+	tree.root.gui_release_focus()
+	assert_true(tree.root.gui_get_focus_owner() == null, "focus lost")
+	_joy(JOY_BUTTON_DPAD_DOWN)
+	await _frames(1)
+	assert_true(tree.root.gui_get_focus_owner() != null, "any D-pad press restores focus")
+
+
+func test_gallery_back_with_b() -> void:
+	var app := await _make_app()
+	if not GameApp.has_art_gallery():
+		return
+	app.show_art_gallery()
+	await _frames(2)
+	assert_true(_focused_text().begins_with("◀ Back"), "gallery starts focused on Back")
+	_joy(JOY_BUTTON_B)
+	await _frames(2)
+	assert_eq(app.current_screen, &"title", "B leaves the gallery")

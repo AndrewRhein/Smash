@@ -70,6 +70,7 @@ func start_match() -> void:
 		var player_id := i + 1
 		var fighter := Fighter.new()
 		fighter.setup(characters[i], player_id, stage.spawn_point(player_id), stock_count, inputs[i])
+		fighter.respawn_point = stage.respawn_point(player_id)
 		fighter.projectile_requested.connect(_on_projectile_requested)
 		add_child(fighter)
 		fighters.append(fighter)
@@ -216,6 +217,12 @@ func _apply_strike(c: Dictionary) -> void:
 			Vector2(victim.facing, 0), {"attacker_id": attacker.player_id, "move_id": String(move.id)})
 		return
 	var hitstop := CombatMath.hitstop_ticks(move.damage)
+	if victim.is_shielding():
+		# Shields stop every strike and projectile from any side (grabs beat them).
+		victim.receive_shield_hit(move, c.direction_sign, attacker.player_id, hitstop)
+		if is_melee:
+			attacker.hitstop_remaining = maxi(attacker.hitstop_remaining, hitstop)
+		return
 	victim.receive_hit(move, c.direction_sign, c.aim, attacker.player_id, hitstop)
 	if is_melee:
 		# Trades: each fighter ends with max(incoming, outgoing) hitstop,
@@ -284,12 +291,24 @@ func _check_blast_zones() -> void:
 	for fighter in fighters:
 		if not fighter.is_in_play() or bounds.has_point(fighter.global_position):
 			continue
-		var at := Vector2(clampf(fighter.global_position.x, bounds.position.x, bounds.end.x),
-			clampf(fighter.global_position.y, bounds.position.y, bounds.end.y))
-		var toward_center := (bounds.get_center() - at).normalized()
-		fighter.request_effect(GameIds.EFFECT_BLAST_KO, at, toward_center, {"stocks_before": fighter.stocks})
+		# Show the KO burst where the player can see it: at the screen edge the
+		# fighter left through (the blast bounds themselves are off-screen).
+		var view := stage.visible_rect.grow(-30.0)
+		var at := Vector2(clampf(fighter.global_position.x, view.position.x, view.end.x),
+			clampf(fighter.global_position.y, view.position.y, view.end.y))
+		var toward_center := (view.get_center() - at).normalized()
+		fighter.request_effect(GameIds.EFFECT_BLAST_KO, at, toward_center,
+			{"stocks_before": fighter.stocks, "exit_side": _exit_side(fighter.global_position, bounds)})
 		_despawn_projectiles_of(fighter)
 		fighter.blast_ko()
+
+
+static func _exit_side(p: Vector2, bounds: Rect2) -> String:
+	if p.x < bounds.position.x:
+		return "left"
+	if p.x > bounds.end.x:
+		return "right"
+	return "top" if p.y < bounds.position.y else "bottom"
 
 
 func _check_result() -> void:

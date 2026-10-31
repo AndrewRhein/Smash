@@ -52,6 +52,10 @@ func show_settings() -> void:
 	_show_screen(SettingsScreen.new(self), &"settings")
 
 
+func show_controllers() -> void:
+	_show_screen(ControllersScreen.new(self, show_settings), &"controllers")
+
+
 func show_controls(back: Callable) -> void:
 	_show_screen(ControlsScreen.new(self, back), &"controls")
 
@@ -96,6 +100,7 @@ func show_art_gallery() -> void:
 	back.position = Vector2(1280 - 300 - 24, 720 - 52 - 20)
 	_gallery_bar.add_child(back)
 	add_child(_gallery_bar)
+	back.grab_focus.call_deferred()  # Controller users start on Back.
 	_set_screen(&"gallery")
 
 
@@ -112,6 +117,15 @@ func _unhandled_input(event: InputEvent) -> void:
 	if current_screen == &"gallery" and event.is_action_pressed(&"ui_cancel"):
 		get_viewport().set_input_as_handled()
 		show_title()
+		return
+	# Controller safety net: if a menu is showing but nothing has focus (e.g.
+	# after a mouse click elsewhere), any navigation input refocuses it.
+	if _screen != null and is_instance_valid(_screen) and get_viewport().gui_get_focus_owner() == null:
+		for action in [&"ui_up", &"ui_down", &"ui_left", &"ui_right", &"ui_accept"]:
+			if event.is_action_pressed(action):
+				get_viewport().set_input_as_handled()
+				_screen.focus_first()
+				return
 
 
 # --- Match lifecycle ----------------------------------------------------------
@@ -130,6 +144,10 @@ func start_match() -> void:
 		var overlay := match_root.get_node_or_null("DebugOverlay")
 		if overlay != null:
 			overlay.visible = true
+	var indicators := OffscreenIndicators.new()
+	indicators.name = "OffscreenIndicators"
+	indicators.match_controller = match_controller
+	match_root.add_child(indicators)
 	pause_menu = PauseMenu.new(self)
 	add_child(pause_menu)
 	result_overlay = ResultOverlay.new(self)

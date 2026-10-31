@@ -4,6 +4,7 @@ extends MenuScreen
 
 var fullscreen_button: CycleButton
 var hitbox_button: CycleButton
+var tap_jump_button: CycleButton
 
 
 func build() -> void:
@@ -21,6 +22,13 @@ func build() -> void:
 		s.save_to_disk())
 	add_focusable(hitbox_button)
 	column.add_child(MenuStyle.label("F1 toggles hitboxes during a match either way.", 16, MenuStyle.MUTED))
+	tap_jump_button = CycleButton.new("Tap jump (stick up jumps)", ["Off", "On"], 1 if s.tap_jump else 0)
+	tap_jump_button.value_changed.connect(func(i: int) -> void:
+		s.tap_jump = i == 1
+		s.apply_controls()
+		s.save_to_disk())
+	add_focusable(tap_jump_button)
+	add_button("Controllers", app.show_controllers)
 	add_button("Back", app.show_title)
 
 
