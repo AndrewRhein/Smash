@@ -14,12 +14,12 @@ const ROWS := [
 	["Move left / right", [&"left", &"right"]],
 	["Jump (hold = higher)", [&"jump"]],
 	["Down: fast fall / drop through", [&"down"]],
-	["Aim up (lightning, Force push)", [&"up"]],
-	["Light attack", [&"light"]],
-	["Heavy attack", [&"heavy"]],
-	["Special 1  (Lightning / Force push)", [&"special_1"]],
-	["Special 2  (Fireball / Force choke)", [&"special_2"]],
-	["Special 3  (Magic push / Force guard)", [&"special_3"]],
+	["Aim up (lightning, Thruster burst)", [&"up"]],
+	["Light attack  (Staff / Ion jab)", [&"light"]],
+	["Heavy attack  (Staff / Rocket hammer)", [&"heavy"]],
+	["Special 1  (Lightning / Thruster burst)", [&"special_1"]],
+	["Special 2  (Fireball / Orbital tractor)", [&"special_2"]],
+	["Special 3  (Magic push / Energy shield)", [&"special_3"]],
 ]
 
 var back_action: Callable
@@ -40,7 +40,7 @@ func build() -> void:
 	grid.add_theme_constant_override("h_separation", 28)
 	grid.add_theme_constant_override("v_separation", 6)
 	panel.add_child(grid)
-	for header in ["Action", "Player 1 (Gandalf)", "Player 2 (Vader)", "Controller"]:
+	for header in ["Action", "Player 1 (Gandalf)", "Player 2 (Elon)", "Controller"]:
 		grid.add_child(_cell(header, MenuStyle.GOLD))
 	for row: Array in ROWS:
 		grid.add_child(_cell(row[0], MenuStyle.TEXT, true))

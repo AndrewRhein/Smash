@@ -1,6 +1,8 @@
 extends "res://scripts/presentation/placeholder_effects.gd"
 ## Retains main.gd's PlaceholderEffects-compatible binding interface.
 const Effect = preload("res://scripts/presentation/combat_effect.gd")
+const TechEffect = preload("res://scripts/presentation/tech_effect.gd")
+const TECH_IDS := [&"ion_jab", &"rocket_hammer", &"thruster_burst", &"orbital_tractor", &"energy_shield"]
 const MAP := {
     &"hit_spark": &"hit", &"guard_block": &"force_guard", &"blast_ko": &"burst",
     &"respawn": &"respawn", &"double_jump": &"jump_ring", &"projectile_fizzle": &"fizzle",
@@ -8,6 +10,8 @@ const MAP := {
     &"lightning_telegraph": &"charge", &"lightning_bolt": &"lightning", &"fireball_cast": &"cast_flash",
     &"magic_push": &"magic_push", &"saber_swing": &"saber_slash", &"heavy_saber_swing": &"heavy_saber",
     &"force_push": &"force_push", &"force_choke": &"force_choke", &"force_guard": &"force_guard",
+    &"ion_jab": &"ion_jab", &"rocket_hammer": &"rocket_hammer", &"thruster_burst": &"thruster_burst",
+    &"orbital_tractor": &"orbital_tractor", &"energy_shield": &"energy_shield",
 }
 var _match: MatchController
 var _active_visuals: Array[Dictionary] = []
@@ -50,11 +54,22 @@ func _on_effect_requested(id: StringName, at: Vector2, direction: Vector2, paylo
         settings.duration = 0.7
     var owner_id := int(payload.get("player_id", 1))
     var owner: Fighter = _match.get_fighter(owner_id)
-    if id == &"force_guard" and is_instance_valid(owner) and owner.move != null:
+    if id in [&"force_guard", &"energy_shield"] and is_instance_valid(owner) and owner.move != null:
         settings.duration = float(owner.move.startup_ticks + owner.move.active_ticks) / 60.0
-    var effect := Effect.new()
+    var visual_id: StringName = MAP[id]
+    # The generic hold/guard systems also emit legacy shared event IDs.
+    if is_instance_valid(owner) and owner.character.id == &"elon":
+        if id == &"force_choke":
+            visual_id = &"orbital_tractor"
+        elif id == &"guard_block":
+            visual_id = &"shield_block"
+    if id in [&"ion_jab", &"rocket_hammer", &"thruster_burst"] and is_instance_valid(owner) and owner.move != null:
+        settings.duration = float(owner.move.active_ticks) / 60.0
+        settings.length = 152.0
+    var tech: bool = visual_id in TECH_IDS or visual_id == &"shield_block"
+    var effect = TechEffect.new() if tech else Effect.new()
     add_child(effect)
-    effect.setup(MAP[id], at, direction, settings)
+    effect.setup(visual_id, at, direction, settings)
     _active_visuals.append({"node": effect, "kind": id, "owner_id": owner_id,
         "victim_id": int(payload.get("victim_id", 0)), "move_id": str(payload.get("move_id", "")),
         "offset": at - owner.global_position if is_instance_valid(owner) else Vector2.ZERO})
@@ -69,7 +84,7 @@ func _process(_delta: float) -> void:
             _active_visuals.remove_at(i)
             continue
         var owner: Fighter = _match.get_fighter(int(entry.owner_id))
-        var attached: bool = entry.kind in [&"force_choke", &"force_guard", &"lightning_telegraph"]
+        var attached: bool = entry.kind in [&"force_choke", &"force_guard", &"lightning_telegraph", &"orbital_tractor", &"energy_shield"]
         if attached and (not is_instance_valid(owner) or owner.move == null):
             effect.queue_free()
             _active_visuals.remove_at(i)

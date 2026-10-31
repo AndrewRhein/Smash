@@ -1,6 +1,6 @@
 # Realms Rumble: Godot 4 local platform fighter
 
-A local two-player platform fighter: Gandalf vs. Darth Vader. This integration branch combines Claude's gameplay foundation with Gandalf's 14-animation pixel-art review pack and presentation effects. Vader, the arena and HUD retain temporary graphics. The final art milestone remains incomplete.
+A local two-player platform fighter: Gandalf vs. a fictional tech-brawler Elon Musk. Both fighters have sprite art; the Twilight Citadel provides a painted arena, stone platforms, HUD and combat effects. Elon's compact first-pass kit replaces Vader in the playable lineup. See [his abilities and art notes](docs/ELON_CHARACTER.md).
 
 ## Install and run
 
@@ -12,17 +12,17 @@ Command line: `godot --path .` (add `--headless --quit-after 400` for a non-inte
 
 ## Controls
 
-| Action | Player 1 (Gandalf) | Player 2 (Darth Vader) | Controller |
+| Action | Player 1 (Gandalf) | Player 2 (Elon Musk) | Controller |
 |---|---|---|---|
 | Move | A / D | ← / → | Left stick or D-pad |
 | Jump / double jump (hold for higher) | W | ↑ | A |
 | Down: fast fall, drop through thin platforms, aim down | S | ↓ | Stick / D-pad down |
-| Aim up (lightning, Force push) | W | ↑ | Stick / D-pad up |
+| Aim up (lightning, Thruster Burst) | W | ↑ | Stick / D-pad up |
 | Light attack | F | K | X |
 | Heavy attack | R | I | Y |
-| Special 1 (Gandalf: lightning, Vader: Force push) | G | L | B |
-| Special 2 (Gandalf: fireball, Vader: Force choke) | T | O | RB |
-| Special 3 (Gandalf: magic push, Vader: Force guard) | V | M | LB |
+| Special 1 (Lightning / Thruster Burst) | G | L | B |
+| Special 2 (Fireball / Orbital Tractor) | T | O | RB |
+| Special 3 (Magic Push / Energy Shield) | V | M | LB |
 | Rematch (after a result) | Enter | Enter | Start |
 | Toggle hitbox/hurtbox debug view | F1 | | |
 | Pause menu (during a match) | Esc | Esc | Start |
@@ -38,14 +38,14 @@ Controllers are assigned by connection order: the first pad is Player 1 and the 
 * The last fighter with stocks wins. If both final stocks are lost on the same tick, the match is a **draw**.
 * After the result, press **Enter** or **Start** to rematch with everything reset.
 * Light attacks that connect can be cancelled into specials. The specials:
-  * **Force choke** holds briefly and can be broken by hitting Vader.
-  * **Force guard** blocks magic and projectiles from the front only.
+  * **Orbital Tractor** holds briefly and can be broken by hitting Elon.
+  * **Energy Shield** blocks magic and projectiles from the front only.
 
 ## Tests
 
 ```bash
 godot --headless --path . --import                         # once, builds the class cache
-godot --headless --path . -s res://tests/run_tests.gd      # 67 gameplay, presentation + smoke tests, exit code 0 on success
+godot --headless --path . -s res://tests/run_tests.gd      # 86 gameplay, presentation + smoke tests, exit code 0 on success
 godot --headless --path . -s res://tests/ko_report.gd      # tuning table: KO % per move
 ```
 
@@ -57,7 +57,7 @@ Results, the versions tested and manual-coverage limits are in [`docs/TEST_REPOR
 * `scripts/gameplay/`: match controller, stage, projectiles, combat math, debug overlay
 * `scripts/data/`, `data/characters/*.tres`: typed movesets; `game_ids.gd` is the ID registry
 * `scripts/input/`: InputMap setup and the per-player input adapter
-* `scripts/presentation/`: sprite adapters and effects, plus temporary Vader, HUD and arena renderers
+* `scripts/presentation/`: sprite adapters, Citadel arena/HUD, combat and tech effects; old placeholder renderers remain for regression fixtures
 * `tests/`: headless test runner and tools
 
 Documentation:

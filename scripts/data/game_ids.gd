@@ -8,7 +8,9 @@ extends RefCounted
 # --- Characters --------------------------------------------------------------
 const CHARACTER_GANDALF := &"gandalf"
 const CHARACTER_VADER := &"vader"
-const CHARACTER_IDS := [&"gandalf", &"vader"]
+const CHARACTER_ELON := &"elon"
+# Vader is retained as a legacy regression fixture, not in the playable roster.
+const CHARACTER_IDS := [&"gandalf", &"vader", &"elon"]
 
 # --- Move slots (also the stable move IDs) -----------------------------------
 const MOVE_LIGHT := &"light"
@@ -37,6 +39,7 @@ const SHARED_ANIMATION_IDS := [
 const MOVE_ANIMATION_IDS := {
 	&"gandalf": [&"staff_strike", &"heavy_staff", &"lightning", &"fireball", &"magic_push"],
 	&"vader": [&"saber_slash", &"heavy_saber", &"force_push", &"force_choke", &"force_guard"],
+	&"elon": [&"ion_jab", &"rocket_hammer", &"thruster_burst", &"orbital_tractor", &"energy_shield"],
 }
 
 # --- Effect IDs (effect_requested) -------------------------------------------
@@ -53,6 +56,7 @@ const EFFECT_IDS := [
 	&"staff_swing", &"heavy_staff_swing", &"lightning_telegraph", &"lightning_bolt",
 	&"fireball_cast", &"magic_push",
 	&"saber_swing", &"heavy_saber_swing", &"force_push", &"force_choke", &"force_guard",
+	&"ion_jab", &"rocket_hammer", &"thruster_burst", &"orbital_tractor", &"energy_shield",
 ]
 
 # --- Damage types (used by Force guard) --------------------------------------

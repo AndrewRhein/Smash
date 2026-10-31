@@ -2,6 +2,7 @@ extends "res://scripts/presentation/placeholder_hud.gd"
 ## Uses the existing binding and match status contract; presentation only.
 var damage_labels: Dictionary = {}
 var stock_labels: Dictionary = {}
+var name_labels: Dictionary = {}
 
 func _ready() -> void:
     for player in [1, 2]:
@@ -21,7 +22,7 @@ func _ready() -> void:
         panel.add_theme_stylebox_override("panel", box)
         add_child(panel)
         var name_label := _label(origin + Vector2(18, 10), 17, Color("b8ddec") if player == 1 else Color("eab7ad"))
-        name_label.text = "P%d  /  %s" % [player, "GANDALF" if player == 1 else "DARTH VADER"]
+        name_labels[player] = name_label
         var damage_label := _label(origin + Vector2(16, 30), 36, Color("f6e9ce"))
         damage_labels[player] = damage_label
         var stocks := _label(origin + Vector2(140, 55), 15, Color("c8b67f"))
@@ -42,6 +43,7 @@ func _ready() -> void:
     hint.text = "ESC  Pause    F1  Hitboxes"
 
 func _on_fighter_spawned(fighter: Fighter) -> void:
+    name_labels[fighter.player_id].text = "P%d  /  %s" % [fighter.player_id, fighter.character.display_name.to_upper()]
     var damage_label: Label = damage_labels[fighter.player_id]
     var stocks: Label = stock_labels[fighter.player_id]
     var update := func(_value: Variant = null) -> void:

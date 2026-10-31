@@ -1,5 +1,7 @@
 # Realms Rumble: gameplay API and presentation contract (v1)
 
+**Current roster update:** the default app now uses Gandalf and Elon Musk. [ELON_CHARACTER.md](ELON_CHARACTER.md) specifies the new IDs, five abilities and reuse of the existing hold/guard mechanics. Vader descriptions below document the original contract and retained regression fixture. No Fighter or MatchController behavior changed for this replacement.
+
 This document describes what is **actually implemented** on `claude/gameplay-core`.
 It is the contract between gameplay (`scripts/fighter.gd`, `scripts/gameplay/`,
 `scripts/data/`, `scripts/input/`, `data/characters/`) and presentation

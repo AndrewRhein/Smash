@@ -72,7 +72,7 @@ func _build_ui() -> void:
     status = Label.new()
     panel.add_child(status)
     var note := Label.new()
-    note.text = "Gandalf: 14 review animations / Vader art: unavailable (generation blocked)\nLeft: 1x | Center: 3x | Right: mirrored 1x. Effects are visual-only. No combat is running."
+    note.text = "Gandalf: 14 review animations / Elon Musk: playable in the match\nLeft: 1x | Center: 3x | Right: mirrored 1x. Effects are visual-only. No combat is running."
     note.add_theme_color_override("font_color", Color(0.7, 0.76, 0.86))
     panel.add_child(note)
 
