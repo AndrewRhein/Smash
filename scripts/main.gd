@@ -23,6 +23,10 @@ var character_override: Array[CharacterData] = []
 func _ready() -> void:
 	InputSetup.ensure_actions()
 	effects.bind(match_controller)
+	var feel := GameFeel.new()
+	feel.name = "GameFeel"
+	add_child(feel)
+	feel.bind(match_controller)
 	hud.bind(match_controller)
 	debug_overlay.match_controller = match_controller
 	var inputs: Array[PlayerInput] = [PlayerInput.new(1), PlayerInput.new(2)]

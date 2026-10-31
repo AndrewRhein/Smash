@@ -16,8 +16,13 @@ func _init(p_app: GameApp, p_overlay: bool = false) -> void:
 	theme = MenuStyle.theme()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_STOP
-	var backdrop := ColorRect.new()
-	backdrop.color = Color(0.02, 0.03, 0.06, 0.78) if overlay else Color(0.035, 0.05, 0.1)
+	var backdrop: Control
+	if overlay:
+		var dim := ColorRect.new()
+		dim.color = Color(0.02, 0.03, 0.06, 0.78)
+		backdrop = dim
+	else:
+		backdrop = MenuBackdrop.new()
 	backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(backdrop)
