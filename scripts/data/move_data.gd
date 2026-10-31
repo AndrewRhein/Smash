@@ -21,6 +21,9 @@ enum MovementPolicy {
 }
 
 @export var id: StringName = &""
+## Name shown in menus (and the default voice-line text). Empty = derived
+## from animation_id.
+@export var display_name: String = ""
 @export var animation_id: StringName = &""
 @export var startup_ticks: int = 5
 @export var active_ticks: int = 3
@@ -54,6 +57,10 @@ enum MovementPolicy {
 ## &"" (none), &"choke" or &"guard". See GameIds.SPECIAL_BEHAVIOURS.
 @export var special_behaviour: StringName = &""
 
+## Push victims AWAY from the attacker on either side (burst moves) instead of
+## in the attacker's facing direction.
+@export var radial_knockback: bool = false
+
 @export_group("Recovery")
 ## Velocity SET on the fighter on active tick `self_impulse_tick` (authored
 ## facing right, x mirrored by facing). Zero = none. Used by up specials.
@@ -77,6 +84,10 @@ enum MovementPolicy {
 @export_group("Guard")
 ## Damage types negated from the FRONT while the guard is active.
 @export var guard_damage_types: Array[StringName] = []
+
+
+func label() -> String:
+	return display_name if display_name != "" else String(animation_id).replace("_", " ").capitalize()
 
 
 func total_ticks() -> int:

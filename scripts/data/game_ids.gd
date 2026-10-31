@@ -10,7 +10,10 @@ const CHARACTER_GANDALF := &"gandalf"
 const CHARACTER_VADER := &"vader"
 const CHARACTER_ELON := &"elon"
 # Vader is retained as a legacy regression fixture, not in the playable roster.
-const CHARACTER_IDS := [&"gandalf", &"vader", &"elon"]
+const CHARACTER_LEO := &"leo"
+const CHARACTER_GROBAN := &"groban"
+const CHARACTER_TIM := &"tim"
+const CHARACTER_IDS := [&"gandalf", &"vader", &"elon", &"leo", &"groban", &"tim"]
 
 # --- Move slots (also the stable move IDs) -----------------------------------
 const MOVE_LIGHT := &"light"
@@ -21,6 +24,14 @@ const MOVE_SPECIAL_3 := &"special_3"
 ## Recovery special (up + special). Usable once per airtime; leaves you helpless.
 const MOVE_SPECIAL_UP := &"special_up"
 const MOVE_SLOTS := [&"light", &"heavy", &"special_1", &"special_2", &"special_3", &"special_up"]
+## Optional directional attacks (Smash tilts / smashes / aerials). A character
+## may define any of these; missing ones fall back (see
+## CharacterData.resolve_attack), so a character with only light/heavy works.
+const OPTIONAL_MOVE_SLOTS := [
+	&"light_up", &"light_down",                      # up / down tilt (ground)
+	&"heavy_up", &"heavy_down",                      # up / down smash
+	&"air_neutral", &"air_forward", &"air_back", &"air_up", &"air_down",  # aerials
+]
 
 # --- Shared (state-driven) animation IDs -------------------------------------
 const ANIM_IDLE := &"idle"
@@ -51,6 +62,11 @@ const MOVE_ANIMATION_IDS := {
 	&"gandalf": [&"staff_strike", &"heavy_staff", &"lightning", &"fireball", &"magic_push", &"wind_rise"],
 	&"vader": [&"saber_slash", &"heavy_saber", &"force_push", &"force_choke", &"force_guard", &"force_leap"],
 	&"elon": [&"ion_jab", &"rocket_hammer", &"thruster_burst", &"orbital_tractor", &"energy_shield"],
+	&"leo": [&"palm_strike", &"crosier_smash", &"censer_swing", &"holy_tome", &"benediction", &"ascension",
+		&"tome_lift", &"key_sweep", &"monstrance", &"flying_kick", &"heavenward_fist"],
+	&"groban": [&"baton_jab", &"scarf_lash", &"power_ballad", &"high_note", &"crescendo", &"soaring_note",
+		&"high_c", &"low_sweep", &"standing_ovation", &"lunge_reach"],
+	&"tim": [&"right_hook", &"haymaker", &"nypd_takedown", &"drone_strike", &"lego_castle", &"empire_rally"],
 }
 
 # --- Effect IDs (effect_requested) -------------------------------------------

@@ -1,0 +1,31 @@
+{
+  "id": "tim",
+  "head_width": 20.0,
+  "reference": "movement:0",
+  "sheets": {
+    "movement": {"file": "movement_source.webp", "cols": 4, "rows": 3},
+    "actions": {"file": "actions_source.webp", "cols": 3, "rows": 5}
+  },
+  "animations": {
+    "idle": ["movement:0", "movement:1"],
+    "walk": ["movement:2", "movement:3"],
+    "run": ["movement:4", "movement:5"],
+    "jump": ["movement:6"],
+    "fall": ["movement:7"],
+    "hurt": ["movement:8"],
+    "knockback": ["movement:9"],
+    "defeat": ["movement:10"],
+    "victory": ["movement:11"],
+    "shield": ["actions:5"],
+    "shield_break": ["movement:8"],
+    "spot_dodge": ["movement:10"],
+    "roll": ["movement:4", "movement:5", "movement:4"],
+    "air_dodge": ["movement:6"],
+    "right_hook": ["actions:0", "actions:1", "actions:2"],
+    "haymaker": ["actions:0", "actions:1", "actions:2"],
+    "nypd_takedown": ["actions:3", "actions:4", "actions:5"],
+    "lego_castle": ["actions:6", "actions:7", "actions:8"],
+    "drone_strike": ["actions:9", "actions:10", "actions:11"],
+    "empire_rally": ["actions:12", "actions:13", "actions:14"]
+  }
+}

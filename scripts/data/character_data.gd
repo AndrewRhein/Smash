@@ -84,6 +84,36 @@ func validate() -> PackedStringArray:
 	return errors
 
 
+## Move for the Attack ("light") or Heavy button given direction, Smash style:
+## ground up/down = up/down tilt, air = aerials (forward/back relative to
+## facing), heavy + up/down = up/down smash. Each falls back along a chain to
+## the always-present light / heavy move.
+func resolve_attack(button: StringName, stick: Vector2, grounded: bool, facing: int) -> StringName:
+	var t := PlayerInput.DIGITAL_THRESHOLD
+	var vertical := absf(stick.y) > absf(stick.x) and absf(stick.y) >= t
+	var up := vertical and stick.y < 0.0
+	var down := vertical and stick.y > 0.0
+	var chain: Array = []
+	if button == &"heavy":
+		chain = [&"heavy_up"] if up else ([&"heavy_down"] if down else [])
+		chain.append(&"heavy")
+	elif grounded:
+		chain = [&"light_up"] if up else ([&"light_down"] if down else [])
+		chain.append(&"light")
+	else:
+		if up:
+			chain = [&"air_up"]
+		elif down:
+			chain = [&"air_down"]
+		elif absf(stick.x) >= t:
+			chain = [&"air_forward"] if signf(stick.x) == float(facing) else [&"air_back"]
+		chain.append_array([&"air_neutral", &"light"])
+	for id: StringName in chain:
+		if get_move(id) != null:
+			return id
+	return chain[-1]
+
+
 ## Move for the Special button given the stick direction (Smash rules):
 ## mostly-vertical input picks up/down, otherwise a horizontal input picks side.
 func special_for_direction(stick: Vector2) -> StringName:

@@ -8,6 +8,7 @@ var app: GameApp
 var box: HBoxContainer
 var rematch_button: Button
 var menu_button: Button
+var characters_button: Button
 
 
 func _init(p_app: GameApp) -> void:
@@ -20,13 +21,15 @@ func _init(p_app: GameApp) -> void:
 	add_child(root)
 	box = HBoxContainer.new()
 	box.add_theme_constant_override("separation", 24)
-	box.position = Vector2(640 - 300, 612)  # bottom: never covers the stage or HUD banner
-	box.size = Vector2(600, 56)
+	box.position = Vector2(640 - 420, 612)  # bottom: never covers the stage or HUD banner
+	box.size = Vector2(840, 56)
 	box.alignment = BoxContainer.ALIGNMENT_CENTER
 	root.add_child(box)
 	rematch_button = MenuStyle.button("Rematch", _on_rematch, 260)
 	menu_button = MenuStyle.button("Main Menu", func() -> void: app.show_title(), 260)
+	characters_button = MenuStyle.button("Characters", func() -> void: app.show_character_select(), 260)
 	box.add_child(rematch_button)
+	box.add_child(characters_button)
 	box.add_child(menu_button)
 	box.visible = false
 
@@ -45,7 +48,7 @@ func show_choices() -> void:
 
 func hide_choices() -> void:
 	# Release focus so no menu button holds keyboard focus during play.
-	if rematch_button.has_focus() or menu_button.has_focus():
+	if rematch_button.has_focus() or menu_button.has_focus() or characters_button.has_focus():
 		rematch_button.get_viewport().gui_release_focus()
 	box.visible = false
 

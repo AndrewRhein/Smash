@@ -217,6 +217,9 @@ func _apply_strike(c: Dictionary) -> void:
 			Vector2(victim.facing, 0), {"attacker_id": attacker.player_id, "move_id": String(move.id)})
 		return
 	var hitstop := CombatMath.hitstop_ticks(move.damage)
+	if move.radial_knockback and is_melee:
+		var dx := victim.global_position.x - attacker.global_position.x
+		c.direction_sign = attacker.facing if absf(dx) < 1.0 else (1 if dx > 0.0 else -1)
 	if victim.is_shielding():
 		# Shields stop every strike and projectile from any side (grabs beat them).
 		victim.receive_shield_hit(move, c.direction_sign, attacker.player_id, hitstop)

@@ -8,7 +8,10 @@ extends Node
 
 signal screen_changed(screen: StringName)
 
-const MATCH_SCENE := preload("res://scenes/main.tscn")
+## Loaded on first use, NOT preloaded: preloading at parse time pulled the
+## character .tres files in while CharacterData was still compiling, which left
+## Gandalf/Elon attached to a half-loaded script (`is CharacterData` false).
+const MATCH_SCENE_PATH := "res://scenes/main.tscn"
 ## Optional art-review scene from the art pipeline; the menu entry is hidden
 ## when it does not exist on this branch.
 const ART_GALLERY_SCENE := "res://scenes/art_preview.tscn"
@@ -22,6 +25,7 @@ var result_overlay: ResultOverlay
 var gallery_root: Node
 var _gallery_bar: CanvasLayer
 var _menu_layer: CanvasLayer
+var audio: AudioDirector
 var _screen: MenuScreen
 
 
@@ -34,6 +38,13 @@ func _ready() -> void:
 	InputSetup.ensure_actions()
 	settings.load_from_disk()
 	settings.apply_window()
+	audio = AudioDirector.new()
+	audio.name = "Audio"
+	add_child(audio)
+	settings.apply_audio()
+	get_viewport().gui_focus_changed.connect(func(_c: Control) -> void:
+		if current_screen != &"match" or is_paused():
+			audio.play_ui("move"))
 	_menu_layer = CanvasLayer.new()
 	_menu_layer.name = "Menus"
 	_menu_layer.layer = 20
@@ -46,6 +57,12 @@ func show_title() -> void:
 	_end_match()
 	_end_gallery()
 	_show_screen(TitleScreen.new(self), &"title")
+
+
+func show_character_select() -> void:
+	_end_match()
+	_end_gallery()
+	_show_screen(CharacterSelectScreen.new(self), &"character_select")
 
 
 func show_settings() -> void:
@@ -62,6 +79,8 @@ func show_controls(back: Callable) -> void:
 
 func _show_screen(screen: MenuScreen, id: StringName) -> void:
 	_clear_screen()
+	if audio != null:
+		audio.play_music("menu")
 	_screen = screen
 	_menu_layer.add_child(screen)
 	_set_screen(id)
@@ -113,6 +132,16 @@ func _end_gallery() -> void:
 	_gallery_bar = null
 
 
+func _input(event: InputEvent) -> void:
+	# Menu confirm/back clicks (never during live play).
+	if audio == null or (current_screen == &"match" and not is_paused()):
+		return
+	if event.is_action_pressed(&"ui_accept"):
+		audio.play_ui("confirm")
+	elif event.is_action_pressed(&"ui_cancel"):
+		audio.play_ui("back")
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if current_screen == &"gallery" and event.is_action_pressed(&"ui_cancel"):
 		get_viewport().set_input_as_handled()
@@ -129,17 +158,27 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 # --- Match lifecycle ----------------------------------------------------------
-func start_match() -> void:
+## Starts a match. `picks` = one CharacterData per player (from the character
+## select); empty = the last picks saved in settings.
+func start_match(picks: Array[CharacterData] = []) -> void:
 	_clear_screen()
 	_end_match()
 	_end_gallery()
-	match_root = MATCH_SCENE.instantiate()
+	if picks.is_empty():
+		for player_id in [1, 2]:
+			var id := settings.last_pick(player_id)
+			if not CharacterRoster.has(id):
+				id = CharacterRoster.DEFAULT_PICKS[player_id - 1]
+			picks.append(CharacterRoster.load_character(id))
+	match_root = (load(MATCH_SCENE_PATH) as PackedScene).instantiate()
+	match_root.set("character_override", picks)
 	match_root.process_mode = Node.PROCESS_MODE_PAUSABLE
 	# Configure before _ready: main.gd starts the match when it enters the tree.
 	var controller := match_root.get_node("Match") as MatchController
 	controller.stock_count = settings.stocks
 	add_child(match_root)
 	match_controller = controller
+	audio.bind_match(match_controller)
 	if settings.show_hitboxes:
 		var overlay := match_root.get_node_or_null("DebugOverlay")
 		if overlay != null:
@@ -166,6 +205,8 @@ func restart_match() -> void:
 
 func set_paused(value: bool) -> void:
 	get_tree().paused = value
+	if audio != null:
+		audio.set_paused_duck(value)
 	if not value and match_controller != null:
 		# Buttons pressed or released while paused must not register as fresh
 		# presses (or leave stale edges) when play resumes.

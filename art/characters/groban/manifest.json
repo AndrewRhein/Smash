@@ -1,0 +1,504 @@
+{
+  "character_id": "groban",
+  "cell_size": [
+    256,
+    256
+  ],
+  "pivot": [
+    128,
+    208
+  ],
+  "head_width": 20.0,
+  "scales": {
+    "movement": 0.30303030303030304,
+    "actions": 0.29411764705882354,
+    "extras": 0.3418803418803419
+  },
+  "poses": [
+    {
+      "pose": "movement:0",
+      "source": "movement_source.webp",
+      "bounds": [
+        52,
+        17,
+        249,
+        338
+      ],
+      "scale": 0.30303
+    },
+    {
+      "pose": "movement:1",
+      "source": "movement_source.webp",
+      "bounds": [
+        418,
+        16,
+        244,
+        340
+      ],
+      "scale": 0.30303
+    },
+    {
+      "pose": "movement:2",
+      "source": "movement_source.webp",
+      "bounds": [
+        794,
+        13,
+        212,
+        344
+      ],
+      "scale": 0.30303
+    },
+    {
+      "pose": "movement:3",
+      "source": "movement_source.webp",
+      "bounds": [
+        1149,
+        14,
+        239,
+        343
+      ],
+      "scale": 0.30303
+    },
+    {
+      "pose": "movement:4",
+      "source": "movement_source.webp",
+      "bounds": [
+        36,
+        381,
+        261,
+        330
+      ],
+      "scale": 0.30303
+    },
+    {
+      "pose": "movement:5",
+      "source": "movement_source.webp",
+      "bounds": [
+        403,
+        379,
+        293,
+        336
+      ],
+      "scale": 0.30303
+    },
+    {
+      "pose": "movement:6",
+      "source": "movement_source.webp",
+      "bounds": [
+        783,
+        369,
+        243,
+        308
+      ],
+      "scale": 0.30303
+    },
+    {
+      "pose": "movement:7",
+      "source": "movement_source.webp",
+      "bounds": [
+        1126,
+        385,
+        257,
+        329
+      ],
+      "scale": 0.30303
+    },
+    {
+      "pose": "movement:8",
+      "source": "movement_source.webp",
+      "bounds": [
+        69,
+        743,
+        211,
+        330
+      ],
+      "scale": 0.30303
+    },
+    {
+      "pose": "movement:9",
+      "source": "movement_source.webp",
+      "bounds": [
+        413,
+        748,
+        289,
+        268
+      ],
+      "scale": 0.30303
+    },
+    {
+      "pose": "movement:10",
+      "source": "movement_source.webp",
+      "bounds": [
+        748,
+        826,
+        251,
+        245
+      ],
+      "scale": 0.30303
+    },
+    {
+      "pose": "movement:11",
+      "source": "movement_source.webp",
+      "bounds": [
+        1145,
+        726,
+        255,
+        350
+      ],
+      "scale": 0.30303
+    },
+    {
+      "pose": "extras:3",
+      "source": "extras_source.webp",
+      "bounds": [
+        44,
+        373,
+        240,
+        288
+      ],
+      "scale": 0.34188
+    },
+    {
+      "pose": "extras:6",
+      "source": "extras_source.webp",
+      "bounds": [
+        49,
+        679,
+        242,
+        341
+      ],
+      "scale": 0.34188
+    },
+    {
+      "pose": "actions:13",
+      "source": "actions_source.webp",
+      "bounds": [
+        381,
+        1289,
+        228,
+        237
+      ],
+      "scale": 0.29412
+    },
+    {
+      "pose": "extras:9",
+      "source": "extras_source.webp",
+      "bounds": [
+        38,
+        1057,
+        220,
+        262
+      ],
+      "scale": 0.34188
+    },
+    {
+      "pose": "actions:10",
+      "source": "actions_source.webp",
+      "bounds": [
+        356,
+        978,
+        283,
+        265
+      ],
+      "scale": 0.29412
+    },
+    {
+      "pose": "actions:6",
+      "source": "actions_source.webp",
+      "bounds": [
+        45,
+        665,
+        236,
+        299
+      ],
+      "scale": 0.29412
+    },
+    {
+      "pose": "actions:7",
+      "source": "actions_source.webp",
+      "bounds": [
+        377,
+        672,
+        269,
+        291
+      ],
+      "scale": 0.29412
+    },
+    {
+      "pose": "actions:8",
+      "source": "actions_source.webp",
+      "bounds": [
+        730,
+        663,
+        275,
+        301
+      ],
+      "scale": 0.29412
+    },
+    {
+      "pose": "actions:11",
+      "source": "actions_source.webp",
+      "bounds": [
+        713,
+        1010,
+        247,
+        211
+      ],
+      "scale": 0.29412
+    },
+    {
+      "pose": "actions:9",
+      "source": "actions_source.webp",
+      "bounds": [
+        43,
+        980,
+        257,
+        257
+      ],
+      "scale": 0.29412
+    },
+    {
+      "pose": "actions:0",
+      "source": "actions_source.webp",
+      "bounds": [
+        55,
+        31,
+        223,
+        297
+      ],
+      "scale": 0.29412
+    },
+    {
+      "pose": "actions:1",
+      "source": "actions_source.webp",
+      "bounds": [
+        392,
+        18,
+        263,
+        311
+      ],
+      "scale": 0.29412
+    },
+    {
+      "pose": "actions:2",
+      "source": "actions_source.webp",
+      "bounds": [
+        719,
+        20,
+        272,
+        309
+      ],
+      "scale": 0.29412
+    },
+    {
+      "pose": "actions:3",
+      "source": "actions_source.webp",
+      "bounds": [
+        38,
+        359,
+        242,
+        288
+      ],
+      "scale": 0.29412
+    },
+    {
+      "pose": "actions:4",
+      "source": "actions_source.webp",
+      "bounds": [
+        382,
+        351,
+        285,
+        296
+      ],
+      "scale": 0.29412
+    },
+    {
+      "pose": "actions:5",
+      "source": "actions_source.webp",
+      "bounds": [
+        740,
+        352,
+        239,
+        295
+      ],
+      "scale": 0.29412
+    },
+    {
+      "pose": "extras:0",
+      "source": "extras_source.webp",
+      "bounds": [
+        49,
+        12,
+        243,
+        330
+      ],
+      "scale": 0.34188
+    },
+    {
+      "pose": "extras:7",
+      "source": "extras_source.webp",
+      "bounds": [
+        343,
+        673,
+        302,
+        349
+      ],
+      "scale": 0.34188
+    },
+    {
+      "pose": "extras:12",
+      "source": "extras_source.webp",
+      "bounds": [
+        65,
+        1337,
+        203,
+        280
+      ],
+      "scale": 0.34188
+    },
+    {
+      "pose": "extras:5",
+      "source": "extras_source.webp",
+      "bounds": [
+        682,
+        371,
+        225,
+        290
+      ],
+      "scale": 0.34188
+    },
+    {
+      "pose": "extras:2",
+      "source": "extras_source.webp",
+      "bounds": [
+        700,
+        15,
+        232,
+        327
+      ],
+      "scale": 0.34188
+    },
+    {
+      "pose": "extras:13",
+      "source": "extras_source.webp",
+      "bounds": [
+        363,
+        1329,
+        254,
+        288
+      ],
+      "scale": 0.34188
+    },
+    {
+      "pose": "extras:10",
+      "source": "extras_source.webp",
+      "bounds": [
+        310,
+        1053,
+        337,
+        265
+      ],
+      "scale": 0.34188
+    }
+  ],
+  "animations": {
+    "idle": [
+      0,
+      1
+    ],
+    "walk": [
+      2,
+      3
+    ],
+    "run": [
+      4,
+      5
+    ],
+    "jump": [
+      6
+    ],
+    "fall": [
+      7
+    ],
+    "hurt": [
+      8
+    ],
+    "knockback": [
+      9
+    ],
+    "defeat": [
+      10
+    ],
+    "victory": [
+      11
+    ],
+    "shield": [
+      12
+    ],
+    "shield_break": [
+      13
+    ],
+    "spot_dodge": [
+      14
+    ],
+    "roll": [
+      15,
+      16,
+      15
+    ],
+    "air_dodge": [
+      6
+    ],
+    "baton_jab": [
+      17,
+      18,
+      19
+    ],
+    "scarf_lash": [
+      20,
+      21,
+      16
+    ],
+    "power_ballad": [
+      22,
+      23,
+      24
+    ],
+    "high_note": [
+      25,
+      26,
+      27
+    ],
+    "crescendo": [
+      13,
+      28,
+      29
+    ],
+    "soaring_note": [
+      30,
+      6,
+      7
+    ],
+    "high_c": [
+      31,
+      27,
+      31
+    ],
+    "low_sweep": [
+      15,
+      20,
+      15
+    ],
+    "standing_ovation": [
+      32,
+      33,
+      32
+    ],
+    "lunge_reach": [
+      6,
+      34,
+      7
+    ]
+  },
+  "atlas_sha256": "e793393dc378cd85c881c98ad1b4c6fe512f04c91304a3836a9efbfc49b3c704"
+}

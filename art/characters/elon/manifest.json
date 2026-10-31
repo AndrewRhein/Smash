@@ -244,7 +244,7 @@
         241,
         271
       ],
-      "scale": 0.413284132841328,
+      "scale": 0.335724815724816,
       "source_pivot": [
         162,
         307
@@ -258,7 +258,7 @@
         282,
         260
       ],
-      "scale": 0.413284132841328,
+      "scale": 0.335724815724816,
       "source_pivot": [
         505,
         308
@@ -272,7 +272,7 @@
         235,
         279
       ],
-      "scale": 0.413284132841328,
+      "scale": 0.335724815724816,
       "source_pivot": [
         855,
         308
@@ -286,7 +286,7 @@
         265,
         294
       ],
-      "scale": 0.413284132841328,
+      "scale": 0.335724815724816,
       "source_pivot": [
         173,
         614
@@ -300,7 +300,7 @@
         420,
         269
       ],
-      "scale": 0.413284132841328,
+      "scale": 0.335724815724816,
       "source_pivot": [
         478,
         614
@@ -314,7 +314,7 @@
         269,
         273
       ],
-      "scale": 0.413284132841328,
+      "scale": 0.335724815724816,
       "source_pivot": [
         862,
         614
@@ -328,7 +328,7 @@
         242,
         286
       ],
-      "scale": 0.413284132841328,
+      "scale": 0.335724815724816,
       "source_pivot": [
         165,
         908
@@ -342,7 +342,7 @@
         292,
         283
       ],
-      "scale": 0.413284132841328,
+      "scale": 0.335724815724816,
       "source_pivot": [
         508,
         908
@@ -356,7 +356,7 @@
         241,
         284
       ],
-      "scale": 0.413284132841328,
+      "scale": 0.335724815724816,
       "source_pivot": [
         855,
         908
@@ -370,7 +370,7 @@
         239,
         293
       ],
-      "scale": 0.413284132841328,
+      "scale": 0.335724815724816,
       "source_pivot": [
         166,
         1210
@@ -384,7 +384,7 @@
         307,
         294
       ],
-      "scale": 0.413284132841328,
+      "scale": 0.335724815724816,
       "source_pivot": [
         507,
         1210
@@ -398,7 +398,7 @@
         223,
         294
       ],
-      "scale": 0.413284132841328,
+      "scale": 0.335724815724816,
       "source_pivot": [
         872,
         1210
@@ -412,7 +412,7 @@
         244,
         285
       ],
-      "scale": 0.413284132841328,
+      "scale": 0.335724815724816,
       "source_pivot": [
         163,
         1506
@@ -426,7 +426,7 @@
         258,
         280
       ],
-      "scale": 0.413284132841328,
+      "scale": 0.335724815724816,
       "source_pivot": [
         499,
         1506
@@ -440,17 +440,20 @@
         247,
         291
       ],
-      "scale": 0.413284132841328,
+      "scale": 0.335724815724816,
       "source_pivot": [
         857,
         1506
       ]
     }
   ],
-  "atlas_sha256": "e7c554b296294996d166f20be8ef032aefe34d5a57ab2a7cbb88d8072e1c26ef",
+  "atlas_sha256": "429128efd34efaf3ded728bb66038d96c167d47e78a2a26203ee33bde036b37d",
   "known_limits": [
     "Two-pose locomotion loops",
     "Single held poses for airborne and reaction states",
     "Three-pose attacks; further temporal polish possible"
+  ],
+  "notes": [
+    "Attack poses 12-26 rescaled to match idle by head width (were ~24% too large); poses 0-11 and the portrait are unchanged from the original build."
   ]
 }

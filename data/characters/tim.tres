@@ -1,0 +1,315 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=17 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/move_data.gd" id="1_jwmtj"]
+[ext_resource type="Script" path="res://scripts/data/hitbox_data.gd" id="2_vbxdr"]
+[ext_resource type="Script" path="res://scripts/data/projectile_data.gd" id="3_fdws2"]
+[ext_resource type="Script" path="res://scripts/data/character_data.gd" id="4_g4wbv"]
+
+[sub_resource type="Resource" id="Resource_db0f5"]
+script = ExtResource("2_vbxdr")
+shape = 0
+kind = 0
+offset = Vector2(48, -80)
+size = Vector2(42, 26)
+radius = 20.0
+start_tick = 0
+duration_ticks = 0
+rehit_interval_ticks = 0
+
+[sub_resource type="Resource" id="Resource_li4ih"]
+script = ExtResource("1_jwmtj")
+id = &"light"
+display_name = "Detective's Right Hook"
+animation_id = &"right_hook"
+startup_ticks = 5
+active_ticks = 4
+recovery_ticks = 12
+damage = 6.0
+damage_type = &"melee"
+knockback_angle_deg = 38.0
+knockback_base = 250.0
+knockback_growth = 3.4
+hitstun_ticks = 11
+cooldown_ticks = 0
+movement_policy = 1
+cancel_into = Array[StringName]([&"special_1", &"special_2", &"special_3"])
+cancel_requires_hit = true
+aimable = false
+aim_angle_deg = 0.0
+aim_pivot = Vector2(0, 0)
+hitboxes = Array[ExtResource("2_vbxdr")]([SubResource("Resource_db0f5")])
+projectiles = Array[ExtResource("3_fdws2")]([])
+start_effect_id = &"staff_swing"
+active_effect_id = &""
+special_behaviour = &""
+radial_knockback = false
+self_impulse = Vector2(0, 0)
+self_impulse_tick = 0
+helpless_after = false
+whiff_to_recovery = false
+hold_pulse_damage = 0.0
+hold_pulse_interval_ticks = 12
+hold_max_range = 240.0
+grab_immunity_ticks = 90
+guard_damage_types = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_uhjww"]
+script = ExtResource("2_vbxdr")
+shape = 0
+kind = 0
+offset = Vector2(48, -80)
+size = Vector2(50, 34)
+radius = 20.0
+start_tick = 0
+duration_ticks = 0
+rehit_interval_ticks = 0
+
+[sub_resource type="Resource" id="Resource_a40wp"]
+script = ExtResource("1_jwmtj")
+id = &"heavy"
+display_name = "Haymaker"
+animation_id = &"haymaker"
+startup_ticks = 17
+active_ticks = 5
+recovery_ticks = 28
+damage = 15.0
+damage_type = &"melee"
+knockback_angle_deg = 40.0
+knockback_base = 440.0
+knockback_growth = 6.6
+hitstun_ticks = 17
+cooldown_ticks = 0
+movement_policy = 2
+cancel_into = Array[StringName]([])
+cancel_requires_hit = true
+aimable = false
+aim_angle_deg = 0.0
+aim_pivot = Vector2(0, 0)
+hitboxes = Array[ExtResource("2_vbxdr")]([SubResource("Resource_uhjww")])
+projectiles = Array[ExtResource("3_fdws2")]([])
+start_effect_id = &""
+active_effect_id = &"heavy_staff_swing"
+special_behaviour = &""
+radial_knockback = false
+self_impulse = Vector2(0, 0)
+self_impulse_tick = 0
+helpless_after = false
+whiff_to_recovery = false
+hold_pulse_damage = 0.0
+hold_pulse_interval_ticks = 12
+hold_max_range = 240.0
+grab_immunity_ticks = 90
+guard_damage_types = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_j70yr"]
+script = ExtResource("2_vbxdr")
+shape = 1
+kind = 1
+offset = Vector2(52, -60)
+size = Vector2(40, 30)
+radius = 34.0
+start_tick = 0
+duration_ticks = 8
+rehit_interval_ticks = 0
+
+[sub_resource type="Resource" id="Resource_7l5xq"]
+script = ExtResource("1_jwmtj")
+id = &"special_1"
+display_name = "NYPD Takedown"
+animation_id = &"nypd_takedown"
+startup_ticks = 10
+active_ticks = 40
+recovery_ticks = 22
+damage = 6.0
+damage_type = &"melee"
+knockback_angle_deg = 45.0
+knockback_base = 420.0
+knockback_growth = 5.5
+hitstun_ticks = 16
+cooldown_ticks = 120
+movement_policy = 2
+cancel_into = Array[StringName]([])
+cancel_requires_hit = true
+aimable = false
+aim_angle_deg = 0.0
+aim_pivot = Vector2(0, 0)
+hitboxes = Array[ExtResource("2_vbxdr")]([SubResource("Resource_j70yr")])
+projectiles = Array[ExtResource("3_fdws2")]([])
+start_effect_id = &""
+active_effect_id = &""
+special_behaviour = &"choke"
+radial_knockback = false
+self_impulse = Vector2(0, 0)
+self_impulse_tick = 0
+helpless_after = false
+whiff_to_recovery = true
+hold_pulse_damage = 2.0
+hold_pulse_interval_ticks = 12
+hold_max_range = 200.0
+grab_immunity_ticks = 90
+guard_damage_types = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_j5or4"]
+script = ExtResource("3_fdws2")
+spawn_tick = 0
+offset = Vector2(70, -95)
+velocity = Vector2(300, 0)
+lifetime_ticks = 120
+radius = 16.0
+
+[sub_resource type="Resource" id="Resource_uxuhe"]
+script = ExtResource("1_jwmtj")
+id = &"special_2"
+display_name = "Counterterrorism Drone"
+animation_id = &"drone_strike"
+startup_ticks = 16
+active_ticks = 2
+recovery_ticks = 22
+damage = 6.0
+damage_type = &"projectile"
+knockback_angle_deg = 30.0
+knockback_base = 260.0
+knockback_growth = 3.2
+hitstun_ticks = 12
+cooldown_ticks = 90
+movement_policy = 1
+cancel_into = Array[StringName]([])
+cancel_requires_hit = true
+aimable = false
+aim_angle_deg = 0.0
+aim_pivot = Vector2(0, 0)
+hitboxes = Array[ExtResource("2_vbxdr")]([])
+projectiles = Array[ExtResource("3_fdws2")]([SubResource("Resource_j5or4")])
+start_effect_id = &""
+active_effect_id = &""
+special_behaviour = &""
+radial_knockback = false
+self_impulse = Vector2(0, 0)
+self_impulse_tick = 0
+helpless_after = false
+whiff_to_recovery = false
+hold_pulse_damage = 0.0
+hold_pulse_interval_ticks = 12
+hold_max_range = 240.0
+grab_immunity_ticks = 90
+guard_damage_types = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_fxe85"]
+script = ExtResource("3_fdws2")
+spawn_tick = 0
+offset = Vector2(64, -14)
+velocity = Vector2(0, 0)
+lifetime_ticks = 240
+radius = 24.0
+
+[sub_resource type="Resource" id="Resource_4socu"]
+script = ExtResource("1_jwmtj")
+id = &"special_3"
+display_name = "LEGO Castle Deployment"
+animation_id = &"lego_castle"
+startup_ticks = 14
+active_ticks = 2
+recovery_ticks = 24
+damage = 9.0
+damage_type = &"projectile"
+knockback_angle_deg = 70.0
+knockback_base = 380.0
+knockback_growth = 4.5
+hitstun_ticks = 14
+cooldown_ticks = 240
+movement_policy = 2
+cancel_into = Array[StringName]([])
+cancel_requires_hit = true
+aimable = false
+aim_angle_deg = 0.0
+aim_pivot = Vector2(0, 0)
+hitboxes = Array[ExtResource("2_vbxdr")]([])
+projectiles = Array[ExtResource("3_fdws2")]([SubResource("Resource_fxe85")])
+start_effect_id = &""
+active_effect_id = &""
+special_behaviour = &""
+radial_knockback = false
+self_impulse = Vector2(0, 0)
+self_impulse_tick = 0
+helpless_after = false
+whiff_to_recovery = false
+hold_pulse_damage = 0.0
+hold_pulse_interval_ticks = 12
+hold_max_range = 240.0
+grab_immunity_ticks = 90
+guard_damage_types = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_2jvyj"]
+script = ExtResource("2_vbxdr")
+shape = 1
+kind = 0
+offset = Vector2(40, -110)
+size = Vector2(40, 30)
+radius = 26.0
+start_tick = 0
+duration_ticks = 10
+rehit_interval_ticks = 0
+
+[sub_resource type="Resource" id="Resource_fhcyt"]
+script = ExtResource("1_jwmtj")
+id = &"special_up"
+display_name = "Age of Empires Rally"
+animation_id = &"empire_rally"
+startup_ticks = 7
+active_ticks = 16
+recovery_ticks = 14
+damage = 7.0
+damage_type = &"melee"
+knockback_angle_deg = 80.0
+knockback_base = 320.0
+knockback_growth = 4.2
+hitstun_ticks = 13
+cooldown_ticks = 0
+movement_policy = 0
+cancel_into = Array[StringName]([])
+cancel_requires_hit = true
+aimable = false
+aim_angle_deg = 0.0
+aim_pivot = Vector2(0, 0)
+hitboxes = Array[ExtResource("2_vbxdr")]([SubResource("Resource_2jvyj")])
+projectiles = Array[ExtResource("3_fdws2")]([])
+start_effect_id = &"double_jump"
+active_effect_id = &""
+special_behaviour = &""
+radial_knockback = false
+self_impulse = Vector2(90, -1000)
+self_impulse_tick = 0
+helpless_after = true
+whiff_to_recovery = false
+hold_pulse_damage = 0.0
+hold_pulse_interval_ticks = 12
+hold_max_range = 240.0
+grab_immunity_ticks = 90
+guard_damage_types = Array[StringName]([])
+
+[resource]
+script = ExtResource("4_g4wbv")
+id = &"tim"
+display_name = "Tim"
+hud_color = Color(0.45, 0.55, 0.95, 1)
+hurtbox = Rect2(-22, -118, 44, 118)
+body_radius = 19.0
+body_height = 90.0
+weight = 1.15
+max_speed = 320.0
+ground_accel = 2600.0
+ground_decel = 3000.0
+air_accel = 1500.0
+air_decel = 500.0
+gravity = 1800.0
+max_fall_speed = 950.0
+fast_fall_speed = 1400.0
+jump_velocity = 690.0
+double_jump_velocity = 610.0
+jump_release_velocity = 260.0
+air_jumps = 1
+moves = Array[ExtResource("1_jwmtj")]([SubResource("Resource_li4ih"), SubResource("Resource_a40wp"), SubResource("Resource_7l5xq"), SubResource("Resource_uxuhe"), SubResource("Resource_4socu"), SubResource("Resource_fhcyt")])
+neutral_special = &"special_2"
+side_special = &"special_1"
+down_special = &"special_3"
+up_special = &"special_up"

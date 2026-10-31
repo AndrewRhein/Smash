@@ -90,6 +90,8 @@ func sample() -> InputFrame:
 	frame.move_y = axis.y
 	if absf(right.x) >= SMASH_STICK_THRESHOLD and absf(right.x) >= absf(right.y):
 		frame.smash_x = 1 if right.x > 0.0 else -1
+	elif absf(right.y) >= SMASH_STICK_THRESHOLD:
+		frame.smash_y = 1 if right.y > 0.0 else -1
 	frame.held_mask = _read_held_mask(axis, right)
 	frame.pressed_mask = frame.held_mask & ~_prev_held_mask
 	_prev_held_mask = frame.held_mask

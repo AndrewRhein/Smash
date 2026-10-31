@@ -5,6 +5,7 @@ extends MenuScreen
 var fullscreen_button: CycleButton
 var hitbox_button: CycleButton
 var tap_jump_button: CycleButton
+var volume_buttons: Dictionary = {}
 
 
 func build() -> void:
@@ -28,6 +29,15 @@ func build() -> void:
 		s.apply_controls()
 		s.save_to_disk())
 	add_focusable(tap_jump_button)
+	for bus in [[&"Master", "Volume"], [&"Music", "Music"], [&"SFX", "Effects"], [&"Voice", "Voices"]]:
+		var b := CycleButton.new(bus[1], range(0, 11), s.volumes[bus[0]])
+		b.value_changed.connect(func(i: int) -> void:
+			s.volumes[bus[0]] = i
+			s.apply_audio()
+			s.save_to_disk()
+			app.audio.play_ui("move"))
+		add_focusable(b)
+		volume_buttons[bus[0]] = b
 	add_button("Controllers", app.show_controllers)
 	add_button("Back", app.show_title)
 
