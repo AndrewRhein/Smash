@@ -31,16 +31,16 @@ func build() -> void:
 	var options: Array = ["Keyboard only"]
 	for device: int in _pads:
 		options.append("Pad %d" % device)
-	for player_id in [1, 2]:
+	for player_id in range(1, ControllerAssignment.PLAYER_COUNT + 1):
 		var current := ControllerAssignment.device_for(player_id)
 		var index := 0 if current < 0 or not _pads.has(current) else _pads.find(current) + 1
 		var b := CycleButton.new("Player %d" % player_id, options, index)
-		b.custom_minimum_size = Vector2(420, 52)
+		b.custom_minimum_size = Vector2(420, 46)
 		b.value_changed.connect(_on_player_changed.bind(player_id))
 		player_buttons[player_id] = b
 		add_focusable(b)
 	add_button("Swap Players", _on_swap)
-	column.add_child(MenuStyle.label("Keyboard controls always work for both players as well.", 16, MenuStyle.MUTED))
+	column.add_child(MenuStyle.label("Keyboard controls also work for Players 1 and 2. A controller joins its port by pressing A on the character select.", 16, MenuStyle.MUTED))
 	add_button("Back", back_action)
 
 
@@ -79,7 +79,7 @@ func _process(_delta: float) -> void:
 			if Input.is_joy_button_pressed(device, button):
 				active = true
 		var owner := "unused"
-		for player_id in [1, 2]:
+		for player_id in range(1, ControllerAssignment.PLAYER_COUNT + 1):
 			if ControllerAssignment.device_for(player_id) == device:
 				owner = "Player %d" % player_id
 		var l: Label = pad_labels[device]

@@ -26,6 +26,9 @@ var gallery_root: Node
 var _gallery_bar: CanvasLayer
 var _menu_layer: CanvasLayer
 var audio: AudioDirector
+## The character-select lineup to restore when returning to it:
+## port -> {"type": &"human"/&"cpu", "level": int}.
+var lineup: Dictionary = {}
 var _screen: MenuScreen
 
 
@@ -63,6 +66,12 @@ func show_character_select() -> void:
 	_end_match()
 	_end_gallery()
 	_show_screen(CharacterSelectScreen.new(self), &"character_select")
+
+
+## Character select with a CPU opponent already added as P2.
+func show_practice_select() -> void:
+	lineup = {1: {"type": &"human"}, 2: {"type": &"cpu", "level": settings.cpu_level}}
+	show_character_select()
 
 
 func show_settings() -> void:
@@ -160,11 +169,14 @@ func _unhandled_input(event: InputEvent) -> void:
 # --- Match lifecycle ----------------------------------------------------------
 ## Starts a match. `picks` = one CharacterData per player (from the character
 ## select); empty = the last picks saved in settings.
-func start_match(picks: Array[CharacterData] = []) -> void:
+## `player_ids` = the port (1-4) of each pick (empty = 1, 2, ...);
+## `cpu_levels` = port -> CPU level for computer players.
+func start_match(picks: Array[CharacterData] = [], player_ids: Array[int] = [], cpu_levels: Dictionary = {}) -> void:
 	_clear_screen()
 	_end_match()
 	_end_gallery()
 	if picks.is_empty():
+		player_ids = []
 		for player_id in [1, 2]:
 			var id := settings.last_pick(player_id)
 			if not CharacterRoster.has(id):
@@ -172,6 +184,8 @@ func start_match(picks: Array[CharacterData] = []) -> void:
 			picks.append(CharacterRoster.load_character(id))
 	match_root = (load(MATCH_SCENE_PATH) as PackedScene).instantiate()
 	match_root.set("character_override", picks)
+	match_root.set("player_ids", player_ids)
+	match_root.set("cpu_levels", cpu_levels)
 	match_root.process_mode = Node.PROCESS_MODE_PAUSABLE
 	# Configure before _ready: main.gd starts the match when it enters the tree.
 	var controller := match_root.get_node("Match") as MatchController

@@ -23,7 +23,7 @@ func bind(controller: MatchController) -> void:
 func _on_fighter_spawned(fighter: Fighter) -> void:
     # New actor instances begin a new match, including zero-countdown rematches.
     # Stock respawns reuse the existing fighter and do not emit this signal.
-    if fighter.player_id == 1:
+    if not _match.fighters.is_empty() and fighter == _match.fighters[0]:
         _clear_visuals()
     super._on_fighter_spawned(fighter)
 

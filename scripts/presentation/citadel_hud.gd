@@ -21,47 +21,11 @@ var _big_t := 10.0
 var _big_text := ""
 var _last_count := -1
 var _t := 0.0
+var _footer: Label
+var _hint: Label
 
 
 func _ready() -> void:
-	for player in [1, 2]:
-		var origin := Vector2(24 if player == 1 else 1280 - 24 - CARD_SIZE.x, 18)
-		var card := _Card.new()
-		card.accent = PLAYER_COLORS[player]
-		card.mirrored = player != 1
-		card.position = origin
-		card.size = CARD_SIZE
-		card.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		add_child(card)
-		_cards[player] = card
-		var portrait_x := 14.0 if player == 1 else CARD_SIZE.x - 14.0 - 76.0
-		var portrait := TextureRect.new()
-		portrait.position = Vector2(portrait_x, 14)
-		portrait.size = Vector2(76, 76)
-		portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		portrait.flip_h = player != 1
-		card.add_child(portrait)
-		_portraits[player] = portrait
-		var text_x := 100.0 if player == 1 else 16.0
-		var name_label := _card_label(card, Vector2(text_x, 8), 15, PLAYER_COLORS[player].lightened(0.35), player)
-		name_labels[player] = name_label
-		var damage_label := _card_label(card, Vector2(text_x, 24), 46, DAMAGE_WHITE, player)
-		damage_label.add_theme_constant_override("outline_size", 10)
-		damage_label.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.55))
-		damage_label.add_theme_constant_override("shadow_offset_y", 3)
-		damage_label.pivot_offset = Vector2(0.0 if player == 1 else 214.0, 34)
-		damage_labels[player] = damage_label
-		var stocks := HBoxContainer.new()
-		stocks.position = Vector2(text_x, 80)
-		stocks.size = Vector2(214, 18)
-		stocks.add_theme_constant_override("separation", 4)
-		stocks.alignment = BoxContainer.ALIGNMENT_BEGIN if player == 1 else BoxContainer.ALIGNMENT_END
-		card.add_child(stocks)
-		_stock_boxes[player] = stocks
-		var stock_text := _card_label(card, Vector2(text_x, 80), 12, Color("d8c999"), player)
-		stock_text.visible = false  # kept for tests/tools that read the stock count
-		stock_labels[player] = stock_text
 	_status = _label(Vector2(440, 22), 16, Color("e9d6a6"))
 	_status.size = Vector2(400, 24)
 	_status.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -81,17 +45,72 @@ func _ready() -> void:
 	_result = _label(Vector2(140, 430), 22, Color("ead5a4"))
 	_result.size = Vector2(1000, 60)
 	_result.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	var footer := _label(Vector2(30, 690), 12, Color(0.65, 0.71, 0.8, 0.8))
-	footer.text = "P1  A/D · W jump · F attack · R heavy · G special · T shield        P2  ←/→ · ↑ jump · K attack · I heavy · L special · O shield"
-	var hint := _label(Vector2(1080, 690), 12, Color(0.65, 0.71, 0.8, 0.8))
-	hint.text = "ESC Pause   F1 Hitboxes"
+	_footer = _label(Vector2(30, 690), 12, Color(0.65, 0.71, 0.8, 0.8))
+	_footer.text = "P1  A/D · W jump · F attack · R heavy · G special · T shield        P2  ←/→ · ↑ jump · K attack · I heavy · L special · O shield"
+	_hint = _label(Vector2(1080, 690), 12, Color(0.65, 0.71, 0.8, 0.8))
+	_hint.text = "ESC Pause   F1 Hitboxes"
 
 
-func _card_label(card: Control, pos: Vector2, font_size: int, color: Color, player: int) -> Label:
+## Cards: 1-2 players sit in the top corners (P2 mirrored); 3-4 players get a
+## Smash-style row along the bottom of the screen.
+func _make_card(player: int, index: int, count: int) -> void:
+	var card_size := CARD_SIZE if count <= 2 else Vector2(296, 96)
+	var mirrored := count <= 2 and index == 1
+	var origin := Vector2(24 if index == 0 else 1280 - 24 - card_size.x, 18)
+	if count > 2:
+		var row_width := count * card_size.x + (count - 1) * 12.0
+		origin = Vector2((1280.0 - row_width) / 2.0 + index * (card_size.x + 12.0), 720.0 - card_size.y - 30.0)
+		_footer_visible(false)
+	var card := _Card.new()
+	card.accent = PLAYER_COLORS.get(player, Color.WHITE)
+	card.mirrored = mirrored
+	card.position = origin
+	card.size = card_size
+	card.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(card)
+	_cards[player] = card
+	var art := card_size.y - 28.0
+	var portrait := TextureRect.new()
+	portrait.position = Vector2(14.0 if not mirrored else card_size.x - 14.0 - art, 14)
+	portrait.size = Vector2(art, art)
+	portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	portrait.flip_h = mirrored
+	card.add_child(portrait)
+	_portraits[player] = portrait
+	var text_x := art + 24.0 if not mirrored else 16.0
+	var text_w := card_size.x - art - 40.0
+	var name_label := _card_label(card, Vector2(text_x, 8), 14 if count > 2 else 15, (PLAYER_COLORS.get(player, Color.WHITE) as Color).lightened(0.35), mirrored, text_w)
+	name_labels[player] = name_label
+	var damage_label := _card_label(card, Vector2(text_x, 22), 42 if count > 2 else 46, DAMAGE_WHITE, mirrored, text_w)
+	damage_label.add_theme_constant_override("outline_size", 10)
+	damage_label.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.55))
+	damage_label.add_theme_constant_override("shadow_offset_y", 3)
+	damage_label.pivot_offset = Vector2(text_w if mirrored else 0.0, 34)
+	damage_labels[player] = damage_label
+	var stocks := HBoxContainer.new()
+	stocks.position = Vector2(text_x, card_size.y - 24.0)
+	stocks.size = Vector2(text_w, 18)
+	stocks.add_theme_constant_override("separation", 4)
+	stocks.alignment = BoxContainer.ALIGNMENT_END if mirrored else BoxContainer.ALIGNMENT_BEGIN
+	card.add_child(stocks)
+	_stock_boxes[player] = stocks
+	var stock_text := _card_label(card, Vector2(text_x, card_size.y - 24.0), 12, Color("d8c999"), mirrored, text_w)
+	stock_text.visible = false  # kept for tests/tools that read the stock count
+	stock_labels[player] = stock_text
+
+
+func _footer_visible(value: bool) -> void:
+	for node in [_footer, _hint]:
+		if node != null:
+			node.visible = value
+
+
+func _card_label(card: Control, pos: Vector2, font_size: int, color: Color, mirrored: bool, width: float = 214.0) -> Label:
 	var l := Label.new()
 	l.position = pos
-	l.size = Vector2(214, font_size + 10)
-	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT if player == 1 else HORIZONTAL_ALIGNMENT_RIGHT
+	l.size = Vector2(width, font_size + 10)
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT if mirrored else HORIZONTAL_ALIGNMENT_LEFT
 	l.add_theme_font_size_override("font_size", font_size)
 	l.add_theme_color_override("font_color", color)
 	l.add_theme_color_override("font_outline_color", Color(0.02, 0.02, 0.05))
@@ -102,9 +121,12 @@ func _card_label(card: Control, pos: Vector2, font_size: int, color: Color, play
 
 func _on_fighter_spawned(fighter: Fighter) -> void:
 	var player := fighter.player_id
-	if not name_labels.has(player):
-		return
-	name_labels[player].text = "P%d  /  %s" % [player, fighter.character.display_name.to_upper()]
+	if not _cards.has(player):
+		_make_card(player, maxi(_match.fighters.find(fighter), 0), maxi(_match.characters.size(), 1))
+	var tag := "P%d" % player
+	if fighter.input is CpuInput:
+		tag = "CPU %d" % (fighter.input as CpuInput).level
+	name_labels[player].text = "%s  /  %s" % [tag, fighter.character.display_name.to_upper()]
 	_portraits[player].texture = CharacterRoster.portrait(fighter.character.id)
 	_last_damage[player] = fighter.damage
 	var update := func(_value: Variant = null) -> void:
@@ -132,7 +154,7 @@ func _refresh_player(fighter: Fighter) -> void:
 		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		icon.texture = _portraits[player].texture
-		icon.flip_h = player != 1
+		icon.flip_h = (_cards[player] as _Card).mirrored
 		box.add_child(icon)
 	_cards[player].dimmed = fighter.stocks == 0
 
@@ -219,6 +241,7 @@ class _Card extends Control:
 		pts.append(pts[0])
 		draw_polyline(pts, Color(accent.r, accent.g, accent.b, 0.55), 1.5, true)
 		# Portrait frame.
-		var px := 14.0 if not mirrored else w - 90.0
-		draw_rect(Rect2(px - 2, 12, 80, 80), Color(0, 0, 0, 0.45))
-		draw_rect(Rect2(px - 2, 12, 80, 80), accent, false, 2.0)
+		var art := h - 28.0
+		var px := 14.0 if not mirrored else w - 14.0 - art
+		draw_rect(Rect2(px - 2, 12, art + 4, art + 4), Color(0, 0, 0, 0.45))
+		draw_rect(Rect2(px - 2, 12, art + 4, art + 4), accent, false, 2.0)

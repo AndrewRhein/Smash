@@ -17,7 +17,10 @@ var tap_jump: bool = true
 ## Volumes 0..10 per audio bus.
 var volumes: Dictionary = {&"Master": 8, &"Music": 6, &"SFX": 8, &"Voice": 9}
 ## Last character picks per player (select-screen cursor start).
-var picks: Dictionary = {1: CharacterRoster.DEFAULT_PICKS[0], 2: CharacterRoster.DEFAULT_PICKS[1]}
+var picks: Dictionary = {1: CharacterRoster.DEFAULT_PICKS[0], 2: CharacterRoster.DEFAULT_PICKS[1],
+	3: &"random", 4: &"random"}
+## Default level for newly added CPU players (1-9).
+var cpu_level: int = CpuInput.DEFAULT_LEVEL
 
 
 func _init(config_path: String = DEFAULT_PATH) -> void:
@@ -34,7 +37,8 @@ func load_from_disk() -> void:
 	tap_jump = bool(cfg.get_value("controls", "tap_jump", tap_jump))
 	for bus: StringName in volumes.keys():
 		volumes[bus] = clampi(int(cfg.get_value("audio", String(bus).to_lower(), volumes[bus])), 0, 10)
-	for player_id in [1, 2]:
+	cpu_level = clampi(int(cfg.get_value("match", "cpu_level", cpu_level)), CpuInput.MIN_LEVEL, CpuInput.MAX_LEVEL)
+	for player_id in [1, 2, 3, 4]:
 		var pick := StringName(str(cfg.get_value("characters", "p%d" % player_id, picks[player_id])))
 		if CharacterRoster.has(pick) or pick == &"random":
 			picks[player_id] = pick
@@ -49,7 +53,8 @@ func save_to_disk() -> void:
 	cfg.set_value("controls", "tap_jump", tap_jump)
 	for bus: StringName in volumes.keys():
 		cfg.set_value("audio", String(bus).to_lower(), volumes[bus])
-	for player_id in [1, 2]:
+	cfg.set_value("match", "cpu_level", cpu_level)
+	for player_id in [1, 2, 3, 4]:
 		cfg.set_value("characters", "p%d" % player_id, String(picks[player_id]))
 	var err := cfg.save(path)
 	if err != OK:

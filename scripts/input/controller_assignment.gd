@@ -11,7 +11,7 @@ extends RefCounted
 ## (and still navigate menus). Assignments can be changed from the Controllers
 ## screen (swap / cycle). Hot-plugging is handled automatically.
 
-const PLAYER_COUNT := 2
+const PLAYER_COUNT := 4
 
 static var _slots: Dictionary = {}       # player_id -> device id
 static var _known_pads: Array = []
