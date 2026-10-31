@@ -70,7 +70,7 @@ def load_mask(path):
     return rgba.astype(np.uint8), mask
 
 
-def cut_poses(path, cols, rows, min_area=400):
+def cut_poses(path, cols, rows, min_area=400, min_part_ratio=0.0):
     """Return poses (row-major): list of dicts {image (RGBA PIL), box}."""
     rgba, mask = load_mask(path)
     h, w = mask.shape
@@ -85,6 +85,13 @@ def cut_poses(path, cols, rows, min_area=400):
         key = (min(rows - 1, int(cy / h * rows)), min(cols - 1, int(cx / w * cols)))
         cells.setdefault(key, []).append(i)
     poses = []
+    if min_part_ratio > 0:
+        # Drop detached fragments (e.g. a thrown prop drifting into the next
+        # cell) smaller than this fraction of the cell's largest part.
+        for key, ids in cells.items():
+            areas = {i: int((lab == i).sum()) for i in ids}
+            biggest = max(areas.values())
+            cells[key] = [i for i in ids if areas[i] >= biggest * min_part_ratio]
     for r in range(rows):
         for c in range(cols):
             ids = cells.get((r, c))
@@ -140,7 +147,8 @@ def main(spec_path):
     base = os.path.dirname(spec_path)
     sheets = {}
     for name, s in spec["sheets"].items():
-        sheets[name] = cut_poses(os.path.join(base, s["file"]), s["cols"], s["rows"])
+        sheets[name] = cut_poses(os.path.join(base, s["file"]), s["cols"], s["rows"],
+                                 min_part_ratio=s.get("min_part_ratio", 0.0))
         found = sum(p is not None for p in sheets[name])
         print(f"{name}: {found} poses on a {s['cols']}x{s['rows']} grid")
     ref_sheet, ref_index = spec["reference"].split(":")

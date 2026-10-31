@@ -80,6 +80,8 @@ enum MovementPolicy {
 @export var hold_max_range: float = 240.0
 ## Ticks the released target cannot be grabbed again (prevents choke loops).
 @export var grab_immunity_ticks: int = 90
+## How a held target looks (presentation hint in the snapshot): "" or "frozen".
+@export var hold_visual: StringName = &""
 
 @export_group("Guard")
 ## Damage types negated from the FRONT while the guard is active.

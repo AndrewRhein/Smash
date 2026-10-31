@@ -1,0 +1,395 @@
+{
+  "character_id": "sundar",
+  "cell_size": [
+    256,
+    256
+  ],
+  "pivot": [
+    128,
+    208
+  ],
+  "head_width": 20.0,
+  "scales": {
+    "movement": 0.31746031746031744,
+    "actions": 0.3333333333333333
+  },
+  "poses": [
+    {
+      "pose": "movement:0",
+      "source": "movement_source.webp",
+      "bounds": [
+        69,
+        21,
+        244,
+        335
+      ],
+      "scale": 0.31746
+    },
+    {
+      "pose": "movement:1",
+      "source": "movement_source.webp",
+      "bounds": [
+        440,
+        16,
+        210,
+        340
+      ],
+      "scale": 0.31746
+    },
+    {
+      "pose": "movement:2",
+      "source": "movement_source.webp",
+      "bounds": [
+        800,
+        23,
+        214,
+        335
+      ],
+      "scale": 0.31746
+    },
+    {
+      "pose": "movement:3",
+      "source": "movement_source.webp",
+      "bounds": [
+        1149,
+        25,
+        238,
+        332
+      ],
+      "scale": 0.31746
+    },
+    {
+      "pose": "movement:4",
+      "source": "movement_source.webp",
+      "bounds": [
+        55,
+        391,
+        244,
+        305
+      ],
+      "scale": 0.31746
+    },
+    {
+      "pose": "movement:5",
+      "source": "movement_source.webp",
+      "bounds": [
+        408,
+        393,
+        272,
+        302
+      ],
+      "scale": 0.31746
+    },
+    {
+      "pose": "movement:6",
+      "source": "movement_source.webp",
+      "bounds": [
+        781,
+        372,
+        222,
+        287
+      ],
+      "scale": 0.31746
+    },
+    {
+      "pose": "movement:7",
+      "source": "movement_source.webp",
+      "bounds": [
+        1146,
+        377,
+        240,
+        316
+      ],
+      "scale": 0.31746
+    },
+    {
+      "pose": "movement:8",
+      "source": "movement_source.webp",
+      "bounds": [
+        77,
+        736,
+        201,
+        328
+      ],
+      "scale": 0.31746
+    },
+    {
+      "pose": "movement:9",
+      "source": "movement_source.webp",
+      "bounds": [
+        403,
+        745,
+        277,
+        268
+      ],
+      "scale": 0.31746
+    },
+    {
+      "pose": "movement:10",
+      "source": "movement_source.webp",
+      "bounds": [
+        767,
+        829,
+        247,
+        234
+      ],
+      "scale": 0.31746
+    },
+    {
+      "pose": "movement:11",
+      "source": "movement_source.webp",
+      "bounds": [
+        1169,
+        714,
+        217,
+        354
+      ],
+      "scale": 0.31746
+    },
+    {
+      "pose": "actions:0",
+      "source": "actions_source.webp",
+      "bounds": [
+        36,
+        33,
+        251,
+        294
+      ],
+      "scale": 0.33333
+    },
+    {
+      "pose": "actions:1",
+      "source": "actions_source.webp",
+      "bounds": [
+        348,
+        36,
+        295,
+        291
+      ],
+      "scale": 0.33333
+    },
+    {
+      "pose": "actions:2",
+      "source": "actions_source.webp",
+      "bounds": [
+        686,
+        33,
+        215,
+        294
+      ],
+      "scale": 0.33333
+    },
+    {
+      "pose": "actions:3",
+      "source": "actions_source.webp",
+      "bounds": [
+        26,
+        349,
+        237,
+        298
+      ],
+      "scale": 0.33333
+    },
+    {
+      "pose": "actions:4",
+      "source": "actions_source.webp",
+      "bounds": [
+        326,
+        367,
+        325,
+        280
+      ],
+      "scale": 0.33333
+    },
+    {
+      "pose": "actions:5",
+      "source": "actions_source.webp",
+      "bounds": [
+        672,
+        348,
+        221,
+        300
+      ],
+      "scale": 0.33333
+    },
+    {
+      "pose": "actions:6",
+      "source": "actions_source.webp",
+      "bounds": [
+        25,
+        671,
+        236,
+        301
+      ],
+      "scale": 0.33333
+    },
+    {
+      "pose": "actions:7",
+      "source": "actions_source.webp",
+      "bounds": [
+        341,
+        672,
+        291,
+        300
+      ],
+      "scale": 0.33333
+    },
+    {
+      "pose": "actions:8",
+      "source": "actions_source.webp",
+      "bounds": [
+        688,
+        671,
+        228,
+        300
+      ],
+      "scale": 0.33333
+    },
+    {
+      "pose": "actions:9",
+      "source": "actions_source.webp",
+      "bounds": [
+        18,
+        987,
+        240,
+        303
+      ],
+      "scale": 0.33333
+    },
+    {
+      "pose": "actions:10",
+      "source": "actions_source.webp",
+      "bounds": [
+        326,
+        995,
+        293,
+        295
+      ],
+      "scale": 0.33333
+    },
+    {
+      "pose": "actions:11",
+      "source": "actions_source.webp",
+      "bounds": [
+        673,
+        987,
+        235,
+        303
+      ],
+      "scale": 0.33333
+    },
+    {
+      "pose": "actions:12",
+      "source": "actions_source.webp",
+      "bounds": [
+        29,
+        1310,
+        236,
+        298
+      ],
+      "scale": 0.33333
+    },
+    {
+      "pose": "actions:13",
+      "source": "actions_source.webp",
+      "bounds": [
+        343,
+        1318,
+        276,
+        290
+      ],
+      "scale": 0.33333
+    },
+    {
+      "pose": "actions:14",
+      "source": "actions_source.webp",
+      "bounds": [
+        689,
+        1310,
+        227,
+        298
+      ],
+      "scale": 0.33333
+    }
+  ],
+  "animations": {
+    "idle": [
+      0,
+      1
+    ],
+    "walk": [
+      2,
+      3
+    ],
+    "run": [
+      4,
+      5
+    ],
+    "jump": [
+      6
+    ],
+    "fall": [
+      7
+    ],
+    "hurt": [
+      8
+    ],
+    "knockback": [
+      9
+    ],
+    "defeat": [
+      10
+    ],
+    "victory": [
+      11
+    ],
+    "shield": [
+      12
+    ],
+    "shield_break": [
+      8
+    ],
+    "spot_dodge": [
+      10
+    ],
+    "roll": [
+      4,
+      5,
+      4
+    ],
+    "air_dodge": [
+      6
+    ],
+    "reflex_check": [
+      12,
+      13,
+      14
+    ],
+    "syringe_jab": [
+      15,
+      16,
+      17
+    ],
+    "cold_hands": [
+      18,
+      19,
+      20
+    ],
+    "vial_toss": [
+      21,
+      22,
+      23
+    ],
+    "defibrillator": [
+      24,
+      25,
+      26
+    ],
+    "house_call": [
+      18,
+      6,
+      7
+    ]
+  },
+  "atlas_sha256": "6a09c474a357264372f8deab64d3ffec1b2a2d6bec96adb78845d524c1c3af72"
+}

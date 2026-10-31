@@ -1066,4 +1066,6 @@ func get_presentation_snapshot() -> Dictionary:
 		"intangible": is_intangible(),
 		"helpless": helpless,
 		"on_respawn_platform": state == State.RESPAWN,
+		# Presentation hint while held by a grab, e.g. &"frozen" (Cold Hands).
+		"held_visual": held_by.move.hold_visual if state == State.HELD and held_by != null and held_by.move != null else &"",
 	}

@@ -9,6 +9,7 @@ const CHARACTER_ART := {
     &"groban": ["res://scenes/presentation/groban_visual.tscn", {&"special_2": "res://scenes/presentation/sound_wave_visual.tscn"}],
     &"tim": ["res://scenes/presentation/tim_visual.tscn", {&"special_2": "res://scenes/presentation/drone_visual.tscn",
         &"special_3": "res://scenes/presentation/castle_visual.tscn"}],
+    &"sundar": ["res://scenes/presentation/sundar_visual.tscn", {&"special_2": "res://scenes/presentation/vial_visual.tscn"}],
 }
 
 static func with_art(source: CharacterData) -> CharacterData:
