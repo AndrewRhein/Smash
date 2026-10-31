@@ -16,6 +16,8 @@ extends Resource
 @export var offset: Vector2 = Vector2(36, -56)
 ## Pixels per second, authored facing right.
 @export var velocity: Vector2 = Vector2(520, 0)
+## Downward acceleration in px/s^2 (0 = straight line). Lobbed projectiles.
+@export var gravity: float = 0.0
 @export var lifetime_ticks: int = 75
 @export var radius: float = 14.0
 ## Optional presentation scene used as the projectile's VisualRoot.

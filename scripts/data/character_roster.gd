@@ -21,6 +21,10 @@ const ENTRIES := [
 		"tagline": "Baritone · zoner", "art": "sprites"},
 	{"id": &"tim", "data": "res://data/characters/tim.tres",
 		"tagline": "Detective · grappler", "art": "sprites"},
+	{"id": &"sundar", "data": "res://data/characters/sundar.tres",
+		"tagline": "Doctor · cold hands", "art": "sprites"},
+	{"id": &"kevin", "data": "res://data/characters/kevin.tres",
+		"tagline": "Barefoot brawler · airstrikes", "art": "sprites"},
 	{"id": &"vader", "data": "res://data/characters/vader.tres",
 		"tagline": "Dark knight · grappler", "art": "placeholder"},
 ]

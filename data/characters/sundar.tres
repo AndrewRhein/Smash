@@ -1,0 +1,324 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=17 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/move_data.gd" id="1_8amyj"]
+[ext_resource type="Script" path="res://scripts/data/hitbox_data.gd" id="2_kpcwc"]
+[ext_resource type="Script" path="res://scripts/data/projectile_data.gd" id="3_e6bib"]
+[ext_resource type="Script" path="res://scripts/data/character_data.gd" id="4_4otve"]
+
+[sub_resource type="Resource" id="Resource_wub4f"]
+script = ExtResource("2_kpcwc")
+shape = 0
+kind = 0
+offset = Vector2(44, -66)
+size = Vector2(36, 26)
+radius = 20.0
+start_tick = 0
+duration_ticks = 0
+rehit_interval_ticks = 0
+
+[sub_resource type="Resource" id="Resource_xnf1y"]
+script = ExtResource("1_8amyj")
+id = &"light"
+display_name = "Reflex Check"
+animation_id = &"reflex_check"
+startup_ticks = 5
+active_ticks = 4
+recovery_ticks = 12
+damage = 5.0
+damage_type = &"melee"
+knockback_angle_deg = 35.0
+knockback_base = 240.0
+knockback_growth = 3.2
+hitstun_ticks = 10
+cooldown_ticks = 0
+movement_policy = 1
+cancel_into = Array[StringName]([&"special_1", &"special_2", &"special_3"])
+cancel_requires_hit = true
+aimable = false
+aim_angle_deg = 0.0
+aim_pivot = Vector2(0, 0)
+hitboxes = Array[ExtResource("2_kpcwc")]([SubResource("Resource_wub4f")])
+projectiles = Array[ExtResource("3_e6bib")]([])
+start_effect_id = &"staff_swing"
+active_effect_id = &""
+special_behaviour = &""
+radial_knockback = false
+self_impulse = Vector2(0, 0)
+self_impulse_tick = 0
+helpless_after = false
+whiff_to_recovery = false
+hold_pulse_damage = 0.0
+hold_pulse_interval_ticks = 12
+hold_max_range = 240.0
+grab_immunity_ticks = 90
+hold_visual = &""
+guard_damage_types = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_fv62b"]
+script = ExtResource("2_kpcwc")
+shape = 0
+kind = 0
+offset = Vector2(52, -66)
+size = Vector2(30, 18)
+radius = 20.0
+start_tick = 0
+duration_ticks = 0
+rehit_interval_ticks = 0
+
+[sub_resource type="Resource" id="Resource_ruy5u"]
+script = ExtResource("1_8amyj")
+id = &"heavy"
+display_name = "Syringe Jab"
+animation_id = &"syringe_jab"
+startup_ticks = 15
+active_ticks = 5
+recovery_ticks = 26
+damage = 14.0
+damage_type = &"melee"
+knockback_angle_deg = 40.0
+knockback_base = 420.0
+knockback_growth = 6.4
+hitstun_ticks = 16
+cooldown_ticks = 0
+movement_policy = 2
+cancel_into = Array[StringName]([])
+cancel_requires_hit = true
+aimable = false
+aim_angle_deg = 0.0
+aim_pivot = Vector2(0, 0)
+hitboxes = Array[ExtResource("2_kpcwc")]([SubResource("Resource_fv62b")])
+projectiles = Array[ExtResource("3_e6bib")]([])
+start_effect_id = &""
+active_effect_id = &"heavy_staff_swing"
+special_behaviour = &""
+radial_knockback = false
+self_impulse = Vector2(0, 0)
+self_impulse_tick = 0
+helpless_after = false
+whiff_to_recovery = false
+hold_pulse_damage = 0.0
+hold_pulse_interval_ticks = 12
+hold_max_range = 240.0
+grab_immunity_ticks = 90
+hold_visual = &""
+guard_damage_types = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_h4blj"]
+script = ExtResource("2_kpcwc")
+shape = 1
+kind = 1
+offset = Vector2(48, -64)
+size = Vector2(40, 30)
+radius = 30.0
+start_tick = 0
+duration_ticks = 8
+rehit_interval_ticks = 0
+
+[sub_resource type="Resource" id="Resource_7glpj"]
+script = ExtResource("1_8amyj")
+id = &"special_1"
+display_name = "Cold Hands"
+animation_id = &"cold_hands"
+startup_ticks = 10
+active_ticks = 42
+recovery_ticks = 22
+damage = 5.0
+damage_type = &"magic"
+knockback_angle_deg = 60.0
+knockback_base = 380.0
+knockback_growth = 5.5
+hitstun_ticks = 18
+cooldown_ticks = 120
+movement_policy = 2
+cancel_into = Array[StringName]([])
+cancel_requires_hit = true
+aimable = false
+aim_angle_deg = 0.0
+aim_pivot = Vector2(0, 0)
+hitboxes = Array[ExtResource("2_kpcwc")]([SubResource("Resource_h4blj")])
+projectiles = Array[ExtResource("3_e6bib")]([])
+start_effect_id = &""
+active_effect_id = &""
+special_behaviour = &"choke"
+radial_knockback = false
+self_impulse = Vector2(0, 0)
+self_impulse_tick = 0
+helpless_after = false
+whiff_to_recovery = true
+hold_pulse_damage = 2.0
+hold_pulse_interval_ticks = 12
+hold_max_range = 200.0
+grab_immunity_ticks = 90
+hold_visual = &"frozen"
+guard_damage_types = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_wdxbg"]
+script = ExtResource("3_e6bib")
+spawn_tick = 0
+offset = Vector2(56, -76)
+velocity = Vector2(460, 0)
+lifetime_ticks = 80
+radius = 12.0
+
+[sub_resource type="Resource" id="Resource_1ksx0"]
+script = ExtResource("1_8amyj")
+id = &"special_2"
+display_name = "Vial Toss"
+animation_id = &"vial_toss"
+startup_ticks = 13
+active_ticks = 2
+recovery_ticks = 20
+damage = 7.0
+damage_type = &"projectile"
+knockback_angle_deg = 30.0
+knockback_base = 260.0
+knockback_growth = 3.4
+hitstun_ticks = 13
+cooldown_ticks = 70
+movement_policy = 1
+cancel_into = Array[StringName]([])
+cancel_requires_hit = true
+aimable = false
+aim_angle_deg = 0.0
+aim_pivot = Vector2(0, 0)
+hitboxes = Array[ExtResource("2_kpcwc")]([])
+projectiles = Array[ExtResource("3_e6bib")]([SubResource("Resource_wdxbg")])
+start_effect_id = &""
+active_effect_id = &"fireball_cast"
+special_behaviour = &""
+radial_knockback = false
+self_impulse = Vector2(0, 0)
+self_impulse_tick = 0
+helpless_after = false
+whiff_to_recovery = false
+hold_pulse_damage = 0.0
+hold_pulse_interval_ticks = 12
+hold_max_range = 240.0
+grab_immunity_ticks = 90
+hold_visual = &""
+guard_damage_types = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_kmhm6"]
+script = ExtResource("2_kpcwc")
+shape = 0
+kind = 0
+offset = Vector2(44, -60)
+size = Vector2(40, 40)
+radius = 20.0
+start_tick = 0
+duration_ticks = 0
+rehit_interval_ticks = 0
+
+[sub_resource type="Resource" id="Resource_sp55d"]
+script = ExtResource("1_8amyj")
+id = &"special_3"
+display_name = "Defibrillator"
+animation_id = &"defibrillator"
+startup_ticks = 14
+active_ticks = 5
+recovery_ticks = 28
+damage = 12.0
+damage_type = &"magic"
+knockback_angle_deg = 35.0
+knockback_base = 460.0
+knockback_growth = 6.0
+hitstun_ticks = 30
+cooldown_ticks = 90
+movement_policy = 2
+cancel_into = Array[StringName]([])
+cancel_requires_hit = true
+aimable = false
+aim_angle_deg = 0.0
+aim_pivot = Vector2(0, 0)
+hitboxes = Array[ExtResource("2_kpcwc")]([SubResource("Resource_kmhm6")])
+projectiles = Array[ExtResource("3_e6bib")]([])
+start_effect_id = &"lightning_telegraph"
+active_effect_id = &"hit_spark"
+special_behaviour = &""
+radial_knockback = false
+self_impulse = Vector2(0, 0)
+self_impulse_tick = 0
+helpless_after = false
+whiff_to_recovery = false
+hold_pulse_damage = 0.0
+hold_pulse_interval_ticks = 12
+hold_max_range = 240.0
+grab_immunity_ticks = 90
+hold_visual = &""
+guard_damage_types = Array[StringName]([])
+
+[sub_resource type="Resource" id="Resource_ka83l"]
+script = ExtResource("2_kpcwc")
+shape = 1
+kind = 0
+offset = Vector2(10, -80)
+size = Vector2(40, 30)
+radius = 26.0
+start_tick = 0
+duration_ticks = 10
+rehit_interval_ticks = 0
+
+[sub_resource type="Resource" id="Resource_ub3b8"]
+script = ExtResource("1_8amyj")
+id = &"special_up"
+display_name = "House Call"
+animation_id = &"house_call"
+startup_ticks = 6
+active_ticks = 16
+recovery_ticks = 14
+damage = 6.0
+damage_type = &"melee"
+knockback_angle_deg = 80.0
+knockback_base = 300.0
+knockback_growth = 4.0
+hitstun_ticks = 12
+cooldown_ticks = 0
+movement_policy = 0
+cancel_into = Array[StringName]([])
+cancel_requires_hit = true
+aimable = false
+aim_angle_deg = 0.0
+aim_pivot = Vector2(0, 0)
+hitboxes = Array[ExtResource("2_kpcwc")]([SubResource("Resource_ka83l")])
+projectiles = Array[ExtResource("3_e6bib")]([])
+start_effect_id = &"double_jump"
+active_effect_id = &""
+special_behaviour = &""
+radial_knockback = false
+self_impulse = Vector2(100, -1000)
+self_impulse_tick = 0
+helpless_after = true
+whiff_to_recovery = false
+hold_pulse_damage = 0.0
+hold_pulse_interval_ticks = 12
+hold_max_range = 240.0
+grab_immunity_ticks = 90
+hold_visual = &""
+guard_damage_types = Array[StringName]([])
+
+[resource]
+script = ExtResource("4_4otve")
+id = &"sundar"
+display_name = "Dr. Sundar"
+hud_color = Color(0.72, 0.6, 0.95, 1)
+hurtbox = Rect2(-20, -102, 40, 102)
+body_radius = 17.0
+body_height = 76.0
+weight = 0.97
+max_speed = 335.0
+ground_accel = 2600.0
+ground_decel = 3000.0
+air_accel = 1500.0
+air_decel = 500.0
+gravity = 1700.0
+max_fall_speed = 900.0
+fast_fall_speed = 1350.0
+jump_velocity = 720.0
+double_jump_velocity = 650.0
+jump_release_velocity = 260.0
+air_jumps = 1
+moves = Array[ExtResource("1_8amyj")]([SubResource("Resource_xnf1y"), SubResource("Resource_ruy5u"), SubResource("Resource_7glpj"), SubResource("Resource_1ksx0"), SubResource("Resource_sp55d"), SubResource("Resource_ub3b8")])
+neutral_special = &"special_2"
+side_special = &"special_1"
+down_special = &"special_3"
+up_special = &"special_up"

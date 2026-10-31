@@ -44,7 +44,7 @@ Pausing ducks the music by 10 dB.
 | `announcer/ready`, `announcer/go`, `announcer/game`, `announcer/draw` | Countdown start, fight start, match end, draw |
 
 ## Voice lines (per character)
-Path: `audio/voice/<character id>/<line>.ogg`. Character ids: `gandalf`, `elon`, `leo`, `vader`.
+Path: `audio/voice/<character id>/<line>.ogg`. Character ids: `gandalf`, `elon`, `leo`, `groban`, `tim`, `sundar`, `kevin`, `vader`.
 
 | Line file | When it plays | How often |
 |---|---|---|
@@ -114,3 +114,23 @@ Short sung phrases work best. Use an original singer or a generic voice; do not 
 | `special_3` (down B, LEGO Castle Deployment) | "Castle deployed!" |
 | `special_up` (Age of Empires Rally) | "Wololo!"-style rally cry / "Rally!" |
 | `hurt` / `ko` / `dizzy` / `victory` | "Oof!" / "Officer down!" / "Seeing stars…" / "Case closed." |
+
+### Dr. Sundar (`audio/voice/sundar/`)
+| Line | Suggested call-out |
+|---|---|
+| `light` / `heavy` | "Say ahh!" / "Little pinch!" |
+| `special_1` (side B, Cold Hands) | "Sorry, my hands are freezing!" / (victim) "AAH, cold!" |
+| `special_2` (neutral B, Vial Toss) | "Take two of these!" |
+| `special_3` (down B, Defibrillator) | "Clear!" |
+| `special_up` (House Call) | "Doctor's on the way!" |
+| `hurt` / `ko` / `dizzy` / `victory` | "Ouch!" / "Code blue…" / "I need a second opinion…" / "The doctor will see you now." |
+
+### Kevin (`audio/voice/kevin/`)
+| Line | Suggested call-out |
+|---|---|
+| `light` / `heavy` | "Hup!" / "BIG TOE!" |
+| `special_1` (side B, Airstrike) | (into radio) "Requesting airstrike, over!" |
+| `special_2` (neutral B, Talking Cookie) | "Cookie time!" (the cookie: "Eat me!") |
+| `special_3` (down B, Shrimp Scampi) | "Mmm, scampi…" (chewing) |
+| `special_up` (Barefoot Leap) | "Up we go!" |
+| `hurt` / `ko` / `dizzy` / `victory` | "Ow, my toe!" / "Mission failed…" / "Need a snack…" / "Shoes are for quitters." |

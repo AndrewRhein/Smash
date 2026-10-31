@@ -37,6 +37,7 @@ func setup(owner: Fighter, owner_move: MoveData, projectile_data: ProjectileData
 
 
 func physics_tick() -> void:
+	velocity.y += data.gravity * TICK
 	global_position += velocity * TICK
 	ticks_remaining -= 1
 

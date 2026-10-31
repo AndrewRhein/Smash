@@ -13,7 +13,9 @@ const CHARACTER_ELON := &"elon"
 const CHARACTER_LEO := &"leo"
 const CHARACTER_GROBAN := &"groban"
 const CHARACTER_TIM := &"tim"
-const CHARACTER_IDS := [&"gandalf", &"vader", &"elon", &"leo", &"groban", &"tim"]
+const CHARACTER_SUNDAR := &"sundar"
+const CHARACTER_KEVIN := &"kevin"
+const CHARACTER_IDS := [&"gandalf", &"vader", &"elon", &"leo", &"groban", &"tim", &"sundar", &"kevin"]
 
 # --- Move slots (also the stable move IDs) -----------------------------------
 const MOVE_LIGHT := &"light"
@@ -67,6 +69,8 @@ const MOVE_ANIMATION_IDS := {
 	&"groban": [&"baton_jab", &"scarf_lash", &"power_ballad", &"high_note", &"crescendo", &"soaring_note",
 		&"high_c", &"low_sweep", &"standing_ovation", &"lunge_reach"],
 	&"tim": [&"right_hook", &"haymaker", &"nypd_takedown", &"drone_strike", &"lego_castle", &"empire_rally"],
+	&"sundar": [&"reflex_check", &"syringe_jab", &"cold_hands", &"vial_toss", &"defibrillator", &"house_call"],
+	&"kevin": [&"low_lunge", &"big_toe_kick", &"airstrike", &"cookie_toss", &"shrimp_scampi", &"barefoot_leap"],
 }
 
 # --- Effect IDs (effect_requested) -------------------------------------------

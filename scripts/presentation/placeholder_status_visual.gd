@@ -48,6 +48,27 @@ func _draw() -> void:
 			var a := _t * 5.0 + i * TAU / 3.0
 			var p := head + Vector2(cos(a) * 22.0, sin(a) * 7.0)
 			_star(p, 6.0, Color(1, 0.9, 0.3))
+	if snap.get("held_visual", &"") == &"frozen":
+		# Encased in ice, shivering.
+		var r := fighter.character.hurtbox
+		var shake := sin(_t * 60.0) * 1.5
+		var ice := Rect2(Vector2(r.position.x - 8 + shake, r.position.y - 6), r.size + Vector2(16, 6))
+		draw_rect(ice, Color(0.6, 0.85, 1.0, 0.45))
+		draw_rect(ice, Color(0.85, 0.95, 1.0, 0.9), false, 2.0)
+		for i in 4:
+			var x := ice.position.x + 6 + i * (ice.size.x - 12) / 3.0
+			draw_colored_polygon(PackedVector2Array([Vector2(x - 3, ice.position.y), Vector2(x + 3, ice.position.y), Vector2(x, ice.position.y + 9)]), Color(0.9, 0.97, 1.0, 0.9))
+		draw_line(ice.position + Vector2(5, 8), ice.position + Vector2(14, 30), Color(1, 1, 1, 0.7), 2.0)
+	if snap.get("healing", false):
+		# Rising green pluses and a soft glow.
+		var r := fighter.character.hurtbox
+		draw_rect(Rect2(r.position - Vector2(4, 4), r.size + Vector2(8, 8)), Color(0.4, 1.0, 0.5, 0.07))
+		for i in 5:
+			var k := fmod(_t * 0.9 + i * 0.2, 1.0)
+			var p := Vector2(r.position.x + r.size.x * (0.1 + 0.2 * i), r.end.y - k * (r.size.y + 30))
+			var c := Color(0.45, 1.0, 0.55, 1.0 - k)
+			draw_rect(Rect2(p - Vector2(5, 1.5), Vector2(10, 3)), c)
+			draw_rect(Rect2(p - Vector2(1.5, 5), Vector2(3, 10)), c)
 	if snap.intangible:
 		var r := fighter.character.hurtbox
 		var rect := Rect2(Vector2(r.position.x - 4, r.position.y - 4), r.size + Vector2(8, 8))
