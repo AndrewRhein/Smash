@@ -45,7 +45,7 @@ Controllers: the first two connected are Players 1 and 2. Change, swap or check 
 
 ```bash
 godot --headless --path . --import                         # once, builds the class cache
-godot --headless --path . -s res://tests/run_tests.gd      # 67 gameplay, presentation + smoke tests, exit code 0 on success
+godot --headless --path . -s res://tests/run_tests.gd      # 99 gameplay, controls, menu, presentation + smoke tests, exit code 0 on success
 godot --headless --path . -s res://tests/ko_report.gd      # tuning table: KO % per move
 ```
 
