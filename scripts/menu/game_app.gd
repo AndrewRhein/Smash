@@ -22,6 +22,7 @@ var result_overlay: ResultOverlay
 var gallery_root: Node
 var _gallery_bar: CanvasLayer
 var _menu_layer: CanvasLayer
+var audio: AudioDirector
 var _screen: MenuScreen
 
 
@@ -34,6 +35,13 @@ func _ready() -> void:
 	InputSetup.ensure_actions()
 	settings.load_from_disk()
 	settings.apply_window()
+	audio = AudioDirector.new()
+	audio.name = "Audio"
+	add_child(audio)
+	settings.apply_audio()
+	get_viewport().gui_focus_changed.connect(func(_c: Control) -> void:
+		if current_screen != &"match" or is_paused():
+			audio.play_ui("move"))
 	_menu_layer = CanvasLayer.new()
 	_menu_layer.name = "Menus"
 	_menu_layer.layer = 20
@@ -68,6 +76,8 @@ func show_controls(back: Callable) -> void:
 
 func _show_screen(screen: MenuScreen, id: StringName) -> void:
 	_clear_screen()
+	if audio != null:
+		audio.play_music("menu")
 	_screen = screen
 	_menu_layer.add_child(screen)
 	_set_screen(id)
@@ -119,6 +129,16 @@ func _end_gallery() -> void:
 	_gallery_bar = null
 
 
+func _input(event: InputEvent) -> void:
+	# Menu confirm/back clicks (never during live play).
+	if audio == null or (current_screen == &"match" and not is_paused()):
+		return
+	if event.is_action_pressed(&"ui_accept"):
+		audio.play_ui("confirm")
+	elif event.is_action_pressed(&"ui_cancel"):
+		audio.play_ui("back")
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if current_screen == &"gallery" and event.is_action_pressed(&"ui_cancel"):
 		get_viewport().set_input_as_handled()
@@ -155,6 +175,7 @@ func start_match(picks: Array[CharacterData] = []) -> void:
 	controller.stock_count = settings.stocks
 	add_child(match_root)
 	match_controller = controller
+	audio.bind_match(match_controller)
 	if settings.show_hitboxes:
 		var overlay := match_root.get_node_or_null("DebugOverlay")
 		if overlay != null:
@@ -181,6 +202,8 @@ func restart_match() -> void:
 
 func set_paused(value: bool) -> void:
 	get_tree().paused = value
+	if audio != null:
+		audio.set_paused_duck(value)
 	if not value and match_controller != null:
 		# Buttons pressed or released while paused must not register as fresh
 		# presses (or leave stale edges) when play resumes.

@@ -150,10 +150,14 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func move_cursor(player_id: int, step: int) -> void:
 	cursor[player_id] = wrapi(cursor[player_id] + step, 0, options.size())
+	if app.audio != null:
+		app.audio.play_ui("move")
 	_refresh()
 
 
 func set_ready(player_id: int, value: bool) -> void:
+	if app.audio != null and is_ready[player_id] != value:
+		app.audio.play_ui("confirm" if value else "back")
 	is_ready[player_id] = value
 	_refresh()
 
