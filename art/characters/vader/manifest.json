@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "character_id": "vader",
+  "status": "blocked_missing_art",
+  "reason": "Image service blocked character generations. No substitute artwork is supplied.",
+  "cell_size": [
+    256,
+    256
+  ],
+  "pivot": [
+    128,
+    208
+  ],
+  "animations": {
+    "idle": {
+      "status": "missing",
+      "frame_count": 0,
+      "texture": null
+    },
+    "walk": {
+      "status": "missing",
+      "frame_count": 0,
+      "texture": null
+    },
+    "run": {
+      "status": "missing",
+      "frame_count": 0,
+      "texture": null
+    },
+    "jump": {
+      "status": "missing",
+      "frame_count": 0,
+      "texture": null
+    },
+    "fall": {
+      "status": "missing",
+      "frame_count": 0,
+      "texture": null
+    },
+    "saber_slash": {
+      "status": "missing",
+      "frame_count": 0,
+      "texture": null
+    },
+    "heavy_saber": {
+      "status": "missing",
+      "frame_count": 0,
+      "texture": null
+    },
+    "force_push": {
+      "status": "missing",
+      "frame_count": 0,
+      "texture": null
+    },
+    "force_choke": {
+      "status": "missing",
+      "frame_count": 0,
+      "texture": null
+    },
+    "force_guard": {
+      "status": "missing",
+      "frame_count": 0,
+      "texture": null
+    },
+    "hurt": {
+      "status": "missing",
+      "frame_count": 0,
+      "texture": null
+    },
+    "knockback": {
+      "status": "missing",
+      "frame_count": 0,
+      "texture": null
+    },
+    "defeat": {
+      "status": "missing",
+      "frame_count": 0,
+      "texture": null
+    },
+    "victory": {
+      "status": "missing",
+      "frame_count": 0,
+      "texture": null
+    }
+  }
+}

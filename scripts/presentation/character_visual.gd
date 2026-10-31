@@ -2,7 +2,7 @@ extends Node2D
 ## Presentation-only adapter for CLAUDE_HANDOFF contract version 1.
 ## Attach under VisualRoot; gameplay remains authoritative.
 @export var frames: SpriteFrames
-@export var pivot := Vector2(96, 160)
+@export var pivot := Vector2(128, 208)
 @export var physics_hz := 60.0
 var sprite: AnimatedSprite2D
 var fighter: Node
@@ -11,6 +11,8 @@ var elapsed := 0.0
 var requested_ticks := 0
 var requested_loop := true
 var active_id: StringName = &"idle"
+var playback_speed := 1.0
+var playback_paused := false
 
 func _ready() -> void:
     texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
@@ -55,7 +57,7 @@ func animation_requested(animation_id: StringName, duration_ticks: int, loop: bo
         sprite.frame = 0
 
 func _process(delta: float) -> void:
-    if frames == null or sprite == null or not frames.has_animation(active_id):
+    if playback_paused or frames == null or sprite == null or not frames.has_animation(active_id):
         return
     if is_instance_valid(fighter) and fighter.has_method("get_presentation_snapshot"):
         var snapshot: Dictionary = fighter.call("get_presentation_snapshot")
@@ -65,9 +67,9 @@ func _process(delta: float) -> void:
         if requested_ticks > 0 and not str(snapshot.get("current_move_id", "")).is_empty():
             elapsed = float(snapshot.get("move_tick", 0)) / physics_hz
         else:
-            elapsed += delta
+            elapsed += delta * playback_speed
     else:
-        elapsed += delta
+        elapsed += delta * playback_speed
     var count := frames.get_frame_count(active_id)
     if count == 0:
         return

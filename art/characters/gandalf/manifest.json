@@ -1,0 +1,1122 @@
+{
+  "schema": 1,
+  "character_id": "gandalf",
+  "cell_size": [
+    256,
+    256
+  ],
+  "pivot": [
+    128,
+    208
+  ],
+  "alpha_cutoff": 180,
+  "palette_colors": 128,
+  "animations": {
+    "idle": {
+      "fps": 8,
+      "loop": true,
+      "source": "gandalf_idle_v01.png",
+      "frames": [
+        {
+          "source_box": [
+            23,
+            72,
+            287,
+            582
+          ],
+          "source_pivot": [
+            157,
+            582
+          ],
+          "scale": 0.2196078431372549
+        },
+        {
+          "source_box": [
+            336,
+            72,
+            601,
+            582
+          ],
+          "source_pivot": [
+            471,
+            582
+          ],
+          "scale": 0.2196078431372549
+        },
+        {
+          "source_box": [
+            650,
+            72,
+            916,
+            582
+          ],
+          "source_pivot": [
+            784,
+            582
+          ],
+          "scale": 0.2196078431372549
+        },
+        {
+          "source_box": [
+            962,
+            72,
+            1230,
+            582
+          ],
+          "source_pivot": [
+            1097,
+            582
+          ],
+          "scale": 0.2196078431372549
+        },
+        {
+          "source_box": [
+            25,
+            698,
+            287,
+            1209
+          ],
+          "source_pivot": [
+            157,
+            1209
+          ],
+          "scale": 0.2196078431372549
+        },
+        {
+          "source_box": [
+            336,
+            699,
+            601,
+            1209
+          ],
+          "source_pivot": [
+            471,
+            1209
+          ],
+          "scale": 0.2196078431372549
+        },
+        {
+          "source_box": [
+            651,
+            699,
+            921,
+            1209
+          ],
+          "source_pivot": [
+            784,
+            1209
+          ],
+          "scale": 0.2196078431372549
+        },
+        {
+          "source_box": [
+            964,
+            699,
+            1229,
+            1209
+          ],
+          "source_pivot": [
+            1097,
+            1209
+          ],
+          "scale": 0.2196078431372549
+        }
+      ],
+      "status": "review_candidate",
+      "known_issues": [],
+      "texture": "idle.png",
+      "frame_count": 8,
+      "sha256": "e07759813d9ad3a3107857219d0328337cdb5c6b091433702f3f342dfe56b18f"
+    },
+    "walk": {
+      "fps": 10,
+      "loop": true,
+      "source": "gandalf_movement_v01.png",
+      "frames": [
+        {
+          "source_box": [
+            61,
+            21,
+            285,
+            321
+          ],
+          "source_pivot": [
+            190,
+            322
+          ],
+          "scale": 0.37209302325581395
+        },
+        {
+          "source_box": [
+            387,
+            21,
+            568,
+            322
+          ],
+          "source_pivot": [
+            500,
+            322
+          ],
+          "scale": 0.37209302325581395
+        },
+        {
+          "source_box": [
+            690,
+            20,
+            902,
+            322
+          ],
+          "source_pivot": [
+            812,
+            322
+          ],
+          "scale": 0.37209302325581395
+        },
+        {
+          "source_box": [
+            1014,
+            21,
+            1214,
+            321
+          ],
+          "source_pivot": [
+            1128,
+            322
+          ],
+          "scale": 0.37209302325581395
+        }
+      ],
+      "status": "review_candidate",
+      "known_issues": [],
+      "texture": "walk.png",
+      "frame_count": 4,
+      "sha256": "7b60efd17c0161b666a45a14a0df49af1b3e448be5e180b73ee230464fde7e3b"
+    },
+    "run": {
+      "fps": 14,
+      "loop": true,
+      "source": "gandalf_movement_v01.png",
+      "frames": [
+        {
+          "source_box": [
+            34,
+            358,
+            319,
+            616
+          ],
+          "source_pivot": [
+            200,
+            617
+          ],
+          "scale": 0.37209302325581395
+        },
+        {
+          "source_box": [
+            355,
+            348,
+            609,
+            610
+          ],
+          "source_pivot": [
+            516,
+            617
+          ],
+          "scale": 0.37209302325581395
+        },
+        {
+          "source_box": [
+            661,
+            347,
+            943,
+            616
+          ],
+          "source_pivot": [
+            831,
+            617
+          ],
+          "scale": 0.37209302325581395
+        },
+        {
+          "source_box": [
+            988,
+            347,
+            1230,
+            605
+          ],
+          "source_pivot": [
+            1144,
+            617
+          ],
+          "scale": 0.37209302325581395
+        }
+      ],
+      "status": "review_candidate",
+      "known_issues": [],
+      "texture": "run.png",
+      "frame_count": 4,
+      "sha256": "e31f615bfcc79d807f2a13ec71b7d160e9f401d96b9ea73bfa4ab55a283502e5"
+    },
+    "jump": {
+      "fps": 12,
+      "loop": false,
+      "source": "gandalf_movement_v01.png",
+      "frames": [
+        {
+          "source_box": [
+            54,
+            685,
+            279,
+            920
+          ],
+          "source_pivot": [
+            191,
+            925
+          ],
+          "scale": 0.37209302325581395
+        },
+        {
+          "source_box": [
+            400,
+            635,
+            599,
+            924
+          ],
+          "source_pivot": [
+            518,
+            925
+          ],
+          "scale": 0.37209302325581395
+        },
+        {
+          "source_box": [
+            704,
+            635,
+            912,
+            893
+          ],
+          "source_pivot": [
+            830,
+            925
+          ],
+          "scale": 0.37209302325581395
+        },
+        {
+          "source_box": [
+            1028,
+            621,
+            1222,
+            873
+          ],
+          "source_pivot": [
+            1143,
+            925
+          ],
+          "scale": 0.37209302325581395
+        }
+      ],
+      "status": "review_candidate",
+      "known_issues": [],
+      "texture": "jump.png",
+      "frame_count": 4,
+      "sha256": "fbdc201a68d1a38d9debbc1732298928b0a29ea6401239ad1ca6517e6efb6c2f"
+    },
+    "fall": {
+      "fps": 9,
+      "loop": false,
+      "source": "gandalf_movement_v01.png",
+      "frames": [
+        {
+          "source_box": [
+            78,
+            933,
+            273,
+            1210
+          ],
+          "source_pivot": [
+            191,
+            1230
+          ],
+          "scale": 0.37209302325581395
+        },
+        {
+          "source_box": [
+            391,
+            943,
+            597,
+            1228
+          ],
+          "source_pivot": [
+            518,
+            1230
+          ],
+          "scale": 0.37209302325581395
+        },
+        {
+          "source_box": [
+            696,
+            945,
+            904,
+            1229
+          ],
+          "source_pivot": [
+            830,
+            1230
+          ],
+          "scale": 0.37209302325581395
+        },
+        {
+          "source_box": [
+            1007,
+            961,
+            1212,
+            1223
+          ],
+          "source_pivot": [
+            1143,
+            1230
+          ],
+          "scale": 0.37209302325581395
+        }
+      ],
+      "status": "review_candidate",
+      "known_issues": [],
+      "texture": "fall.png",
+      "frame_count": 4,
+      "sha256": "692ea4828b052bacbd53227ff78d1867c865315adc51f1dd5a8f4d3b373298e6"
+    },
+    "staff_strike": {
+      "fps": 18,
+      "loop": false,
+      "source": "gandalf_staff_v01.png",
+      "frames": [
+        {
+          "source_box": [
+            13,
+            97,
+            221,
+            476
+          ],
+          "source_pivot": [
+            130,
+            474
+          ],
+          "scale": 0.2962962962962963
+        },
+        {
+          "source_box": [
+            212,
+            117,
+            488,
+            473
+          ],
+          "source_pivot": [
+            367,
+            474
+          ],
+          "scale": 0.2962962962962963
+        },
+        {
+          "source_box": [
+            486,
+            136,
+            813,
+            473
+          ],
+          "source_pivot": [
+            632,
+            474
+          ],
+          "scale": 0.2962962962962963
+        },
+        {
+          "source_box": [
+            750,
+            152,
+            1147,
+            473
+          ],
+          "source_pivot": [
+            923,
+            474
+          ],
+          "scale": 0.2962962962962963
+        },
+        {
+          "source_box": [
+            1071,
+            136,
+            1329,
+            473
+          ],
+          "source_pivot": [
+            1210,
+            474
+          ],
+          "scale": 0.2962962962962963
+        },
+        {
+          "source_box": [
+            1322,
+            98,
+            1520,
+            474
+          ],
+          "source_pivot": [
+            1435,
+            474
+          ],
+          "scale": 0.2962962962962963
+        }
+      ],
+      "status": "review_candidate",
+      "known_issues": [],
+      "texture": "staff_strike.png",
+      "frame_count": 6,
+      "sha256": "d338bbdb734a765bf3d90fc9f3b53abb8411888e19a6e5a3cb74f0131a475a08"
+    },
+    "heavy_staff": {
+      "fps": 12,
+      "loop": false,
+      "source": "gandalf_heavy_v02.png",
+      "frames": [
+        {
+          "source_box": [
+            43,
+            19,
+            373,
+            616
+          ],
+          "source_pivot": [
+            240,
+            616
+          ],
+          "scale": 0.22764227642276422
+        },
+        {
+          "source_box": [
+            418,
+            45,
+            785,
+            616
+          ],
+          "source_pivot": [
+            650,
+            616
+          ],
+          "scale": 0.22764227642276422
+        },
+        {
+          "source_box": [
+            836,
+            190,
+            1237,
+            616
+          ],
+          "source_pivot": [
+            1040,
+            616
+          ],
+          "scale": 0.22764227642276422
+        },
+        {
+          "source_box": [
+            43,
+            800,
+            461,
+            1182
+          ],
+          "source_pivot": [
+            230,
+            1182
+          ],
+          "scale": 0.22764227642276422
+        },
+        {
+          "source_box": [
+            477,
+            705,
+            809,
+            1182
+          ],
+          "source_pivot": [
+            655,
+            1182
+          ],
+          "scale": 0.22764227642276422
+        },
+        {
+          "source_box": [
+            909,
+            690,
+            1193,
+            1182
+          ],
+          "source_pivot": [
+            1080,
+            1182
+          ],
+          "scale": 0.22764227642276422
+        }
+      ],
+      "status": "review_candidate",
+      "known_issues": [],
+      "texture": "heavy_staff.png",
+      "frame_count": 6,
+      "sha256": "5d2e15920fc9adf4b5909cb4e93feea7ff6c04e15ed988c8f8d21e4de46d5d31"
+    },
+    "lightning": {
+      "fps": 12,
+      "loop": false,
+      "source": "gandalf_specials_v01.png",
+      "frames": [
+        {
+          "source_box": [
+            11,
+            92,
+            188,
+            431
+          ],
+          "source_pivot": [
+            112,
+            431
+          ],
+          "scale": 0.3303834808259587
+        },
+        {
+          "source_box": [
+            201,
+            97,
+            391,
+            431
+          ],
+          "source_pivot": [
+            305,
+            431
+          ],
+          "scale": 0.3303834808259587
+        },
+        {
+          "source_box": [
+            396,
+            55,
+            615,
+            431
+          ],
+          "source_pivot": [
+            509,
+            431
+          ],
+          "scale": 0.3303834808259587
+        },
+        {
+          "source_box": [
+            598,
+            99,
+            899,
+            431
+          ],
+          "source_pivot": [
+            720,
+            431
+          ],
+          "scale": 0.3303834808259587
+        },
+        {
+          "source_box": [
+            598,
+            99,
+            899,
+            431
+          ],
+          "source_pivot": [
+            720,
+            431
+          ],
+          "scale": 0.3303834808259587
+        },
+        {
+          "source_box": [
+            1061,
+            94,
+            1242,
+            431
+          ],
+          "source_pivot": [
+            1165,
+            431
+          ],
+          "scale": 0.3303834808259587
+        }
+      ],
+      "status": "review_candidate",
+      "known_issues": [],
+      "source_pose_order": [
+        0,
+        1,
+        2,
+        3,
+        3,
+        5
+      ],
+      "unique_source_poses": 5,
+      "texture": "lightning.png",
+      "frame_count": 6,
+      "sha256": "c177b9345d5e094b54106430db16f0b5e2077b5b969e42b3ac94a9a93a055ae2"
+    },
+    "fireball": {
+      "fps": 12,
+      "loop": false,
+      "source": "gandalf_specials_v01.png",
+      "frames": [
+        {
+          "source_box": [
+            10,
+            472,
+            188,
+            808
+          ],
+          "source_pivot": [
+            112,
+            809
+          ],
+          "scale": 0.3303834808259587
+        },
+        {
+          "source_box": [
+            203,
+            474,
+            394,
+            808
+          ],
+          "source_pivot": [
+            305,
+            809
+          ],
+          "scale": 0.3303834808259587
+        },
+        {
+          "source_box": [
+            203,
+            474,
+            394,
+            808
+          ],
+          "source_pivot": [
+            305,
+            809
+          ],
+          "scale": 0.3303834808259587
+        },
+        {
+          "source_box": [
+            590,
+            492,
+            876,
+            809
+          ],
+          "source_pivot": [
+            720,
+            809
+          ],
+          "scale": 0.3303834808259587
+        },
+        {
+          "source_box": [
+            590,
+            492,
+            876,
+            809
+          ],
+          "source_pivot": [
+            720,
+            809
+          ],
+          "scale": 0.3303834808259587
+        },
+        {
+          "source_box": [
+            1062,
+            475,
+            1242,
+            809
+          ],
+          "source_pivot": [
+            1165,
+            809
+          ],
+          "scale": 0.3303834808259587
+        }
+      ],
+      "status": "review_candidate",
+      "known_issues": [],
+      "source_pose_order": [
+        0,
+        1,
+        1,
+        3,
+        3,
+        5
+      ],
+      "unique_source_poses": 4,
+      "texture": "fireball.png",
+      "frame_count": 6,
+      "sha256": "89d536a4093545d131acaae68aa91a9b493081a7eb935c8599506f00f85d54ac"
+    },
+    "magic_push": {
+      "fps": 12,
+      "loop": false,
+      "source": "gandalf_specials_v01.png",
+      "frames": [
+        {
+          "source_box": [
+            10,
+            859,
+            187,
+            1197
+          ],
+          "source_pivot": [
+            112,
+            1198
+          ],
+          "scale": 0.3303834808259587
+        },
+        {
+          "source_box": [
+            204,
+            869,
+            407,
+            1198
+          ],
+          "source_pivot": [
+            305,
+            1198
+          ],
+          "scale": 0.3303834808259587
+        },
+        {
+          "source_box": [
+            399,
+            879,
+            596,
+            1197
+          ],
+          "source_pivot": [
+            509,
+            1198
+          ],
+          "scale": 0.3303834808259587
+        },
+        {
+          "source_box": [
+            595,
+            874,
+            850,
+            1198
+          ],
+          "source_pivot": [
+            720,
+            1198
+          ],
+          "scale": 0.3303834808259587
+        },
+        {
+          "source_box": [
+            840,
+            876,
+            1067,
+            1198
+          ],
+          "source_pivot": [
+            952,
+            1198
+          ],
+          "scale": 0.3303834808259587
+        },
+        {
+          "source_box": [
+            1062,
+            858,
+            1242,
+            1198
+          ],
+          "source_pivot": [
+            1165,
+            1198
+          ],
+          "scale": 0.3303834808259587
+        }
+      ],
+      "status": "review_candidate",
+      "known_issues": [],
+      "source_pose_order": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "unique_source_poses": 6,
+      "texture": "magic_push.png",
+      "frame_count": 6,
+      "sha256": "b3b8e5b46cc1b0b2d5816e7ca456659e1dc463b2589e7afa03a27da930053508"
+    },
+    "hurt": {
+      "fps": 14,
+      "loop": false,
+      "source": "gandalf_reactions_v01.png",
+      "frames": [
+        {
+          "source_box": [
+            56,
+            24,
+            322,
+            322
+          ],
+          "source_pivot": [
+            195,
+            325
+          ],
+          "scale": 0.35331230283911674
+        },
+        {
+          "source_box": [
+            376,
+            48,
+            586,
+            325
+          ],
+          "source_pivot": [
+            491,
+            325
+          ],
+          "scale": 0.35331230283911674
+        },
+        {
+          "source_box": [
+            687,
+            50,
+            894,
+            325
+          ],
+          "source_pivot": [
+            797,
+            325
+          ],
+          "scale": 0.35331230283911674
+        },
+        {
+          "source_box": [
+            1004,
+            27,
+            1214,
+            325
+          ],
+          "source_pivot": [
+            1116,
+            325
+          ],
+          "scale": 0.35331230283911674
+        }
+      ],
+      "status": "review_candidate",
+      "known_issues": [],
+      "texture": "hurt.png",
+      "frame_count": 4,
+      "sha256": "efe7af0186ad436570bfaad1d588e9fd139d0a1de1b2b73b97d4d54a9dd2c43b"
+    },
+    "knockback": {
+      "fps": 10,
+      "loop": false,
+      "source": "gandalf_reactions_v01.png",
+      "frames": [
+        {
+          "source_box": [
+            38,
+            351,
+            331,
+            616
+          ],
+          "source_pivot": [
+            200,
+            623
+          ],
+          "scale": 0.35331230283911674
+        },
+        {
+          "source_box": [
+            370,
+            337,
+            639,
+            612
+          ],
+          "source_pivot": [
+            508,
+            623
+          ],
+          "scale": 0.35331230283911674
+        },
+        {
+          "source_box": [
+            684,
+            370,
+            914,
+            600
+          ],
+          "source_pivot": [
+            814,
+            623
+          ],
+          "scale": 0.35331230283911674
+        },
+        {
+          "source_box": [
+            962,
+            345,
+            1243,
+            623
+          ],
+          "source_pivot": [
+            1127,
+            623
+          ],
+          "scale": 0.35331230283911674
+        }
+      ],
+      "status": "review_candidate",
+      "known_issues": [],
+      "texture": "knockback.png",
+      "frame_count": 4,
+      "sha256": "52b5773d513cde3d92c4a14c2ec063d8eb779f686467bd143649bdc1b3f3e1ec"
+    },
+    "defeat": {
+      "fps": 5,
+      "loop": false,
+      "source": "gandalf_reactions_v01.png",
+      "frames": [
+        {
+          "source_box": [
+            47,
+            636,
+            238,
+            897
+          ],
+          "source_pivot": [
+            161,
+            897
+          ],
+          "scale": 0.35331230283911674
+        },
+        {
+          "source_box": [
+            338,
+            647,
+            575,
+            896
+          ],
+          "source_pivot": [
+            472,
+            897
+          ],
+          "scale": 0.35331230283911674
+        },
+        {
+          "source_box": [
+            647,
+            668,
+            872,
+            890
+          ],
+          "source_pivot": [
+            786,
+            897
+          ],
+          "scale": 0.35331230283911674
+        },
+        {
+          "source_box": [
+            950,
+            699,
+            1240,
+            889
+          ],
+          "source_pivot": [
+            1104,
+            897
+          ],
+          "scale": 0.35331230283911674
+        }
+      ],
+      "status": "review_candidate",
+      "known_issues": [],
+      "texture": "defeat.png",
+      "frame_count": 4,
+      "sha256": "978880283394a66c8970ede339b1edeeb48fb0b4e3aebabe7a5831d252910be1"
+    },
+    "victory": {
+      "fps": 6,
+      "loop": false,
+      "source": "gandalf_reactions_v01.png",
+      "frames": [
+        {
+          "source_box": [
+            51,
+            917,
+            255,
+            1234
+          ],
+          "source_pivot": [
+            160,
+            1235
+          ],
+          "scale": 0.35331230283911674
+        },
+        {
+          "source_box": [
+            364,
+            898,
+            596,
+            1233
+          ],
+          "source_pivot": [
+            487,
+            1235
+          ],
+          "scale": 0.35331230283911674
+        },
+        {
+          "source_box": [
+            676,
+            888,
+            938,
+            1235
+          ],
+          "source_pivot": [
+            800,
+            1235
+          ],
+          "scale": 0.35331230283911674
+        },
+        {
+          "source_box": [
+            1009,
+            899,
+            1233,
+            1236
+          ],
+          "source_pivot": [
+            1128,
+            1235
+          ],
+          "scale": 0.35331230283911674
+        }
+      ],
+      "status": "review_candidate",
+      "known_issues": [],
+      "texture": "victory.png",
+      "frame_count": 4,
+      "sha256": "0fa6e9bd9b7290afec154b8fb85fa95e6b5a836e77449fe67acc37d53d00bb17"
+    }
+  },
+  "engine_verified": false
+}
