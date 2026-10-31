@@ -1,0 +1,117 @@
+{
+  "status": "review_candidate",
+  "animation_id": "idle",
+  "columns": 4,
+  "rows": 2,
+  "cell": [
+    192,
+    192
+  ],
+  "pivot": [
+    96,
+    160
+  ],
+  "fps": 8,
+  "loop": true,
+  "alpha_cutoff": 160,
+  "palette_colors": 96,
+  "fixed_scale": 0.2196078431372549,
+  "source_frames": [
+    {
+      "source_rect": [
+        0,
+        0,
+        314,
+        627
+      ],
+      "source_pivot": [
+        157,
+        582
+      ]
+    },
+    {
+      "source_rect": [
+        314,
+        0,
+        313,
+        627
+      ],
+      "source_pivot": [
+        157,
+        582
+      ]
+    },
+    {
+      "source_rect": [
+        627,
+        0,
+        313,
+        627
+      ],
+      "source_pivot": [
+        157,
+        582
+      ]
+    },
+    {
+      "source_rect": [
+        940,
+        0,
+        314,
+        627
+      ],
+      "source_pivot": [
+        157,
+        582
+      ]
+    },
+    {
+      "source_rect": [
+        0,
+        627,
+        314,
+        627
+      ],
+      "source_pivot": [
+        157,
+        582
+      ]
+    },
+    {
+      "source_rect": [
+        314,
+        627,
+        313,
+        627
+      ],
+      "source_pivot": [
+        157,
+        582
+      ]
+    },
+    {
+      "source_rect": [
+        627,
+        627,
+        313,
+        627
+      ],
+      "source_pivot": [
+        157,
+        582
+      ]
+    },
+    {
+      "source_rect": [
+        940,
+        627,
+        314,
+        627
+      ],
+      "source_pivot": [
+        157,
+        582
+      ]
+    }
+  ]
+}
