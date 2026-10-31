@@ -16,12 +16,22 @@ func bind(controller: MatchController) -> void:
     _match = controller
     super.bind(controller)
 
+func _on_fighter_spawned(fighter: Fighter) -> void:
+    # New actor instances begin a new match, including zero-countdown rematches.
+    # Stock respawns reuse the existing fighter and do not emit this signal.
+    if fighter.player_id == 1:
+        _clear_visuals()
+    super._on_fighter_spawned(fighter)
+
 func _on_match_state_changed(state: MatchController.MatchState) -> void:
     if state == MatchController.MatchState.COUNTDOWN:
-        for entry in _active_visuals:
-            if is_instance_valid(entry.node):
-                entry.node.queue_free()
-        _active_visuals.clear()
+        _clear_visuals()
+
+func _clear_visuals() -> void:
+    for entry in _active_visuals:
+        if is_instance_valid(entry.node):
+            entry.node.queue_free()
+    _active_visuals.clear()
 
 func _on_effect_requested(id: StringName, at: Vector2, direction: Vector2, payload: Dictionary) -> void:
     if not MAP.has(id):
