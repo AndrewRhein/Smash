@@ -1,0 +1,16 @@
+{
+  "status": "review_candidate",
+  "animation_id": "idle",
+  "columns": 8,
+  "rows": 1,
+  "cell": [
+    256,
+    256
+  ],
+  "pivot": [
+    128,
+    208
+  ],
+  "fps": 8,
+  "loop": true
+}

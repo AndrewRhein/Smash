@@ -7,6 +7,7 @@ const CHARACTERS: Array[CharacterData] = [
 	preload("res://data/characters/gandalf.tres"),
 	preload("res://data/characters/vader.tres"),
 ]
+const PresentationSetup = preload("res://scripts/presentation/presentation_setup.gd")
 
 @onready var stage: Stage = $Stage
 @onready var match_controller: MatchController = $Match
@@ -21,7 +22,10 @@ func _ready() -> void:
 	hud.bind(match_controller)
 	debug_overlay.match_controller = match_controller
 	var inputs: Array[PlayerInput] = [PlayerInput.new(1), PlayerInput.new(2)]
-	if not match_controller.setup(stage, CHARACTERS, inputs):
+	var visual_characters: Array[CharacterData] = []
+	for character in CHARACTERS:
+		visual_characters.append(PresentationSetup.with_art(character))
+	if not match_controller.setup(stage, visual_characters, inputs):
 		push_error("Character data failed validation; see errors above.")
 		return
 	match_controller.start_match()

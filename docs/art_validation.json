@@ -1,0 +1,11 @@
+{
+  "structural_pass": true,
+  "gandalf_animations": 14,
+  "playback_frames": 70,
+  "unique_source_poses": 67,
+  "gandalf_png_bytes": 252042,
+  "vader_art": "missing; generation blocked",
+  "engine_parse": "not checked by this structural script; see GitHub Actions",
+  "live_playback": "not checked by this structural script",
+  "gameplay_integration": "wired on codex/integration; see integration tests"
+}

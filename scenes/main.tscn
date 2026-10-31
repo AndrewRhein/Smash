@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/presentation/placeholder_arena.gd" id="2"]
 [ext_resource type="Script" path="res://scripts/gameplay/stage.gd" id="3"]
 [ext_resource type="Script" path="res://scripts/gameplay/match_controller.gd" id="4"]
-[ext_resource type="Script" path="res://scripts/presentation/placeholder_effects.gd" id="5"]
+[ext_resource type="Script" path="res://scripts/presentation/integrated_effects.gd" id="5"]
 [ext_resource type="Script" path="res://scripts/gameplay/debug_overlay.gd" id="6"]
 [ext_resource type="Script" path="res://scripts/presentation/placeholder_hud.gd" id="7"]
 
