@@ -4,9 +4,9 @@ extends CanvasLayer
 ## prompt. Driven only by fighter/match signals (damage_changed, stocks_changed,
 ## match_state_changed, match_ended).
 
-const CONTROLS_TEXT := "P1: A/D move  W jump  S down  F light  R heavy  G/T/V specials" \
-	+ "    |    P2: ←/→ move  ↑ jump  ↓ down  K light  I heavy  L/O/M specials" \
-	+ "    |    F1 hitboxes"
+const CONTROLS_TEXT := "P1: A/D move  W jump  F attack  G special  R heavy  T shield" \
+	+ "    |    P2: ←/→ move  ↑ jump  K attack  L special  I heavy  O shield" \
+	+ "    |    Esc pause  F1 hitboxes"
 
 var _match: MatchController
 var _player_labels: Dictionary = {}  # player_id -> Label

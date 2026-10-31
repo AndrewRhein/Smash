@@ -12,27 +12,27 @@ Command line: `godot --path .` (add `--headless --quit-after 400` for a non-inte
 
 ## Controls
 
-| Action | Player 1 (Gandalf) | Player 2 (Darth Vader) | Controller |
-|---|---|---|---|
-| Move | A / D | ← / → | Left stick or D-pad |
-| Jump / double jump (hold for higher) | W | ↑ | A |
-| Down: fast fall, drop through thin platforms, aim down | S | ↓ | Stick / D-pad down |
-| Aim up (lightning, Force push) | W | ↑ | Stick / D-pad up |
-| Light attack | F | K | X |
-| Heavy attack | R | I | Y |
-| Special 1 (Gandalf: lightning, Vader: Force push) | G | L | B |
-| Special 2 (Gandalf: fireball, Vader: Force choke) | T | O | RB |
-| Special 3 (Gandalf: magic push, Vader: Force guard) | V | M | LB |
-| Rematch (after a result) | Enter | Enter | Start |
-| Toggle hitbox/hurtbox debug view | F1 | | |
-| Pause menu (during a match) | Esc | Esc | Start |
-| Menus: move / select / back | Arrows, Enter, Esc | | D-pad, A, B |
+Smash-style. Full details: [`docs/SMASH_CORE.md`](docs/SMASH_CORE.md).
 
-Controllers are assigned by connection order: the first pad is Player 1 and the second is Player 2. Keyboard and pads can be mixed. On some keyboards, two players pressing many keys at once can drop inputs (ghosting); that is a hardware limitation.
+| Action | Xbox controller | Player 1 keyboard | Player 2 keyboard |
+|---|---|---|---|
+| Move | Left stick / D-pad | A / D | ← / → |
+| Jump (again in the air = double jump) | X / Y (or stick up) | W / Space | ↑ / keypad 0 |
+| Attack | A | F | K |
+| Heavy (smash) attack | RB or right stick | R | I |
+| Special (neutral / side / up = recovery / down) | B + direction | G + direction | L + direction |
+| Shield · spot dodge · roll · air dodge | LB/LT/RT (+ down / left·right / in air) | T (+ S / A·D / in air) | O (+ ↓ / ←·→ / in air) |
+| Fast fall / drop through thin platform | Stick down | S | ↓ |
+| Pause / rematch | Start | Esc / Enter | Esc / Enter |
+| Menus | D-pad/stick, A select, B back | Arrows, Enter, Esc | |
+| Hitbox debug view | | F1 | |
+
+Controllers: the first two connected are Players 1 and 2. Change, swap or check them in **Settings → Controllers**. Tap jump can be turned off in Settings.
 
 ## How a match works
 
 * The game opens on a title screen: Start Match, stock count (1–5), Controls, Settings. See [`docs/MENUS.md`](docs/MENUS.md).
+* Smash-style shield (it breaks if overused), dodges, an up-special recovery, a respawn platform, and off-screen bubbles when a fighter is launched beyond the screen.
 * Three stocks each by default. Damage % increases knockback. Leaving the blast bounds on any side costs one stock.
 * You respawn after 1 second with 2 seconds of flashing invulnerability.
 * The last fighter with stocks wins. If both final stocks are lost on the same tick, the match is a **draw**.

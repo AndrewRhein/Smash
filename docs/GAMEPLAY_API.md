@@ -181,8 +181,9 @@ signal eliminated(player_id: int)
 
 ### Animation IDs (source of truth: `GameIds`)
 
-Shared: `idle, walk, run, jump, fall, hurt, knockback, defeat, victory`.
-Gandalf: `staff_strike, heavy_staff, lightning, fireball, magic_push`. Vader: `saber_slash, heavy_saber, force_push, force_choke, force_guard`.
+Shared: `idle, walk, run, jump, fall, hurt, knockback, defeat, victory, shield, shield_break, spot_dodge, roll, air_dodge`.
+Gandalf: `staff_strike, heavy_staff, lightning, fireball, magic_push, wind_rise`. Vader: `saber_slash, heavy_saber, force_push, force_choke, force_guard, force_leap`.
+Shield, dodges, up specials, the respawn platform and their snapshot fields are described in [`SMASH_CORE.md`](SMASH_CORE.md).
 
 Selection is driven by the state, so priority comes from the state machine: `defeat` (KO/eliminated) and `victory` (terminal) > `hurt` while HELD > `knockback` or `hurt` in HITSTUN > the move animation in ATTACK > locomotion. Within HITSTUN, `knockback` is used when launch speed is at least 700 px/s and `hurt` below that. Locomotion: `idle` below 20 px/s, `walk` below 220 px/s, otherwise `run` (grounded). In the air, `jump` while rising and `fall` otherwise. A double jump emits the `double_jump` effect but does not re-request `jump` if the fighter is already in JUMP.
 
@@ -246,25 +247,22 @@ var state, tick, countdown_remaining, winner_player_id (-1 undecided, 0 draw), f
 
 ## 9. Input
 
-`InputSetup.ensure_actions()` registers the actions at startup. It never overrides an action that already exists, so bindings defined later in `project.godot` or by a future rebinding menu win.
+Smash-style layout. Full table, controller assignment and tap jump: [`SMASH_CORE.md`](SMASH_CORE.md) §1.
 
-| Action | P1 keyboard | P2 keyboard | Controller (P1 = joypad device 0, P2 = device 1) |
-|---|---|---|---|
-| `pN_left` / `pN_right` | A / D | ← / → | Left stick X, D-pad |
-| `pN_up` | W | ↑ | Left stick up, D-pad up (aims lightning / Force push) |
-| `pN_down` | S | ↓ | Left stick down, D-pad down (fast fall, drop-through, aim down) |
-| `pN_jump` | W | ↑ | A (bottom) |
-| `pN_light` | F | K | X (left) |
-| `pN_heavy` | R | I | Y (top) |
-| `pN_special_1` | G | L | B (right) |
-| `pN_special_2` | T | O | RB |
-| `pN_special_3` | V | M | LB |
-| `match_rematch` | Enter / keypad Enter | (same) | Start, any controller |
-| `debug_toggle_hitboxes` | F1 | | |
+* **Keyboard:** `InputSetup.ensure_actions()` registers `pN_<button>` actions for `left right up down jump light heavy special shield`. It never overrides an action that already exists.
+  * P1: A/D, W or Space jump, S down, F attack, G special, R heavy, T shield.
+  * P2: arrows, ↑ or keypad 0 jump, K attack, L special, I heavy, O shield.
+  * The starter keys are preserved (A/D, W, F, G and ←/→, ↑, K, L). No key is shared between players (tested).
+* **Controllers** are not in the InputMap per player. `PlayerInput` reads the pad that `ControllerAssignment` gives the player, using `InputSetup.JOY_BUTTONS` (Xbox layout):
+  * A attack, B special, X/Y jump, RB heavy, LB/LT/RT shield.
+  * Left stick or D-pad to move; the right stick does heavies toward its direction.
+  * Radial stick dead zone 0.2; digital directions beyond 0.5; tap jump (stick up = jump) on by default.
+* **Match actions:** `match_rematch` (Enter, Start), `pause_menu` (Esc, Start), `debug_toggle_hitboxes` (F1). Menus use `ui_*`, and `ensure_actions()` adds controller A/Start to `ui_accept` and B to `ui_cancel`.
 
-The original starter bindings (A/D, W, F, G and ←/→, ↑, K, L) are preserved, and no key is shared between players (tested). On the keyboard, up and jump share a key, as in the starter, so aiming up on the keyboard also jumps. Controllers have a separate jump button. Stick dead zone: 0.3 at the action level plus a 0.25 axis dead zone. Up/down count as digital presses beyond 0.5.
-
-`PlayerInput.new(player_id, scripted := false)`. `sample() -> InputFrame` must be called once per tick (the match does this). Scripted API for tests and replays: `set_held(button, bool)`, `tap(button)` (held for exactly one sample), `set_axis(Vector2)`, `clear_axis()`, `release_all()`, `reset_edges()`. Buttons: `left right up down jump light heavy special_1 special_2 special_3`.
+`PlayerInput.new(player_id, scripted := false)`. `sample() -> InputFrame` must be called once per tick (the match does this).
+* Scripted API for tests and replays: `set_held(button, bool)`, `tap(button)` (held for exactly one sample), `set_axis(Vector2)`, `clear_axis()`, `set_right_stick(Vector2)`, `release_all()`, `reset_edges()`.
+* Buttons: `left right up down jump light heavy special shield`, plus direct-slot triggers `special_1 special_2 special_3` (unbound by default).
+* `InputFrame.smash_x` carries the right-stick heavy direction.
 
 ## 10. Minimal final-art adapter example
 
