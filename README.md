@@ -25,12 +25,15 @@ Command line: `godot --path .` (add `--headless --quit-after 400` for a non-inte
 | Special 3 (Gandalf: magic push, Vader: Force guard) | V | M | LB |
 | Rematch (after a result) | Enter | Enter | Start |
 | Toggle hitbox/hurtbox debug view | F1 | | |
+| Pause menu (during a match) | Esc | Esc | Start |
+| Menus: move / select / back | Arrows, Enter, Esc | | D-pad, A, B |
 
 Controllers are assigned by connection order: the first pad is Player 1 and the second is Player 2. Keyboard and pads can be mixed. On some keyboards, two players pressing many keys at once can drop inputs (ghosting); that is a hardware limitation.
 
 ## How a match works
 
-* Three stocks each. Damage % increases knockback. Leaving the blast bounds on any side costs one stock.
+* The game opens on a title screen: Start Match, stock count (1–5), Controls, Settings. See [`docs/MENUS.md`](docs/MENUS.md).
+* Three stocks each by default. Damage % increases knockback. Leaving the blast bounds on any side costs one stock.
 * You respawn after 1 second with 2 seconds of flashing invulnerability.
 * The last fighter with stocks wins. If both final stocks are lost on the same tick, the match is a **draw**.
 * After the result, press **Enter** or **Start** to rematch with everything reset.
