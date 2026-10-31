@@ -9,6 +9,9 @@ extends Node
 signal screen_changed(screen: StringName)
 
 const MATCH_SCENE := preload("res://scenes/main.tscn")
+## Optional art-review scene from the art pipeline; the menu entry is hidden
+## when it does not exist on this branch.
+const ART_GALLERY_SCENE := "res://scenes/art_preview.tscn"
 
 var settings: GameSettings
 var current_screen: StringName = &""
@@ -16,6 +19,8 @@ var match_root: Node
 var match_controller: MatchController
 var pause_menu: PauseMenu
 var result_overlay: ResultOverlay
+var gallery_root: Node
+var _gallery_bar: CanvasLayer
 var _menu_layer: CanvasLayer
 var _screen: MenuScreen
 
@@ -39,6 +44,7 @@ func _ready() -> void:
 # --- Menu screens -------------------------------------------------------------
 func show_title() -> void:
 	_end_match()
+	_end_gallery()
 	_show_screen(TitleScreen.new(self), &"title")
 
 
@@ -69,10 +75,50 @@ func _set_screen(id: StringName) -> void:
 	screen_changed.emit(id)
 
 
+static func has_art_gallery() -> bool:
+	return ResourceLoader.exists(ART_GALLERY_SCENE)
+
+
+## Shows the art pipeline's preview scene (all character animations and
+## effects, no combat) with a Back button; Esc also returns to the title.
+func show_art_gallery() -> void:
+	if not has_art_gallery():
+		return
+	_clear_screen()
+	_end_match()
+	_end_gallery()
+	gallery_root = (load(ART_GALLERY_SCENE) as PackedScene).instantiate()
+	add_child(gallery_root)
+	_gallery_bar = CanvasLayer.new()
+	_gallery_bar.layer = 40
+	var back := MenuStyle.button("◀ Back to Menu (Esc)", show_title, 300)
+	back.theme = MenuStyle.theme()
+	back.position = Vector2(1280 - 300 - 24, 720 - 52 - 20)
+	_gallery_bar.add_child(back)
+	add_child(_gallery_bar)
+	_set_screen(&"gallery")
+
+
+func _end_gallery() -> void:
+	for node: Node in [_gallery_bar, gallery_root]:
+		if node != null and is_instance_valid(node):
+			remove_child(node)
+			node.queue_free()
+	gallery_root = null
+	_gallery_bar = null
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if current_screen == &"gallery" and event.is_action_pressed(&"ui_cancel"):
+		get_viewport().set_input_as_handled()
+		show_title()
+
+
 # --- Match lifecycle ----------------------------------------------------------
 func start_match() -> void:
 	_clear_screen()
 	_end_match()
+	_end_gallery()
 	match_root = MATCH_SCENE.instantiate()
 	match_root.process_mode = Node.PROCESS_MODE_PAUSABLE
 	# Configure before _ready: main.gd starts the match when it enters the tree.
