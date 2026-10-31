@@ -3,6 +3,7 @@ extends MenuScreen
 ## Title / main menu: start a match, pick stock count, controls, settings, quit.
 
 var start_button: Button
+var practice_button: Button
 var stocks_button: CycleButton
 
 
@@ -26,6 +27,7 @@ func build() -> void:
 	add_child(lineup)
 	move_child(lineup, 1)  # behind the menu, in front of the backdrop
 	start_button = add_button("Start Match", app.show_character_select)
+	practice_button = add_button("Practice vs CPU", app.show_practice_select)
 	var stock_options := range(GameSettings.MIN_STOCKS, GameSettings.MAX_STOCKS + 1)
 	stocks_button = CycleButton.new("Stocks", stock_options, stock_options.find(app.settings.stocks))
 	stocks_button.value_changed.connect(func(_i: int) -> void:
@@ -77,7 +79,7 @@ class _Lineup extends Control:
 		draw_string(font, pos + Vector2(0, 4), title, HORIZONTAL_ALIGNMENT_CENTER, 1280, 96, Color(0.55, 0.25, 0.05))
 		draw_string(font, pos, title, HORIZONTAL_ALIGNMENT_CENTER, 1280, 96, Color("ffd36b"))
 		draw_string(font, pos + Vector2(0, -38), title, HORIZONTAL_ALIGNMENT_CENTER, 1280, 96, Color(1, 1, 1, 0.0))
-		var tagline := "%d  FIGHTERS   ·   LOCAL  VERSUS   ·   ONE  CITADEL" % CharacterRoster.ENTRIES.size()
+		var tagline := "%d  FIGHTERS   ·   UP  TO  4  PLAYERS   ·   CPU  OPPONENTS" % CharacterRoster.ENTRIES.size()
 		draw_string(font, Vector2(0, 166), tagline, HORIZONTAL_ALIGNMENT_CENTER, 1280, 16, Color(0.8, 0.84, 0.95, 0.85))
 		draw_rect(Rect2(440, 178, 400, 2), Color(1.0, 0.83, 0.42, 0.6))
 		# Fighters, gently breathing, with ground shadows.

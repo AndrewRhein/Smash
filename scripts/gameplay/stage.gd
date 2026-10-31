@@ -18,10 +18,10 @@ const PLATFORMS := [
 ]
 
 ## Feet positions. Index = player_id - 1.
-@export var spawn_points: Array[Vector2] = [Vector2(440, 380), Vector2(840, 380)]
+@export var spawn_points: Array[Vector2] = [Vector2(440, 380), Vector2(840, 380), Vector2(560, 546), Vector2(720, 546)]
 ## Respawn platform positions (feet). Index = player_id - 1. Above the stage,
 ## clear of the upper platforms, so a respawning fighter never lands in a fight.
-@export var respawn_points: Array[Vector2] = [Vector2(560, 240), Vector2(720, 240)]
+@export var respawn_points: Array[Vector2] = [Vector2(560, 240), Vector2(720, 240), Vector2(420, 240), Vector2(860, 240)]
 ## The area the players can see; off-screen effects are clamped into it.
 @export var visible_rect: Rect2 = Rect2(0, 0, 1280, 720)
 ## A fighter whose root leaves this rectangle loses a stock. The viewport is

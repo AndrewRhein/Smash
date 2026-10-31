@@ -48,9 +48,9 @@ Smash characters have about 20 moves; ours have 7 (light, heavy, 4 specials, and
 ## Phase 3: Modes and match options
 * **Stage select:** multiple stages (data plus art), hazards on/off, an "omega" flat version.
 * **Match rules:** stock or timed, time limit, handicap, items on/off.
-* **CPU opponents (AI):** essential for solo play. Start with a simple state-based bot that uses the same `PlayerInput` interface.
+* ✅ **CPU opponents (AI):** levels 1–9, using the same `PlayerInput` interface (see `docs/MULTIPLAYER.md`). Next: smarter combos and edge-guarding.
 * **Training mode:** CPU behaviours, damage display, frame data overlay (we already have F1 hitboxes).
-* **Up to 4 players:** the engine is mostly player-count-agnostic. The HUD, spawn points and select screen need 4 slots.
+* ✅ **Up to 4 players:** ports P1–P4, press A to join, 4-slot select screen and HUD (see `docs/MULTIPLAYER.md`).
 * **Teams, free-for-all**, and later tournament/bracket mode.
 
 ## Phase 4: Presentation and feel

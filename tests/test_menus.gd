@@ -290,8 +290,8 @@ func _focused_text() -> String:
 func test_controller_only_full_menu_flow() -> void:
 	var app := await _make_app()
 	# Title -> Settings with D-pad, A to enter, B to leave.
-	for i in 3:
-		_joy(JOY_BUTTON_DPAD_DOWN)  # Start Match -> Stocks -> Controls -> Settings
+	for i in 4:
+		_joy(JOY_BUTTON_DPAD_DOWN)  # Start Match -> Practice -> Stocks -> Controls -> Settings
 	assert_eq(_focused_text(), "Settings", "D-pad moves focus")
 	_joy(JOY_BUTTON_A)
 	await _frames(2)
@@ -302,7 +302,7 @@ func test_controller_only_full_menu_flow() -> void:
 	# Left stick navigates too.
 	_stick_y(1.0)
 	_stick_y(0.0)
-	assert_true(_focused_text().begins_with("Stocks"), "left stick moves focus")
+	assert_true(_focused_text().begins_with("Practice"), "left stick moves focus")
 	_stick_y(-1.0)
 	_stick_y(0.0)
 	assert_eq(_focused_text(), "Start Match", "and back up")
@@ -316,7 +316,8 @@ func test_controller_only_full_menu_flow() -> void:
 	ControllerAssignment.assign(2, 1)
 	await _frames(1)
 	await _joy_hold(JOY_BUTTON_A, 0)
-	await _joy_hold(JOY_BUTTON_A, 1)
+	await _joy_hold(JOY_BUTTON_A, 1)  # P2's first A joins...
+	await _joy_hold(JOY_BUTTON_A, 1)  # ...the second locks in
 	_joy(JOY_BUTTON_START, 1)
 	await _frames(2)
 	ControllerAssignment.reset()
@@ -413,6 +414,10 @@ func test_character_select_flow_and_picks() -> void:
 	assert_eq(app.current_screen, &"character_select", "Start Match opens character select")
 	var screen := app._screen as CharacterSelectScreen
 	assert_eq(screen.options.size(), CharacterRoster.ENTRIES.size() + 1, "every roster fighter + Random")
+	assert_eq(screen.slot_type[2], CharacterSelectScreen.OFF, "P2 starts out until they join")
+	await _joy_hold(JOY_BUTTON_A, 1)
+	assert_eq(screen.slot_type[2], CharacterSelectScreen.HUMAN, "A on the second pad joins as P2")
+	assert_true(not screen.is_ready[2], "joining is not locking in")
 	# P2 walks right from Elon to Random, then back one card -> the fighter before Random.
 	var start: int = screen.cursor[2]
 	for i in screen.options.size() - 1 - start:

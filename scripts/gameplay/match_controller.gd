@@ -70,7 +70,7 @@ func start_match() -> void:
 	tick = 0
 	winner_player_id = -1
 	for i in characters.size():
-		var player_id := i + 1
+		var player_id := inputs[i].player_id  # port number (P1-P4), not list position
 		var fighter := Fighter.new()
 		fighter.setup(characters[i], player_id, stage.spawn_point(player_id), stock_count, inputs[i])
 		fighter.respawn_point = stage.respawn_point(player_id)
