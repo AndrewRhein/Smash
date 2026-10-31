@@ -52,8 +52,13 @@ func test_elon_all_abilities_follow_phase_and_hitstop() -> void:
             e.visual_root._process(0.0)
             if e.move == null:
                 continue
-            var expected := 0 if e.move_tick < move.startup_ticks else (1 if move.is_active_tick(e.move_tick) else 2)
-            assert_eq(e.visual_root.sprite.frame, expected, "%s follows gameplay phase" % slot)
+            var phase := 0 if e.move_tick < move.startup_ticks else (1 if move.is_active_tick(e.move_tick) else 2)
+            var expected := [[0, 1, 2], [3, 4], [5, 6, 7]]
+            if slot == &"heavy":
+                expected = [[0, 1, 2, 3], [4], [5, 6, 7]]
+            elif slot == &"special_3":
+                expected = [[0, 1], [2, 3, 4], [5, 6, 7]]
+            assert_true(e.visual_root.sprite.frame in expected[phase], "%s follows gameplay phase" % slot)
         assert_true(e.visual_root.warned.is_empty(), "no missing animations")
     p(m, 2).tap(&"heavy")
     step(m, 5)
@@ -137,3 +142,51 @@ func test_elon_aim_and_mirroring_are_visual_only() -> void:
     assert_eq(e.visual_root.scale.x, -1.0, "sprite faces left")
     var far: Dictionary = e.get_active_hitboxes()[-1]
     assert_true(far.center.x < e.position.x and far.center.y < e.position.y - 60, "aimed thruster goes up and left")
+
+func test_elon_expanded_pack_bounds_and_coverage() -> void:
+    var scene: Node = load("res://scenes/presentation/elon_visual.tscn").instantiate()
+    var frames: SpriteFrames = scene.frames
+    assert_eq(frames.get_animation_names().size(), 16, "full pack plus entrance and landing")
+    assert_eq(frames.get_frame_count(&"run"), 8, "eight run poses")
+    assert_eq(frames.get_frame_count(&"jump"), 4, "clipped launch frames excluded")
+    for id in GameIds.MOVE_ANIMATION_IDS[&"elon"]:
+        assert_eq(frames.get_frame_count(id), 8, "eight attack poses")
+    var base := "res://art/characters/elon/expanded/"
+    var manifest: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(base + "manifest.json"))
+    assert_eq(FileAccess.get_sha256(base + "atlas.png"), manifest.atlas_sha256, "new atlas checksum")
+    for record: Dictionary in manifest.frames:
+        assert_true(record.offset[0] > 0 and record.offset[1] > 0, "leading padding")
+        assert_true(record.offset[0] + record.size[0] < 256 and record.offset[1] + record.size[1] < 256, "trailing padding")
+    scene.free()
+
+func test_elon_entrance_landing_and_interrupts() -> void:
+    var m: MatchController = await _elon_match()
+    var e := m.get_fighter(2)
+    var v = e.visual_root
+    place(e, 800, 1)
+    m.state = MatchController.MatchState.COUNTDOWN
+    m.countdown_ticks = 90
+    m.countdown_remaining = 60
+    v._process(0.0)
+    assert_eq(v.sprite.animation, &"entrance", "prep plays during countdown")
+    assert_true(v.sprite.frame > 0, "countdown advances entrance")
+    m.state = MatchController.MatchState.PLAYING
+    v._process(0.0)
+    assert_eq(v.sprite.animation, v.active_id, "gameplay immediately owns visuals after countdown")
+    e.grounded = false
+    v._process(0.0)
+    e.grounded = true
+    e.state = Fighter.State.IDLE
+    v.animation_requested(&"idle", 0, true)
+    v._process(0.08)
+    assert_eq(v.sprite.animation, &"land", "landing overlay starts")
+    var held_frame: int = v.sprite.frame
+    e.hitstop_remaining = 4
+    v._process(0.5)
+    assert_eq(v.sprite.frame, held_frame, "landing freezes in hitstop")
+    e.hitstop_remaining = 0
+    p(m, 2).tap(&"light")
+    step(m)
+    v._process(0.0)
+    assert_eq(v.sprite.animation, &"ion_jab", "attack cancels cosmetic landing without input delay")
+    assert_eq(e.move.id, &"light", "landing adds no gameplay lag")

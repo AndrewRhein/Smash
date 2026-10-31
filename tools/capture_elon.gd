@@ -74,6 +74,8 @@ func reset() -> void:
 func ticks(count: int) -> void:
     for i in count:
         m.step()
+        for fighter in m.fighters:
+            fighter.visual_root._process(1.0 / 60.0)
         var effects := main.get_node("Effects")
         effects._process(1.0 / 60.0)
         for entry: Dictionary in effects._active_visuals:

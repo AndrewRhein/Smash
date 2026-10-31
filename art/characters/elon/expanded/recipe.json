@@ -1,0 +1,168 @@
+[
+  {
+    "id": "idle",
+    "file": "Cyberpunk Fighter Idle Animation Sprite Sheet.png",
+    "columns": 3,
+    "rows": 2,
+    "height": 500,
+    "fps": 6,
+    "order": []
+  },
+  {
+    "id": "entrance",
+    "file": "Cyberpunk Fighter Preparation Sprite Sheet.png",
+    "columns": 4,
+    "rows": 2,
+    "height": 420,
+    "fps": 10,
+    "order": []
+  },
+  {
+    "id": "walk",
+    "file": "Elon-Style Pixel Art Walk Cycle Sprite Sheet.png",
+    "columns": 4,
+    "rows": 2,
+    "height": 420,
+    "fps": 10,
+    "order": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
+  },
+  {
+    "id": "victory",
+    "file": "Pixel Art Victory Fist Animation Sprite Sheet.png",
+    "columns": 4,
+    "rows": 2,
+    "height": 420,
+    "fps": 10,
+    "order": []
+  },
+  {
+    "id": "thruster_burst",
+    "file": "Cyberpunk Thruster Burst Sprite Sheet.png",
+    "columns": 4,
+    "rows": 2,
+    "height": 420,
+    "fps": 12,
+    "order": []
+  },
+  {
+    "id": "defeat",
+    "file": "Pixel-Art Defeat Animation Sprite Sheet.png",
+    "columns": 4,
+    "rows": 2,
+    "height": 485,
+    "fps": 9,
+    "order": []
+  },
+  {
+    "id": "run",
+    "file": "Cyan Gauntlet Run Cycle Sprite Sheet.png",
+    "columns": 4,
+    "rows": 2,
+    "height": 420,
+    "fps": 14,
+    "order": []
+  },
+  {
+    "id": "orbital_tractor",
+    "file": "Orbital Tractor Pixel Sprite Sheet.png",
+    "columns": 4,
+    "rows": 2,
+    "height": 420,
+    "fps": 12,
+    "order": []
+  },
+  {
+    "id": "jump",
+    "file": "Elon-Like Character Jump Sprite Sheet.png",
+    "columns": 3,
+    "rows": 2,
+    "height": 500,
+    "fps": 12,
+    "order": [
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "id": "knockback",
+    "file": "Elon-Like Character Knockback Sprite Sequence.png",
+    "columns": 4,
+    "rows": 1,
+    "height": 660,
+    "fps": 10,
+    "order": []
+  },
+  {
+    "id": "energy_shield",
+    "file": "Cyberpunk Combat Guard Animation.png",
+    "columns": 4,
+    "rows": 2,
+    "height": 420,
+    "fps": 12,
+    "order": []
+  },
+  {
+    "id": "hurt",
+    "file": "Pixel-Art Gauntlet Combat Recoil Sprite Sheet.png",
+    "columns": 4,
+    "rows": 1,
+    "height": 660,
+    "fps": 12,
+    "order": [
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "id": "fall",
+    "file": "Pixel-Art Descent Sequence.png",
+    "columns": 4,
+    "rows": 1,
+    "height": 660,
+    "fps": 6,
+    "order": [
+      0,
+      1,
+      2,
+      1
+    ]
+  },
+  {
+    "id": "rocket_hammer",
+    "file": "Pixel-Art Rocket Hammer Swing Sprite Sheet.png",
+    "columns": 4,
+    "rows": 2,
+    "height": 420,
+    "fps": 12,
+    "order": []
+  },
+  {
+    "id": "land",
+    "file": "Futuristic Four-Frame Landing Sequence.png",
+    "columns": 4,
+    "rows": 1,
+    "height": 660,
+    "fps": 16,
+    "order": []
+  },
+  {
+    "id": "ion_jab",
+    "file": "Ion Jab Sprite Sheet.png",
+    "columns": 4,
+    "rows": 2,
+    "height": 420,
+    "fps": 12,
+    "order": []
+  }
+]

@@ -1,0 +1,439 @@
+[gd_resource type="SpriteFrames" load_steps=106 format=3]
+
+[ext_resource type="Texture2D" path="res://art/characters/elon/expanded/atlas.png" id="1"]
+
+[sub_resource type="AtlasTexture" id="Pose_0"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_1"]
+atlas = ExtResource("1")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_2"]
+atlas = ExtResource("1")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_3"]
+atlas = ExtResource("1")
+region = Rect2(768, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_4"]
+atlas = ExtResource("1")
+region = Rect2(1024, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_5"]
+atlas = ExtResource("1")
+region = Rect2(1280, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_6"]
+atlas = ExtResource("1")
+region = Rect2(1536, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_7"]
+atlas = ExtResource("1")
+region = Rect2(1792, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_8"]
+atlas = ExtResource("1")
+region = Rect2(0, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_9"]
+atlas = ExtResource("1")
+region = Rect2(256, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_10"]
+atlas = ExtResource("1")
+region = Rect2(512, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_11"]
+atlas = ExtResource("1")
+region = Rect2(768, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_12"]
+atlas = ExtResource("1")
+region = Rect2(1024, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_13"]
+atlas = ExtResource("1")
+region = Rect2(1280, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_14"]
+atlas = ExtResource("1")
+region = Rect2(1536, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_15"]
+atlas = ExtResource("1")
+region = Rect2(1792, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_16"]
+atlas = ExtResource("1")
+region = Rect2(0, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_17"]
+atlas = ExtResource("1")
+region = Rect2(256, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_18"]
+atlas = ExtResource("1")
+region = Rect2(512, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_19"]
+atlas = ExtResource("1")
+region = Rect2(768, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_20"]
+atlas = ExtResource("1")
+region = Rect2(1024, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_21"]
+atlas = ExtResource("1")
+region = Rect2(1280, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_22"]
+atlas = ExtResource("1")
+region = Rect2(1536, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_23"]
+atlas = ExtResource("1")
+region = Rect2(1792, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_24"]
+atlas = ExtResource("1")
+region = Rect2(0, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_25"]
+atlas = ExtResource("1")
+region = Rect2(256, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_26"]
+atlas = ExtResource("1")
+region = Rect2(512, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_27"]
+atlas = ExtResource("1")
+region = Rect2(768, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_28"]
+atlas = ExtResource("1")
+region = Rect2(1024, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_29"]
+atlas = ExtResource("1")
+region = Rect2(1280, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_30"]
+atlas = ExtResource("1")
+region = Rect2(1536, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_31"]
+atlas = ExtResource("1")
+region = Rect2(1792, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_32"]
+atlas = ExtResource("1")
+region = Rect2(0, 1024, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_33"]
+atlas = ExtResource("1")
+region = Rect2(256, 1024, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_34"]
+atlas = ExtResource("1")
+region = Rect2(512, 1024, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_35"]
+atlas = ExtResource("1")
+region = Rect2(768, 1024, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_36"]
+atlas = ExtResource("1")
+region = Rect2(1024, 1024, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_37"]
+atlas = ExtResource("1")
+region = Rect2(1280, 1024, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_38"]
+atlas = ExtResource("1")
+region = Rect2(1536, 1024, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_39"]
+atlas = ExtResource("1")
+region = Rect2(1792, 1024, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_40"]
+atlas = ExtResource("1")
+region = Rect2(0, 1280, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_41"]
+atlas = ExtResource("1")
+region = Rect2(256, 1280, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_42"]
+atlas = ExtResource("1")
+region = Rect2(512, 1280, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_43"]
+atlas = ExtResource("1")
+region = Rect2(768, 1280, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_44"]
+atlas = ExtResource("1")
+region = Rect2(1024, 1280, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_45"]
+atlas = ExtResource("1")
+region = Rect2(1280, 1280, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_46"]
+atlas = ExtResource("1")
+region = Rect2(1536, 1280, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_47"]
+atlas = ExtResource("1")
+region = Rect2(1792, 1280, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_48"]
+atlas = ExtResource("1")
+region = Rect2(0, 1536, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_49"]
+atlas = ExtResource("1")
+region = Rect2(256, 1536, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_50"]
+atlas = ExtResource("1")
+region = Rect2(512, 1536, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_51"]
+atlas = ExtResource("1")
+region = Rect2(768, 1536, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_52"]
+atlas = ExtResource("1")
+region = Rect2(1024, 1536, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_53"]
+atlas = ExtResource("1")
+region = Rect2(1280, 1536, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_54"]
+atlas = ExtResource("1")
+region = Rect2(1536, 1536, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_55"]
+atlas = ExtResource("1")
+region = Rect2(1792, 1536, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_56"]
+atlas = ExtResource("1")
+region = Rect2(0, 1792, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_57"]
+atlas = ExtResource("1")
+region = Rect2(256, 1792, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_58"]
+atlas = ExtResource("1")
+region = Rect2(512, 1792, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_59"]
+atlas = ExtResource("1")
+region = Rect2(768, 1792, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_60"]
+atlas = ExtResource("1")
+region = Rect2(1024, 1792, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_61"]
+atlas = ExtResource("1")
+region = Rect2(1280, 1792, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_62"]
+atlas = ExtResource("1")
+region = Rect2(1536, 1792, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_63"]
+atlas = ExtResource("1")
+region = Rect2(1792, 1792, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_64"]
+atlas = ExtResource("1")
+region = Rect2(0, 2048, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_65"]
+atlas = ExtResource("1")
+region = Rect2(256, 2048, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_66"]
+atlas = ExtResource("1")
+region = Rect2(512, 2048, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_67"]
+atlas = ExtResource("1")
+region = Rect2(768, 2048, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_68"]
+atlas = ExtResource("1")
+region = Rect2(1024, 2048, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_69"]
+atlas = ExtResource("1")
+region = Rect2(1280, 2048, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_70"]
+atlas = ExtResource("1")
+region = Rect2(1536, 2048, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_71"]
+atlas = ExtResource("1")
+region = Rect2(1792, 2048, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_72"]
+atlas = ExtResource("1")
+region = Rect2(0, 2304, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_73"]
+atlas = ExtResource("1")
+region = Rect2(256, 2304, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_74"]
+atlas = ExtResource("1")
+region = Rect2(512, 2304, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_75"]
+atlas = ExtResource("1")
+region = Rect2(768, 2304, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_76"]
+atlas = ExtResource("1")
+region = Rect2(1024, 2304, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_77"]
+atlas = ExtResource("1")
+region = Rect2(1280, 2304, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_78"]
+atlas = ExtResource("1")
+region = Rect2(1536, 2304, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_79"]
+atlas = ExtResource("1")
+region = Rect2(1792, 2304, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_80"]
+atlas = ExtResource("1")
+region = Rect2(0, 2560, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_81"]
+atlas = ExtResource("1")
+region = Rect2(256, 2560, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_82"]
+atlas = ExtResource("1")
+region = Rect2(512, 2560, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_83"]
+atlas = ExtResource("1")
+region = Rect2(768, 2560, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_84"]
+atlas = ExtResource("1")
+region = Rect2(1024, 2560, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_85"]
+atlas = ExtResource("1")
+region = Rect2(1280, 2560, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_86"]
+atlas = ExtResource("1")
+region = Rect2(1536, 2560, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_87"]
+atlas = ExtResource("1")
+region = Rect2(1792, 2560, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_88"]
+atlas = ExtResource("1")
+region = Rect2(0, 2816, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_89"]
+atlas = ExtResource("1")
+region = Rect2(256, 2816, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_90"]
+atlas = ExtResource("1")
+region = Rect2(512, 2816, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_91"]
+atlas = ExtResource("1")
+region = Rect2(768, 2816, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_92"]
+atlas = ExtResource("1")
+region = Rect2(1024, 2816, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_93"]
+atlas = ExtResource("1")
+region = Rect2(1280, 2816, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_94"]
+atlas = ExtResource("1")
+region = Rect2(1536, 2816, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_95"]
+atlas = ExtResource("1")
+region = Rect2(1792, 2816, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_96"]
+atlas = ExtResource("1")
+region = Rect2(0, 3072, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_97"]
+atlas = ExtResource("1")
+region = Rect2(256, 3072, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_98"]
+atlas = ExtResource("1")
+region = Rect2(512, 3072, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_99"]
+atlas = ExtResource("1")
+region = Rect2(768, 3072, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_100"]
+atlas = ExtResource("1")
+region = Rect2(1024, 3072, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_101"]
+atlas = ExtResource("1")
+region = Rect2(1280, 3072, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_102"]
+atlas = ExtResource("1")
+region = Rect2(1536, 3072, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Pose_103"]
+atlas = ExtResource("1")
+region = Rect2(1792, 3072, 256, 256)
+
+[resource]
+animations = [
+{"name": &"idle", "loop": true, "speed": 6.0, "frames": [{"duration": 1.0, "texture": SubResource("Pose_0")}, {"duration": 1.0, "texture": SubResource("Pose_1")}, {"duration": 1.0, "texture": SubResource("Pose_2")}, {"duration": 1.0, "texture": SubResource("Pose_3")}, {"duration": 1.0, "texture": SubResource("Pose_4")}, {"duration": 1.0, "texture": SubResource("Pose_5")}]},
+{"name": &"entrance", "loop": false, "speed": 10.0, "frames": [{"duration": 1.0, "texture": SubResource("Pose_6")}, {"duration": 1.0, "texture": SubResource("Pose_7")}, {"duration": 1.0, "texture": SubResource("Pose_8")}, {"duration": 1.0, "texture": SubResource("Pose_9")}, {"duration": 1.0, "texture": SubResource("Pose_10")}, {"duration": 1.0, "texture": SubResource("Pose_11")}, {"duration": 1.0, "texture": SubResource("Pose_12")}, {"duration": 1.0, "texture": SubResource("Pose_13")}]},
+{"name": &"walk", "loop": true, "speed": 10.0, "frames": [{"duration": 1.0, "texture": SubResource("Pose_14")}, {"duration": 1.0, "texture": SubResource("Pose_15")}, {"duration": 1.0, "texture": SubResource("Pose_16")}, {"duration": 1.0, "texture": SubResource("Pose_17")}, {"duration": 1.0, "texture": SubResource("Pose_18")}, {"duration": 1.0, "texture": SubResource("Pose_19")}, {"duration": 1.0, "texture": SubResource("Pose_20")}]},
+{"name": &"victory", "loop": false, "speed": 10.0, "frames": [{"duration": 1.0, "texture": SubResource("Pose_21")}, {"duration": 1.0, "texture": SubResource("Pose_22")}, {"duration": 1.0, "texture": SubResource("Pose_23")}, {"duration": 1.0, "texture": SubResource("Pose_24")}, {"duration": 1.0, "texture": SubResource("Pose_25")}, {"duration": 1.0, "texture": SubResource("Pose_26")}, {"duration": 1.0, "texture": SubResource("Pose_27")}, {"duration": 1.0, "texture": SubResource("Pose_28")}]},
+{"name": &"thruster_burst", "loop": false, "speed": 12.0, "frames": [{"duration": 1.0, "texture": SubResource("Pose_29")}, {"duration": 1.0, "texture": SubResource("Pose_30")}, {"duration": 1.0, "texture": SubResource("Pose_31")}, {"duration": 1.0, "texture": SubResource("Pose_32")}, {"duration": 1.0, "texture": SubResource("Pose_33")}, {"duration": 1.0, "texture": SubResource("Pose_34")}, {"duration": 1.0, "texture": SubResource("Pose_35")}, {"duration": 1.0, "texture": SubResource("Pose_36")}]},
+{"name": &"defeat", "loop": false, "speed": 9.0, "frames": [{"duration": 1.0, "texture": SubResource("Pose_37")}, {"duration": 1.0, "texture": SubResource("Pose_38")}, {"duration": 1.0, "texture": SubResource("Pose_39")}, {"duration": 1.0, "texture": SubResource("Pose_40")}, {"duration": 1.0, "texture": SubResource("Pose_41")}, {"duration": 1.0, "texture": SubResource("Pose_42")}, {"duration": 1.0, "texture": SubResource("Pose_43")}, {"duration": 1.0, "texture": SubResource("Pose_44")}]},
+{"name": &"run", "loop": true, "speed": 14.0, "frames": [{"duration": 1.0, "texture": SubResource("Pose_45")}, {"duration": 1.0, "texture": SubResource("Pose_46")}, {"duration": 1.0, "texture": SubResource("Pose_47")}, {"duration": 1.0, "texture": SubResource("Pose_48")}, {"duration": 1.0, "texture": SubResource("Pose_49")}, {"duration": 1.0, "texture": SubResource("Pose_50")}, {"duration": 1.0, "texture": SubResource("Pose_51")}, {"duration": 1.0, "texture": SubResource("Pose_52")}]},
+{"name": &"orbital_tractor", "loop": false, "speed": 12.0, "frames": [{"duration": 1.0, "texture": SubResource("Pose_53")}, {"duration": 1.0, "texture": SubResource("Pose_54")}, {"duration": 1.0, "texture": SubResource("Pose_55")}, {"duration": 1.0, "texture": SubResource("Pose_56")}, {"duration": 1.0, "texture": SubResource("Pose_57")}, {"duration": 1.0, "texture": SubResource("Pose_58")}, {"duration": 1.0, "texture": SubResource("Pose_59")}, {"duration": 1.0, "texture": SubResource("Pose_60")}]},
+{"name": &"jump", "loop": false, "speed": 12.0, "frames": [{"duration": 1.0, "texture": SubResource("Pose_61")}, {"duration": 1.0, "texture": SubResource("Pose_62")}, {"duration": 1.0, "texture": SubResource("Pose_63")}, {"duration": 1.0, "texture": SubResource("Pose_64")}]},
+{"name": &"knockback", "loop": false, "speed": 10.0, "frames": [{"duration": 1.0, "texture": SubResource("Pose_65")}, {"duration": 1.0, "texture": SubResource("Pose_66")}, {"duration": 1.0, "texture": SubResource("Pose_67")}, {"duration": 1.0, "texture": SubResource("Pose_68")}]},
+{"name": &"energy_shield", "loop": false, "speed": 12.0, "frames": [{"duration": 1.0, "texture": SubResource("Pose_69")}, {"duration": 1.0, "texture": SubResource("Pose_70")}, {"duration": 1.0, "texture": SubResource("Pose_71")}, {"duration": 1.0, "texture": SubResource("Pose_72")}, {"duration": 1.0, "texture": SubResource("Pose_73")}, {"duration": 1.0, "texture": SubResource("Pose_74")}, {"duration": 1.0, "texture": SubResource("Pose_75")}, {"duration": 1.0, "texture": SubResource("Pose_76")}]},
+{"name": &"hurt", "loop": false, "speed": 12.0, "frames": [{"duration": 1.0, "texture": SubResource("Pose_77")}, {"duration": 1.0, "texture": SubResource("Pose_78")}, {"duration": 1.0, "texture": SubResource("Pose_79")}]},
+{"name": &"fall", "loop": true, "speed": 6.0, "frames": [{"duration": 1.0, "texture": SubResource("Pose_80")}, {"duration": 1.0, "texture": SubResource("Pose_81")}, {"duration": 1.0, "texture": SubResource("Pose_82")}, {"duration": 1.0, "texture": SubResource("Pose_83")}]},
+{"name": &"rocket_hammer", "loop": false, "speed": 12.0, "frames": [{"duration": 1.0, "texture": SubResource("Pose_84")}, {"duration": 1.0, "texture": SubResource("Pose_85")}, {"duration": 1.0, "texture": SubResource("Pose_86")}, {"duration": 1.0, "texture": SubResource("Pose_87")}, {"duration": 1.0, "texture": SubResource("Pose_88")}, {"duration": 1.0, "texture": SubResource("Pose_89")}, {"duration": 1.0, "texture": SubResource("Pose_90")}, {"duration": 1.0, "texture": SubResource("Pose_91")}]},
+{"name": &"land", "loop": false, "speed": 16.0, "frames": [{"duration": 1.0, "texture": SubResource("Pose_92")}, {"duration": 1.0, "texture": SubResource("Pose_93")}, {"duration": 1.0, "texture": SubResource("Pose_94")}, {"duration": 1.0, "texture": SubResource("Pose_95")}]},
+{"name": &"ion_jab", "loop": false, "speed": 12.0, "frames": [{"duration": 1.0, "texture": SubResource("Pose_96")}, {"duration": 1.0, "texture": SubResource("Pose_97")}, {"duration": 1.0, "texture": SubResource("Pose_98")}, {"duration": 1.0, "texture": SubResource("Pose_99")}, {"duration": 1.0, "texture": SubResource("Pose_100")}, {"duration": 1.0, "texture": SubResource("Pose_101")}, {"duration": 1.0, "texture": SubResource("Pose_102")}, {"duration": 1.0, "texture": SubResource("Pose_103")}]}
+]

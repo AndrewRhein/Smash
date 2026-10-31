@@ -1,6 +1,14 @@
 [gd_scene load_steps=3 format=3]
 [ext_resource type="Script" path="res://scripts/presentation/character_visual.gd" id="1"]
-[ext_resource type="SpriteFrames" path="res://art/characters/elon/animations.tres" id="2"]
+[ext_resource type="SpriteFrames" path="res://art/characters/elon/expanded/animations.tres" id="2"]
 [node name="ElonVisual" type="Node2D"]
 script = ExtResource("1")
 frames = ExtResource("2")
+expanded_transitions = true
+phase_frames = {
+&"ion_jab": [[0, 1, 2], [3, 4], [5, 6, 7]],
+&"rocket_hammer": [[0, 1, 2, 3], [4], [5, 6, 7]],
+&"thruster_burst": [[0, 1, 2], [3, 4], [5, 6, 7]],
+&"orbital_tractor": [[0, 1, 2], [3, 4, 3, 4, 3, 4, 3, 4], [5, 6, 7]],
+&"energy_shield": [[0, 1], [2, 3, 4, 3], [5, 6, 7]]
+}
