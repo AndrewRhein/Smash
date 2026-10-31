@@ -124,3 +124,11 @@ func test_placeholder_tolerates_unknown_animation_ids() -> void:
 	g.animation_requested.emit(&"staff_strike", 21, false)
 	assert_eq(visual._warned.size(), 1, "known ids never warn")
 	step(m, 5)  # still draws/updates without errors
+
+
+func test_snapshot_ready_before_visual_root_ready() -> void:
+	var m: MatchController = await make_match()
+	for f in m.fighters:
+		var visual := f.get_node("VisualRoot") as PlaceholderFighterVisual
+		assert_eq(visual._anim_id, f.animation_id, "adapter synced a real animation id on attach")
+		assert_true(f.animation_id != &"", "initial animation id is never empty")

@@ -137,6 +137,9 @@ func setup(data: CharacterData, id: int, spawn: Vector2, stock_count: int, playe
 	body.position.y = -data.body_height * 0.5
 	add_child(body)
 	air_jumps_left = data.air_jumps
+	# Resolve the initial animation before the VisualRoot exists, so an adapter
+	# syncing from the snapshot in its own _ready() never sees an empty ID.
+	_update_animation(true)
 	_attach_visual()
 
 
