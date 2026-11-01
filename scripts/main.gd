@@ -25,6 +25,7 @@ var cpu_levels: Dictionary = {}
 
 
 func _ready() -> void:
+	MenuStyle.install_symbol_fallback()
 	InputSetup.ensure_actions()
 	effects.bind(match_controller)
 	var feel := GameFeel.new()

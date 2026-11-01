@@ -9,6 +9,19 @@ const MUTED := Color(0.62, 0.66, 0.76)
 const PANEL := Color(0.05, 0.07, 0.13, 0.92)
 
 static var _theme: Theme
+const SYMBOL_FONT := "res://art/fonts/symbols_fallback.ttf"
+
+
+## Arrows, triangles and stars (◀ ▶ ← ↑ → ★ …) come from the OS font on
+## desktop, but a web build has no system fonts: add a bundled fallback once.
+static func install_symbol_fallback() -> void:
+	var base := ThemeDB.fallback_font
+	var symbols := load(SYMBOL_FONT) as Font
+	if base == null or symbols == null or base.fallbacks.has(symbols):
+		return
+	var list := base.fallbacks.duplicate()
+	list.append(symbols)
+	base.fallbacks = list
 
 
 static func theme() -> Theme:
