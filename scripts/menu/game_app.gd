@@ -38,6 +38,7 @@ func _init(p_settings: GameSettings = null) -> void:
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	MenuStyle.install_symbol_fallback()
 	InputSetup.ensure_actions()
 	settings.load_from_disk()
 	settings.apply_window()

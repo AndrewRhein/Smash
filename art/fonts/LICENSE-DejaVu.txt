@@ -1,0 +1,4 @@
+symbols_fallback.ttf is a subset (arrows, triangles, stars, bullets) of DejaVu Sans.
+DejaVu fonts are free software: Bitstream Vera Fonts copyright (c) 2003 Bitstream, Inc.,
+with DejaVu changes in the public domain. Redistribution is permitted under the
+Bitstream Vera / DejaVu license: https://dejavu-fonts.github.io/License.html
